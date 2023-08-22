@@ -1,0 +1,81 @@
+# Descriptores moleculares
+
+Los descriptores moleculares son características numéricas o datos cuantitativos que describen diversas propiedades de las moléculas químicas. 
+
+Estos parámetros se calculan considerando toda la molécula o una parte de ella, a partir de la cual se generan descriptores basados en la molécula completa o en fragmentos.
+
+Los descriptores se pueden clasificar según diferentes parámetros:
+
+- Constitucionales
+- Topológicos
+- Geométricos
+- Termodinámicos
+- Electrónicos
+
+También se pueden clasificar según su dimensionalidad:
+
+- 0D
+- 1D
+- 2D
+- 3D
+- 4D
+
+Además, se pueden clasificar según su origen:
+
+- No dependen de la estructura (por ejemplo, LogP, pKa, refractividad molar [MR], momento dipolar y polarizabilidad)
+- Dependen de la estructura
+
+El cálculo de ciertos valores de los descriptores moleculares está influenciado por la disposición de la molécula. Para lograr resultados precisos, se optimiza la geometría de las estructuras, buscando la mínima energía. Esto se logra utilizando técnicas de mecánica cuántica o mecánica molecular.
+
+**Descriptores comúnmente utilizados**
+
+Los descriptores constitucionales reflejan las propiedades químicas relacionadas con la composición molecular. Algunos ejemplos son:
+
+- Peso molecular (MW)
+- Número  de átomos
+- Número de enlaces
+- Número de enlaces giratorios
+- Número de enlaces múltiples
+
+Los descriptores topológicos se derivan de la teoría de los grafos y proporcionan información sobre el tamaño, forma, hibridación, ramificación y flexibilidad molecular. Algunos ejemplos son:
+
+- Índice de Wiener: Evalúa la distancia promedio entre átomos y la ramificación molecular.
+- Índice de Randic: Evalúa la conectividad y ramificación molecular.
+- Índices Kappa: Evalúan la asimetría y complejidad tridimensional.
+- Índice de Zagreb: Considera la conectividad y energía π de la molécula.
+- Índice Balaban J: Evalúa complejidad y anillos en la molécula.
+
+Los descriptores geométricos son influenciados por la disposición tridimensional (3D) de átomos. Ejemplos son:
+
+- Descriptores moleculares invariantes holísticos ponderados (WHIM). Estos contienen información sobre el tamaño, forma, simetría y distribución de átomos
+- Autocorrelación 3D, geometría, topología y ensamblaje de pesos atómicos (GETAWAY)
+- Descriptores de representación molecular 3D basados en difracción de electrones (3D-MoRSE).
+
+Los descriptores termodinámicos brindan información sobre interacciones bioquímicas:
+
+- Lipofilicidad (LogP)
+- Refractividad molar
+- Calor de formación
+
+Los descriptores electrónicos se derivan de la distribución electrónica y se calculan con teoría mecano-cuántica:
+
+- Orbitales moleculares más altos ocupados (HOMO)
+- Orbitales moleculares más bajos desocupados (LUMO)
+- Momento dipolar
+- Polarizabilidad
+- Cargas atómicas
+
+Esta variedad de descriptores es esencial para caracterizar diferentes aspectos de las moléculas y su comportamiento.
+
+**Descriptores moleculares basados en fragmentos**
+
+El uso de descriptores moleculares basados en fragmentos ofrece numerosas ventajas, como la simplicidad en el cálculo y la interpretación más clara del efecto local de las propiedades estructurales en relación con la actividad biológica. Estos descriptores se derivan de diversos fragmentos moleculares, incluyendo átomos, enlaces, cadenas, torsiones, subestructuras comunes y subgrafos básicos. Aquí hay un ejemplo de dos tipos de descriptores basados en fragmentos: 
+
+- Constante electrónica (σx):  Esta constante está asociada con la densidad electrónica alrededor de átomos específicos dentro de la estructura molecular. Proporciona información sobre cómo los electrones están distribuidos en la molécula.
+- Análisis Free-Wilson: Este análisis evalúa cómo diferentes fragmentos o sustituyentes en una molécula influencian su actividad biológica. Permite identificar qué partes de la molécula contribuyen significativamente a su actividad.
+
+Una forma de usar descriptores basados en fragmentos es con el recuento de subestructuras, lo que significa que se seleccionan ciertos fragmentos y se cuentan cuántas veces aparecen en un conjunto de datos. Estos recuentos de subestructuras se convierten en números que representan cuántas veces aparece cada tipo de subestructura en una molécula en particular. Luego, estos números se utilizan como "descriptores" para caracterizar cada molécula. En otras palabras, en lugar de describir una molécula en detalle, se puede describir de manera más concisa utilizando los recuentos de subestructuras como características importantes.
+
+**Software para cálculo de descriptores moleculares**
+
+Existen varios software y herramientas disponibles para el cálculo de descriptores moleculares. Estos programas ayudan a calcular una amplia variedad de descriptores basados en la estructura molecular de compuestos químicos. 

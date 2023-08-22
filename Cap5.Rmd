@@ -1,0 +1,60 @@
+# Construcción del modelo
+
+Se eligen descriptores importantes usando diferentes algoritmos en QSAR. El objetivo es crear un modelo efectivo con pocos descriptores que expliquen muchos datos de actividad. Los datos de entrenamiento son esenciales para este proceso, y la elección del mejor modelo predictivo se basa en su rendimiento en un conjunto de pruebas, evaluado mediante análisis estadísticos. 
+
+Los métodos de construcción de modelos se dividen en lineales y no lineales, según cómo se relacionan los descriptores con las actividades biológicas.
+
+**Modelos lineales**
+
+- Regresión lineal múltiple
+- Mínimos cuadrados parciales
+- Análisis de componentes principales
+- Análisis de wilson libre
+- Análisis discriminante lineal
+
+**Modelos no lineales**
+
+- Red neuronal artificial
+- k-vecino más cercano
+- Árbol de decisión
+- Máquinas de vectores soporte
+
+**Regresión lineal múltiple**
+
+Es una extensión de la regresión lineal simple en la que se considera más de una variable independiente para predecir una variable dependiente. 
+La fórmula de regresión lineal múltiple es: \(Y = b_{0} + b_{1}X_{1} + b_{2}X_{2} + \ldots + b_{n}X_{n}\).
+Donde \(Y\) es la variable dependiente, \(X_{1}, X_{2}, \ldots, X_{n}\) son las variables independientes, y \(b_{0}, b_{1}, b_{2}, \ldots, b_{n}\) son los coeficientes.
+
+Los coeficientes indican cómo las variables independientes (descriptores moleculares) influyen en la variable dependiente (actividad biológica). Si los valores de los descriptores se normalizan (se escalan para tener la misma escala), entonces la magnitud de estos coeficientes es relevante. Se consideran los siguientes puntos clave:
+
+- Si un coeficiente es positivo para un descriptor, significa que un aumento en ese descriptor se asocia con un aumento directo en la actividad biológica.
+- Si un coeficiente es negativo, significa que un aumento en ese descriptor se relaciona inversamente con la actividad biológica.
+- Un valor p menor que 0.05 generalmente se considera significativo, lo que significa que el coeficiente tiene una influencia real en el modelo y no es solo el resultado del azar.
+- Se sugiere que el número de compuestos (muestras) en el conjunto de datos sea mayor que el número de variables independientes (descriptores). Se recomienda que la relación entre el número de compuestos y el número de variables independientes sea al menos 5:1 según la "relación de Topliss".
+- Los descriptores colineales resultará en un modelo QSAR inexacto en términos de rendimiento.
+
+**Valores atípicos**
+
+Los valores atípicos son compuestos que se desvían de las predicciones del modelo y pueden surgir debido a variaciones estructurales inusuales o errores experimentales en las mediciones. Para categorizar los tipos de valores atípicos, se dividen en:
+
+- Valores atípicos estructurales: ocurren cuando un compuesto tiene una estructura molecular inusual que puede llevar a un comportamiento biológico imprevisto.
+- Valores atípicos de actividad: ocurren cuando pequeños cambios en la estructura molecular conducen a cambios drásticos en la actividad biológica, lo que va en contra de la expectativa de que compuestos similares tengan actividades similares.
+
+Para tratar con los valores atípicos, se han utilizado diferentes métodos en la literatura, como:
+
+- Técnicas estadísticas: Pueden incluir cálculos de estadísticas como desviaciones estándar, percentiles o puntuaciones z para determinar qué puntos de datos se consideran atípicos en relación con el resto. 
+- Análisis de distancia: En el análisis de distancia, se mide la distancia entre cada punto de datos y los demás. Los valores que están significativamente alejados de los demás pueden considerarse valores atípicos. Diferentes medidas de distancia, como la distancia euclidiana, pueden utilizarse según el contexto.
+- Máquinas de vectores de soporte (SVM): Las SVM son un tipo de algoritmo de aprendizaje automático que se utiliza para el análisis y la clasificación de datos. En el contexto de valores atípicos, las SVM pueden ayudar a identificar y etiquetar los puntos de datos que se desvían significativamente de la tendencia general.
+
+Eliminar los valores atípicos no siempre es necesario ni garantiza una mejora en el modelo. Es esencial realizar un análisis más detallado para determinar si los valores atípicos son verdaderos y si deben ser eliminados del análisis.
+
+**Herramientas y software**
+
+El creciente interés en la aplicación de estudios QSAR en diferentes aspectos del diseño y desarrollo de medicamentos ha llevado a la introducción de una variedad de algoritmos y herramientas directa o indirectamente adecuadas para los estudios QSAR.
+
+**Desafíos en el desarrollo del modelo**
+
+- Detección y manejo de valores atípicos
+- Sobreajuste de datos, qué ocurre cuando se incorporan demasiados descriptores al modelo, lo que puede afectar su capacidad de generalización.
+- El uso de descriptores ambiguos y no interpretables
+- Proporcionar medidas estadísticas adecuadas al informar los resultados del modelo QSAR para asegurar su validez y aplicabilidad.

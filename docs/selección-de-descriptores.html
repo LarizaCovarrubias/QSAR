@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Sección4 Selección de descriptores | Relación cuantitativa entre estructura y actividad</title>
+  <meta name="description" content="Sección4 Selección de descriptores | Relación cuantitativa entre estructura y actividad" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Sección4 Selección de descriptores | Relación cuantitativa entre estructura y actividad" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Sección4 Selección de descriptores | Relación cuantitativa entre estructura y actividad" />
+  
+  
+  
+
+<meta name="author" content="Betsaida L. Covarrubias" />
+
+
+<meta name="date" content="2023-08-22" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="descriptores-moleculares.html"/>
+<link rel="next" href="construcción-del-modelo.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Bitácora de Avances SSP</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Relación cuantitativa entre estructura y actividad</a></li>
+<li class="chapter" data-level="2" data-path="datos.html"><a href="datos.html"><i class="fa fa-check"></i><b>2</b> Datos</a></li>
+<li class="chapter" data-level="3" data-path="descriptores-moleculares.html"><a href="descriptores-moleculares.html"><i class="fa fa-check"></i><b>3</b> Descriptores moleculares</a></li>
+<li class="chapter" data-level="4" data-path="selección-de-descriptores.html"><a href="selección-de-descriptores.html"><i class="fa fa-check"></i><b>4</b> Selección de descriptores</a></li>
+<li class="chapter" data-level="5" data-path="construcción-del-modelo.html"><a href="construcción-del-modelo.html"><i class="fa fa-check"></i><b>5</b> Construcción del modelo</a></li>
+<li class="chapter" data-level="6" data-path="validación-del-modelo-qsar.html"><a href="validación-del-modelo-qsar.html"><i class="fa fa-check"></i><b>6</b> Validación del modelo QSAR</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con GitHub</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Relación cuantitativa entre estructura y actividad</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="selección-de-descriptores" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Sección4</span> Selección de descriptores<a href="selección-de-descriptores.html#selección-de-descriptores" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Normalización</strong></p>
+<p>En el proceso de normalización de los descriptores moleculares, se utilizan dos métodos: la normalización automática o estándar, y la normalización de rango.</p>
+<p>En la normalización automática, los valores completos de los descriptores se transforman de manera que tengan una media de cero y una varianza de uno.
+En el caso de la normalización de rango, se logra al escalar los valores de los descriptores dentro de un rango específico, como por ejemplo [0, 1] o [-1, 1]. Esto se realiza dividiendo cada valor por la diferencia entre los valores máximo y mínimo de los descriptores y luego ajustando el rango según sea necesario</p>
+<p>La razón principal para normalizar los descriptores moleculares es la existencia de diferencias significativas entre los diferentes descriptores en términos de su rango de valores, lo que conduce a dificultades para determinar el efecto ponderado de cada descriptor en el modelo. En otras palabras, los descriptores con valores más pequeños pueden quedar opacados por aquellos con valores más grandes.</p>
+<p><strong>Colinealidad</strong></p>
+<p>Colinealidad en QSAR se refiere a la fuerte correlación entre descriptores moleculares. Cuando dos descriptores están altamente relacionados, es difícil determinar cuál influye en la actividad.</p>
+<p>La alta colinealidad entre descriptores puede dificultar la interpretación correcta de los resultados, dar lugar a un modelo menos confiable y estable, y aumentar la complejidad innecesaria del modelo. Por lo tanto, es importante identificar y manejar la colinealidad para obtener resultados más confiables y útiles en el análisis de QSAR.</p>
+<p><strong>División de entrenamiento y prueba</strong></p>
+<p>Uno de los pasos previos recomendados es dividir el conjunto de datos en conjuntos de entrenamiento y prueba.</p>
+<p>El principal desafío en esta división recae en el número y la distribución de los compuestos entre los conjuntos de entrenamiento y prueba. Los compuestos en el conjunto de prueba se utilizan para la validación externa durante la construcción del modelo. En relación al tamaño del conjunto de prueba, se sugiere que represente entre el 15 % y el 20 % del conjunto de datos total.</p>
+<p>Para lograr distribuciones uniformes en ambos conjuntos, es esencial que los compuestos representativos en términos de sus valores finales y descriptores moleculares estén equilibradamente presentes en ambas particiones. El equilibrio implica asegurarse de que los conjuntos de entrenamiento y prueba contengan compuestos con una variada distribución de actividades y características moleculares. El objetivo es obtener una representación adecuada y diversa de compuestos en ambos conjuntos, lo que garantiza que el modelo sea sólido y eficaz en su capacidad para realizar predicciones precisas en diversas situaciones. Se emplean diversos algoritmos para llevar a cabo la división del conjunto de datos, basados en criterios específicos.
+La selección puede ser:</p>
+<ul>
+<li>Aleatoria: No se considera ningún patrón específico ni criterio predeterminado al seleccionar los compuestos.</li>
+<li>Racional: Utilizan el rango completo de actividades y/o descriptores moleculares como criterio de división.</li>
+</ul>
+<p>Los métodos de selección racionales previamente mencionados se basan en algoritmos generales, que incluyen:</p>
+<ul>
+<li>Agrupamiento k-means: Los compuestos se dividen en k grupos según su similitud, evaluada a partir de los valores promedio en diferentes características para cada grupo. Luego, se elige un subconjunto específico de compuestos (por ejemplo, el 20%) de cada grupo para formar el conjunto de prueba, mientras que los restantes conforman el conjunto de entrenamiento</li>
+<li>Kennard-Stone: Este método implica seleccionar compuestos de manera iterativa de modo que estén lo más distantes posible en términos de sus características. Comienza eligiendo dos compuestos distantes y luego agrega compuestos adicionales, asegurándose de que estén lo más alejados posible de los ya seleccionados. Esto garantiza que el conjunto de prueba represente una amplia diversidad de propiedades moleculares, esencial para evaluar la precisión de un modelo QSAR.</li>
+<li>Exclusión de esferas: En este método, se parte de un compuesto y se crea una “esfera” imaginaria alrededor de él. Luego, se excluyen los compuestos dentro de esta esfera, eligiendo el compuesto más distintivo, el cual se añade al conjunto de prueba. Este proceso se repite, excluyendo compuestos en esferas adicionales.</li>
+<li>Mapa autoorganizado de Kohonen: El algoritmo busca la distancia más cercana entre los datos de los compuestos para crear un mapa. En este mapa, los compuestos similares se agrupan juntos en áreas cercanas. Esto implica que en el mapa, las zonas con compuestos similares están ubicadas cerca una de la otra.</li>
+<li>Diseño molecular estadístico: Este método implica realizar un análisis de componentes principales y generar gráficos de puntuación basados en dicho análisis. Estos gráficos muestran cómo los compuestos se agrupan según sus características moleculares. Los grupos identificados en los gráficos representan compuestos con similitudes en términos de descriptores. Estos grupos se eligen como el conjunto de entrenamiento, ya que se considera que capturan la diversidad de compuestos presentes en el conjunto de datos original. Esto se debe a que el análisis de componentes principales tiende a resaltar las principales fuentes de variación en los datos, lo que puede corresponder a diferencias fundamentales entre los compuestos en términos de sus características moleculares.</li>
+<li>Métodos de selección de conjuntos de prueba orientados a la extrapolación: En este método, se selecciona un par de compuestos con la mayor distancia euclidiana en términos del espacio de descriptores y se trasladan al conjunto de prueba. Esto se repite hasta alcanzar el tamaño deseado para el conjunto de prueba.</li>
+</ul>
+<p><strong>Métodos de selección de descriptores</strong></p>
+<p>El proceso de selección de descriptores es crucial para reducir el conjunto amplio de características moleculares y resaltar las más pertinentes. Se busca elegir aquellos descriptores más relevantes para el análisis.</p>
+<p>Dentro de las estrategias de selección, se encuentran los métodos de envoltura, filtro e híbridos.</p>
+<p>Los métodos de envoltura se basan en dos procesos matemáticos: el uso de una función objetivo y un algoritmo de búsqueda de optimización para elegir parámetros importantes en la generación del modelo QSAR. La selección de parámetros depende del algoritmo de clasificación utilizado. Estas metodologías se clasifican en métodos clásicos, basados en inteligencia artificial y métodos híbridos.</p>
+<p>Algoritmos de clasificación:</p>
+<ul>
+<li><p>Metodos clasicos</p>
+<ul>
+<li>Selección hacia adelante: Se agregan características en cada paso, seleccionando la característica que más mejora la métrica de rendimiento (como R2 o el error) en el conjunto de datos de entrenamiento. Este método es intuitivo y simple, pero podría no considerar interacciones entre características.</li>
+<li>Eliminación hacia atrás: En cada paso, se elimina la característica menos relevante hasta que el rendimiento no mejora significativamente. Esto puede ser útil para reducir la complejidad del modelo, pero podría perder características importantes.
+Selección paso a paso: Se combina la idea de la selección hacia adelante y hacia atrás. Comienza con un modelo sin características y luego realiza pasos iterativos para agregar o eliminar características una a una</li>
+<li>Método de selección y modelado de variables basado en la predicción: Participan dos criterios : “coeficiente de interrelación entre los pares de descriptores (R int) y coeficiente de correlación (q^2) obtenido utilizando la técnica de validación cruzada de exclusión uno a uno”</li>
+</ul></li>
+<li><p>Métodos basados en inteligencia artificial</p>
+<ul>
+<li>Algoritmo genético</li>
+<li>Simulado</li>
+<li>Optimización por enjambre de partículas</li>
+<li>Sistema de colonia de hormigas</li>
+<li>Bosque aleatorio</li>
+<li>Máquinas de soporte vectorial</li>
+</ul></li>
+<li><p>Métodos híbridos</p></li>
+</ul>
+<p>Los métodos de filtro eliminan descriptores poco relevantes basándose en parámetros estadísticos como la baja variabilidad y correlaciones entre parámetros . Estos métodos son apropiados para conjuntos de datos con un gran número de características (descriptores). Son sencillos, rápidos y no requieren de un clasificador para su aplicación.</p>
+<p>Ejemplos de métodos de filtro:</p>
+<ul>
+<li>Criterios estadísticos
+<ul>
+<li>Prueba T: compara las medias de dos grupos para ver si hay una diferencia significativa entre ellos.</li>
+<li>Prueba Chi-cuadrado: se utiliza para evaluar si hay una relación entre dos variables categóricas.</li>
+<li>Prueba Fisher: se utiliza para comparar las varianzas de dos grupos.</li>
+<li>Evaluacion Kolmogorov-Smirnov: se utiliza para comparar distribuciones de datos y determinar si provienen de la misma distribución.</li>
+</ul></li>
+<li>Métodos basados en correlación
+<ul>
+<li>Coeficiente de correlacion de Pearson: Mide la relación lineal entre dos variables.<br />
+</li>
+</ul></li>
+<li>Teoría de la información: mide la cantidad de información compartida entre diferentes características, es decir, si la información de una variable a su vez da información de la otra variable.</li>
+</ul>
+<p>Los estadísticos, métodos de correlación y teoría de la información se aplican de manera independiente, lo que significa que se usan tal como son sin tener en cuenta si sería útil aplicar algún tipo de transformación a los datos antes de usar estos métodos, por ejemplo, normalizar.</p>
+<p>Por último, los métodos híbridos realizan primero un preprocesamiento para eliminar características irrelevantes (métodos basados en Filtro) y luego utilizan los métodos de Envoltura para seleccionar descriptores.</p>
+<p><strong>Herramientas y software</strong></p>
+<p>Algunos algoritmos de selección de características están disponibles como paquetes para entornos programables (como R y MATLAB®); sin embargo, también existen software independientes con interfaces gráficas de usuario personalizadas (GUIs).</p>
+<p>En resumen, los principales desafíos en este procedimiento son el uso de descriptores colineales, la utilización de un número excesivo de descriptores en el QSAR, la falta de escalado automático de descriptores y la selección inadecuada de conjuntos de entrenamiento/prueba.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="descriptores-moleculares.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="construcción-del-modelo.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/Cap4.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/Cap4.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

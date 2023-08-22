@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Sección5 Construcción del modelo | Relación cuantitativa entre estructura y actividad</title>
+  <meta name="description" content="Sección5 Construcción del modelo | Relación cuantitativa entre estructura y actividad" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Sección5 Construcción del modelo | Relación cuantitativa entre estructura y actividad" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Sección5 Construcción del modelo | Relación cuantitativa entre estructura y actividad" />
+  
+  
+  
+
+<meta name="author" content="Betsaida L. Covarrubias" />
+
+
+<meta name="date" content="2023-08-22" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="selección-de-descriptores.html"/>
+<link rel="next" href="validación-del-modelo-qsar.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Bitácora de Avances SSP</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Relación cuantitativa entre estructura y actividad</a></li>
+<li class="chapter" data-level="2" data-path="datos.html"><a href="datos.html"><i class="fa fa-check"></i><b>2</b> Datos</a></li>
+<li class="chapter" data-level="3" data-path="descriptores-moleculares.html"><a href="descriptores-moleculares.html"><i class="fa fa-check"></i><b>3</b> Descriptores moleculares</a></li>
+<li class="chapter" data-level="4" data-path="selección-de-descriptores.html"><a href="selección-de-descriptores.html"><i class="fa fa-check"></i><b>4</b> Selección de descriptores</a></li>
+<li class="chapter" data-level="5" data-path="construcción-del-modelo.html"><a href="construcción-del-modelo.html"><i class="fa fa-check"></i><b>5</b> Construcción del modelo</a></li>
+<li class="chapter" data-level="6" data-path="validación-del-modelo-qsar.html"><a href="validación-del-modelo-qsar.html"><i class="fa fa-check"></i><b>6</b> Validación del modelo QSAR</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con GitHub</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Relación cuantitativa entre estructura y actividad</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="construcción-del-modelo" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Sección5</span> Construcción del modelo<a href="construcción-del-modelo.html#construcción-del-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Se eligen descriptores importantes usando diferentes algoritmos en QSAR. El objetivo es crear un modelo efectivo con pocos descriptores que expliquen muchos datos de actividad. Los datos de entrenamiento son esenciales para este proceso, y la elección del mejor modelo predictivo se basa en su rendimiento en un conjunto de pruebas, evaluado mediante análisis estadísticos.</p>
+<p>Los métodos de construcción de modelos se dividen en lineales y no lineales, según cómo se relacionan los descriptores con las actividades biológicas.</p>
+<p><strong>Modelos lineales</strong></p>
+<ul>
+<li>Regresión lineal múltiple</li>
+<li>Mínimos cuadrados parciales</li>
+<li>Análisis de componentes principales</li>
+<li>Análisis de wilson libre</li>
+<li>Análisis discriminante lineal</li>
+</ul>
+<p><strong>Modelos no lineales</strong></p>
+<ul>
+<li>Red neuronal artificial</li>
+<li>k-vecino más cercano</li>
+<li>Árbol de decisión</li>
+<li>Máquinas de vectores soporte</li>
+</ul>
+<p><strong>Regresión lineal múltiple</strong></p>
+<p>Es una extensión de la regresión lineal simple en la que se considera más de una variable independiente para predecir una variable dependiente.
+La fórmula de regresión lineal múltiple es: <span class="math inline">\(Y = b_{0} + b_{1}X_{1} + b_{2}X_{2} + \ldots + b_{n}X_{n}\)</span>.
+Donde <span class="math inline">\(Y\)</span> es la variable dependiente, <span class="math inline">\(X_{1}, X_{2}, \ldots, X_{n}\)</span> son las variables independientes, y <span class="math inline">\(b_{0}, b_{1}, b_{2}, \ldots, b_{n}\)</span> son los coeficientes.</p>
+<p>Los coeficientes indican cómo las variables independientes (descriptores moleculares) influyen en la variable dependiente (actividad biológica). Si los valores de los descriptores se normalizan (se escalan para tener la misma escala), entonces la magnitud de estos coeficientes es relevante. Se consideran los siguientes puntos clave:</p>
+<ul>
+<li>Si un coeficiente es positivo para un descriptor, significa que un aumento en ese descriptor se asocia con un aumento directo en la actividad biológica.</li>
+<li>Si un coeficiente es negativo, significa que un aumento en ese descriptor se relaciona inversamente con la actividad biológica.</li>
+<li>Un valor p menor que 0.05 generalmente se considera significativo, lo que significa que el coeficiente tiene una influencia real en el modelo y no es solo el resultado del azar.</li>
+<li>Se sugiere que el número de compuestos (muestras) en el conjunto de datos sea mayor que el número de variables independientes (descriptores). Se recomienda que la relación entre el número de compuestos y el número de variables independientes sea al menos 5:1 según la “relación de Topliss”.</li>
+<li>Los descriptores colineales resultará en un modelo QSAR inexacto en términos de rendimiento.</li>
+</ul>
+<p><strong>Valores atípicos</strong></p>
+<p>Los valores atípicos son compuestos que se desvían de las predicciones del modelo y pueden surgir debido a variaciones estructurales inusuales o errores experimentales en las mediciones. Para categorizar los tipos de valores atípicos, se dividen en:</p>
+<ul>
+<li>Valores atípicos estructurales: ocurren cuando un compuesto tiene una estructura molecular inusual que puede llevar a un comportamiento biológico imprevisto.</li>
+<li>Valores atípicos de actividad: ocurren cuando pequeños cambios en la estructura molecular conducen a cambios drásticos en la actividad biológica, lo que va en contra de la expectativa de que compuestos similares tengan actividades similares.</li>
+</ul>
+<p>Para tratar con los valores atípicos, se han utilizado diferentes métodos en la literatura, como:</p>
+<ul>
+<li>Técnicas estadísticas: Pueden incluir cálculos de estadísticas como desviaciones estándar, percentiles o puntuaciones z para determinar qué puntos de datos se consideran atípicos en relación con el resto.</li>
+<li>Análisis de distancia: En el análisis de distancia, se mide la distancia entre cada punto de datos y los demás. Los valores que están significativamente alejados de los demás pueden considerarse valores atípicos. Diferentes medidas de distancia, como la distancia euclidiana, pueden utilizarse según el contexto.</li>
+<li>Máquinas de vectores de soporte (SVM): Las SVM son un tipo de algoritmo de aprendizaje automático que se utiliza para el análisis y la clasificación de datos. En el contexto de valores atípicos, las SVM pueden ayudar a identificar y etiquetar los puntos de datos que se desvían significativamente de la tendencia general.</li>
+</ul>
+<p>Eliminar los valores atípicos no siempre es necesario ni garantiza una mejora en el modelo. Es esencial realizar un análisis más detallado para determinar si los valores atípicos son verdaderos y si deben ser eliminados del análisis.</p>
+<p><strong>Herramientas y software</strong></p>
+<p>El creciente interés en la aplicación de estudios QSAR en diferentes aspectos del diseño y desarrollo de medicamentos ha llevado a la introducción de una variedad de algoritmos y herramientas directa o indirectamente adecuadas para los estudios QSAR.</p>
+<p><strong>Desafíos en el desarrollo del modelo</strong></p>
+<ul>
+<li>Detección y manejo de valores atípicos</li>
+<li>Sobreajuste de datos, qué ocurre cuando se incorporan demasiados descriptores al modelo, lo que puede afectar su capacidad de generalización.</li>
+<li>El uso de descriptores ambiguos y no interpretables</li>
+<li>Proporcionar medidas estadísticas adecuadas al informar los resultados del modelo QSAR para asegurar su validez y aplicabilidad.</li>
+</ul>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="selección-de-descriptores.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="validación-del-modelo-qsar.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/Cap5.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/Cap5.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
