@@ -1,0 +1,6 @@
+relación-cuantitativa-entre-estructura-y-actividad
+datos
+descriptores-moleculares
+selección-de-descriptores
+construcción-del-modelo
+validación-del-modelo-qsar

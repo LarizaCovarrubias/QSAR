@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Sección2 Datos | Relación cuantitativa entre estructura y actividad</title>
-  <meta name="description" content="Sección2 Datos | Relación cuantitativa entre estructura y actividad" />
+  <title>Sección 2 Datos | Relación cuantitativa entre estructura y actividad</title>
+  <meta name="description" content="Sección 2 Datos | Relación cuantitativa entre estructura y actividad" />
   <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Sección2 Datos | Relación cuantitativa entre estructura y actividad" />
+  <meta property="og:title" content="Sección 2 Datos | Relación cuantitativa entre estructura y actividad" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Sección2 Datos | Relación cuantitativa entre estructura y actividad" />
+  <meta name="twitter:title" content="Sección 2 Datos | Relación cuantitativa entre estructura y actividad" />
   
   
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Betsaida L. Covarrubias" />
 
 
-<meta name="date" content="2023-08-22" />
+<meta name="date" content="2023-08-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -102,7 +102,7 @@
 
             <section class="normal" id="section-">
 <div id="datos" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">Sección2</span> Datos<a href="datos.html#datos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Sección 2</span> Datos<a href="datos.html#datos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Los datos, al ser objetos propensos a errores en cualquier entorno computacional, deben ser manejados con cuidado. Los datos utilizados para construir un modelo QSAR generalmente se extraen de información experimentalmente publicada en la literatura después de una curación adecuada, como la eliminación de valores atípicos, para mejorar la capacidad predictiva del modelo QSAR. Esta omisión de puntos de datos debe estar respaldada por una buena explicación.</p>
 <p><strong>Recomendaciones sobre el número total de compuestos y el rango de valores de actividad biológica y desviación estándar</strong></p>
 <p>Cuando se trata del número de compuestos estudiados:</p>
@@ -127,8 +127,46 @@
 <p>Si un compuesto estructuralmente similar cae dentro del espacio químico abarcado por el modelo QSAR, la predicción de actividad biológica debe coincidir con el rango de actividades biológicas usadas para entrenar el modelo. Esto asegura predicciones confiables.</p>
 <p>Es importante considerar problemas como nombres químicos incorrectos y estructuras duplicadas. Las estructuras químicas repetidas en los conjuntos de entrenamiento y prueba pueden dar lugar a un aumento falso en el rendimiento predictivo de los modelos QSAR. Estas repeticiones pueden surgir de las mismas estructuras con diferentes nombres o de compuestos con diferentes actividades biológicas.</p>
 <p><strong>Servidores de base de datos</strong></p>
-<p>Los datos de entrada, se pueden extraer tanto de la literatura como de bases de datos.
-Estos tipos de datos generalmente consisten en estructuras moleculares junto con sus correspondientes actividades biológicas.</p>
+<p>Los datos de entrada utilizados en estudios quimioinformáticos desempeñan un papel fundamental en el análisis QSAR. Estos datos se obtienen tanto de la literatura como de bases de datos especializadas, que pueden ser tanto comerciales como de acceso libre. Los datos de entrada pueden consistir de estructuras moleculares acompañadas de sus correspondientes actividades biológicas como se muestra en la Tabla 1. Sin embargo, es importante señalar que no todas las bases de datos contienen información completa sobre la actividad biológica asociada a las estructuras. Por ejemplo, la <em>Available Chemicals Directory (ACD)</em>, aunque no proporciona datos de actividad biológica, es considerada como la fuente estándar para la obtención de información química. Esta base de datos incluye una amplia colección de más de 10 millones de compuestos únicos y modelos 3D, sin abordar actividades biológicas en su conjunto.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Base de datos</th>
+<th>Disponibilidad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PubChem</td>
+<td>Libre</td>
+</tr>
+<tr class="even">
+<td>Open Chemical Repository Collection</td>
+<td>Libre</td>
+</tr>
+<tr class="odd">
+<td>ChemBioNet</td>
+<td>Libre</td>
+</tr>
+<tr class="even">
+<td>Comprehensive Medicinal Chemistry database (CMC)</td>
+<td>Comercial</td>
+</tr>
+<tr class="odd">
+<td>ChEMBL/ChEMBL12</td>
+<td>Libre</td>
+</tr>
+<tr class="even">
+<td>BioPrint</td>
+<td>Libre</td>
+</tr>
+<tr class="odd">
+<td>GOSTAR GVK BIO</td>
+<td>Comercial</td>
+</tr>
+</tbody>
+</table>
+<p>Tabla 1. Bases de datos que albergan información sobre estructuras químicas y sus actividades biológicas.</p>
 
 </div>
             </section>
@@ -191,20 +229,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

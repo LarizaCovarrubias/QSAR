@@ -33,7 +33,18 @@ Es importante considerar problemas como nombres químicos incorrectos y estructu
 
 **Servidores de base de datos**
 
-Los datos de entrada, se pueden extraer tanto de la literatura como de bases de datos.
-Estos tipos de datos generalmente consisten en estructuras moleculares junto con sus correspondientes actividades biológicas. 
+Los datos de entrada utilizados en estudios quimioinformáticos desempeñan un papel fundamental en el análisis QSAR. Estos datos se obtienen tanto de la literatura como de bases de datos especializadas, que pueden ser tanto comerciales como de acceso libre. Los datos de entrada pueden consistir de estructuras moleculares acompañadas de sus correspondientes actividades biológicas como se muestra en la Tabla 1. Sin embargo, es importante señalar que no todas las bases de datos contienen información completa sobre la actividad biológica asociada a las estructuras. Por ejemplo, la _Available Chemicals Directory (ACD)_, aunque no proporciona datos de actividad biológica, es considerada como la fuente estándar para la obtención de información química. Esta base de datos incluye una amplia colección de más de 10 millones de compuestos únicos y modelos 3D, sin abordar actividades biológicas en su conjunto.
+
+| Base de datos                                    | Disponibilidad |
+|--------------------------------------------------|----------------|
+| PubChem                                          | Libre          |
+| Open Chemical Repository Collection              | Libre          |
+| ChemBioNet                                       | Libre          |
+| Comprehensive Medicinal Chemistry database (CMC) | Comercial      |
+| ChEMBL/ChEMBL12                                  | Libre          |
+| BioPrint                                         | Libre          |
+| GOSTAR GVK BIO                                   | Comercial      |
+
+Tabla 1. Bases de datos que albergan información sobre estructuras químicas y sus actividades biológicas.
 
 

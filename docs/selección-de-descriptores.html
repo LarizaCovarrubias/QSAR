@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Sección4 Selección de descriptores | Relación cuantitativa entre estructura y actividad</title>
-  <meta name="description" content="Sección4 Selección de descriptores | Relación cuantitativa entre estructura y actividad" />
+  <title>Sección 4 Selección de descriptores | Relación cuantitativa entre estructura y actividad</title>
+  <meta name="description" content="Sección 4 Selección de descriptores | Relación cuantitativa entre estructura y actividad" />
   <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Sección4 Selección de descriptores | Relación cuantitativa entre estructura y actividad" />
+  <meta property="og:title" content="Sección 4 Selección de descriptores | Relación cuantitativa entre estructura y actividad" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Sección4 Selección de descriptores | Relación cuantitativa entre estructura y actividad" />
+  <meta name="twitter:title" content="Sección 4 Selección de descriptores | Relación cuantitativa entre estructura y actividad" />
   
   
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Betsaida L. Covarrubias" />
 
 
-<meta name="date" content="2023-08-22" />
+<meta name="date" content="2023-08-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -102,7 +102,9 @@
 
             <section class="normal" id="section-">
 <div id="selección-de-descriptores" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">Sección4</span> Selección de descriptores<a href="selección-de-descriptores.html#selección-de-descriptores" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Sección 4</span> Selección de descriptores<a href="selección-de-descriptores.html#selección-de-descriptores" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>En la actualidad, se han alcanzado avances significativos en los pasos de preprocesamiento y posprocesamiento para abordar el desafío de la selección de descriptores. Los pasos de preprocesamiento engloban actividades como el escalado de descriptores (como la normalización), el filtrado de descriptores, así como la creación de conjuntos de entrenamiento y prueba. En contraste, los pasos de posprocesamiento se centran en la selección de variables y la aplicación de enfoques de normalización.</p>
+<p>Cuando parezca apropiado, se puede llevar a cabo la normalización de los parámetros generados antes de la etapa de selección de descriptores en los análisis QSAR. Como primera medida, se procede a eliminar del conjunto de descriptores aquellos que poseen valores constantes (o casi constantes), así como aquellos con baja variabilidad o valores nulos.</p>
 <p><strong>Normalización</strong></p>
 <p>En el proceso de normalización de los descriptores moleculares, se utilizan dos métodos: la normalización automática o estándar, y la normalización de rango.</p>
 <p>En la normalización automática, los valores completos de los descriptores se transforman de manera que tengan una media de cero y una varianza de uno.
@@ -174,6 +176,54 @@ Selección paso a paso: Se combina la idea de la selección hacia adelante y hac
 <p>Por último, los métodos híbridos realizan primero un preprocesamiento para eliminar características irrelevantes (métodos basados en Filtro) y luego utilizan los métodos de Envoltura para seleccionar descriptores.</p>
 <p><strong>Herramientas y software</strong></p>
 <p>Algunos algoritmos de selección de características están disponibles como paquetes para entornos programables (como R y MATLAB®); sin embargo, también existen software independientes con interfaces gráficas de usuario personalizadas (GUIs).</p>
+<table>
+<colgroup>
+<col width="36%" />
+<col width="17%" />
+<col width="46%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Nombre</th>
+<th>Disponibilidad</th>
+<th>Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DynaFit</td>
+<td>Libre</td>
+<td>Regresión no lineal por mínimos cuadrados</td>
+</tr>
+<tr class="even">
+<td>Matlab</td>
+<td>Comercial</td>
+<td>Software</td>
+</tr>
+<tr class="odd">
+<td>Neural Network add-ins for Excel</td>
+<td>Comercial</td>
+<td>Modelo ANN</td>
+</tr>
+<tr class="even">
+<td>GA-MLR</td>
+<td>Libre</td>
+<td>Modelo MLR</td>
+</tr>
+<tr class="odd">
+<td>Orange</td>
+<td>Libre</td>
+<td>Software</td>
+</tr>
+<tr class="even">
+<td>R Project</td>
+<td>Libre</td>
+<td>Software</td>
+</tr>
+</tbody>
+</table>
+<p>Tabla 3. Programas y paquetes comúnmente utilizados para el desarrollo de QSAR.</p>
+<p><strong>Desafíos</strong></p>
 <p>En resumen, los principales desafíos en este procedimiento son el uso de descriptores colineales, la utilización de un número excesivo de descriptores en el QSAR, la falta de escalado automático de descriptores y la selección inadecuada de conjuntos de entrenamiento/prueba.</p>
 
 </div>
@@ -237,20 +287,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

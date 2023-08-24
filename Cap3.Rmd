@@ -78,4 +78,15 @@ Una forma de usar descriptores basados en fragmentos es con el recuento de subes
 
 **Software para cálculo de descriptores moleculares**
 
-Existen varios software y herramientas disponibles para el cálculo de descriptores moleculares. Estos programas ayudan a calcular una amplia variedad de descriptores basados en la estructura molecular de compuestos químicos. 
+Existen diversos programas y herramientas disponibles para el cálculo de descriptores moleculares, tanto en versiones comerciales como de acceso libre. Estas herramientas son útiles para calcular una amplia variedad de descriptores basados en la estructura molecular de compuestos químicos. Algunos ejemplos se presentan en la Tabla 2.
+
+| Software   | Tipo de descriptor                                                                  | Disponibilidad |
+|------------|-------------------------------------------------------------------------------------|----------------|
+| ADMEWORKS  | Físicoquímico, topológico, geométrico y electrónico                                 | Comercial      |
+| Afgen      | Basado en fragmentos                                                                | Libre          |
+| ChemDes    | Constitucional, físico-químico, topológico, geométrico, y electrónico               | Libre          |
+| CODESSA    | Constitucional, fisicoquímico, topológico, geométrico, electrónico, y termodinámico | Comercial      |
+| DRAGON     | Constitucional, fisicoquímico, topológico, y geométrico                             | Comercial      |
+| E-DRAGON   | Constitucional, fisicoquímico, topológico y geométrico                              | Libre          |
+
+Tabla 2. Software para el cálculo de descriptores.
