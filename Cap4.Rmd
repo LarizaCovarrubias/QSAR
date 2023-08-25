@@ -87,17 +87,6 @@ Por último, los métodos híbridos realizan primero un preprocesamiento para el
 
 Algunos algoritmos de selección de características están disponibles como paquetes para entornos programables (como R y MATLAB®); sin embargo, también existen software independientes con interfaces gráficas de usuario personalizadas (GUIs).
 
-| Nombre                           | Disponibilidad | Tipo                                      |
-|----------------------------------|----------------|-------------------------------------------|
-| DynaFit                          | Libre          | Regresión no lineal por mínimos cuadrados |
-| Matlab                           | Comercial      | Software                                  |
-| Neural Network add-ins for Excel | Comercial      | Modelo ANN                                |
-| GA-MLR                           | Libre          | Modelo MLR                                |
-| Orange                           | Libre          | Software                                  |
-| R Project                        | Libre          | Software                                  |
-
-Tabla 3. Programas y paquetes comúnmente utilizados para el desarrollo de QSAR.
-
 **Desafíos**
 
 En resumen, los principales desafíos en este procedimiento son el uso de descriptores colineales, la utilización de un número excesivo de descriptores en el QSAR, la falta de escalado automático de descriptores y la selección inadecuada de conjuntos de entrenamiento/prueba.

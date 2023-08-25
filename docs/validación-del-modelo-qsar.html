@@ -23,7 +23,7 @@
 <meta name="author" content="Betsaida L. Covarrubias" />
 
 
-<meta name="date" content="2023-08-23" />
+<meta name="date" content="2023-08-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -103,6 +103,17 @@
             <section class="normal" id="section-">
 <div id="validación-del-modelo-qsar" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Sección 6</span> Validación del modelo QSAR<a href="validación-del-modelo-qsar.html#validación-del-modelo-qsar" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Un buen modelo debe cumplir con varios criterios en términos de predictibilidad y rendimiento para ser aceptado. Estos criterios de evaluación se categorizan generalmente en validaciones internas y externas.</p>
+<p><strong>Metodos de validacion</strong></p>
+<p>Después de generar modelos QSAR, normalmente se realiza el procedimiento de validación interna para seleccionar los modelos QSAR iniciales. Una vez que se cumplen los criterios requeridos, conocidos como validación interna, la capacidad predictiva de los modelos candidatos seleccionados se evalúa mediante el procedimiento de validación externa.</p>
+<p><strong>Validación interna</strong></p>
+<p>Se utilizan los mismos datos (compuestos moleculares) que se usaron como conjunto de entrenamiento. Todos los criterios utilizados con este propósito son simplemente indicadores de la calidad de la evaluación interna de los modelos propuestos. Sin embargo, la capacidad predictiva del modelo puede no generalizarse para los nuevos compuestos.</p>
+<ul>
+<li><p>Validación cruzada interna: La validación cruzada interna implica excluir un pequeño subconjunto de compuestos y aplicar el modelo utilizando el resto de los datos para predecir la actividad biológica de los compuestos excluidos, simulando un conjunto de pruebas. Esto se repite hasta que todos los compuestos se hayan considerado como el subconjunto excluido y se utilizan para predecir valores de actividad biológica.</p>
+<ul>
+<li>Validación cruzada dejando uno fuera: También conocido como LOO (leave-one-out), es el método comúnmente utilizado para la evaluación inicial de un modelo QSAR. En él, se elimina un compuesto de todo el conjunto de datos, seguido de entrenar el modelo utilizando el resto de las moléculas. La actividad del compuesto excluido se predice mediante el modelo entrenado. En este método, todos los compuestos se eliminan uno por uno hasta que se predigan todas los valores de actividad una vez. El coeficiente <span class="math inline">\(Q^2\)</span> se utiliza para determinar la capacidad predictiva del modelo en el método.</li>
+</ul></li>
+</ul>
 
 </div>
             </section>
@@ -165,6 +176,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

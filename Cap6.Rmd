@@ -1,1 +1,18 @@
 # Validación del modelo QSAR
+
+Un buen modelo debe cumplir con varios criterios en términos de predictibilidad y rendimiento para ser aceptado. Estos criterios de evaluación se categorizan generalmente en validaciones internas y externas. 
+
+**Metodos de validacion**
+
+Después de generar modelos QSAR, normalmente se realiza el procedimiento de validación interna para seleccionar los modelos QSAR iniciales. Una vez que se cumplen los criterios requeridos, conocidos como validación interna, la capacidad predictiva de los modelos candidatos seleccionados se evalúa mediante el procedimiento de validación externa.
+
+**Validación interna**
+
+Se utilizan los mismos datos (compuestos moleculares) que se usaron como conjunto de entrenamiento. Todos los criterios utilizados con este propósito son simplemente indicadores de la calidad de la evaluación interna de los modelos propuestos. Sin embargo, la capacidad predictiva del modelo puede no generalizarse para los nuevos compuestos.
+
+- Validación cruzada interna: La validación cruzada interna implica excluir un pequeño subconjunto de compuestos y aplicar el modelo utilizando el resto de los datos para predecir la actividad biológica de los compuestos excluidos, simulando un conjunto de pruebas. Esto se repite hasta que todos los compuestos se hayan considerado como el subconjunto excluido y se utilizan para predecir valores de actividad biológica.
+
+  - Validación cruzada dejando uno fuera: También conocido como LOO (leave-one-out), es el método comúnmente utilizado para la evaluación inicial de un modelo QSAR. En él, se elimina un compuesto de todo el conjunto de datos, seguido de entrenar el modelo utilizando el resto de las moléculas. La actividad del compuesto excluido se predice mediante el modelo entrenado. En este método, todos los compuestos se eliminan uno por uno hasta que se predigan todas los valores de actividad una vez. El coeficiente \(Q^2\) se utiliza para determinar la capacidad predictiva del modelo en el método.
+  
+
+

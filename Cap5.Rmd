@@ -50,7 +50,19 @@ Eliminar los valores atípicos no siempre es necesario ni garantiza una mejora e
 
 **Herramientas y software**
 
-El creciente interés en la aplicación de estudios QSAR en diferentes aspectos del diseño y desarrollo de medicamentos ha llevado a la introducción de una variedad de algoritmos y herramientas directa o indirectamente adecuadas para los estudios QSAR.
+El creciente interés en la aplicación de estudios QSAR en diferentes aspectos del diseño y desarrollo de medicamentos ha llevado a la introducción de una variedad de algoritmos y herramientas directa o indirectamente adecuadas para los estudios QSAR. Algunos ejemplos se muestran en la Tabla 3.
+
+| Nombre                           | Disponibilidad | Tipo                                      |
+|----------------------------------|----------------|-------------------------------------------|
+| DynaFit                          | Libre          | Regresión no lineal por mínimos cuadrados |
+| Matlab                           | Comercial      | Software                                  |
+| Neural Network add-ins for Excel | Comercial      | Modelo ANN                                |
+| GA-MLR                           | Libre          | Modelo MLR                                |
+| Orange                           | Libre          | Software                                  |
+| R Project                        | Libre          | Software                                  |
+
+Tabla 3. Programas y paquetes comúnmente utilizados para el desarrollo de QSAR.
+
 
 **Desafíos en el desarrollo del modelo**
 
