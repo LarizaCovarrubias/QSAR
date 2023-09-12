@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Relación cuantitativa entre estructura y actividad</title>
-  <meta name="description" content="Relación cuantitativa entre estructura y actividad" />
+  <title>Sección 9 Estadísticas de la Regresión | Relación cuantitativa entre estructura y actividad</title>
+  <meta name="description" content="Sección 9 Estadísticas de la Regresión | Relación cuantitativa entre estructura y actividad" />
   <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Relación cuantitativa entre estructura y actividad" />
+  <meta property="og:title" content="Sección 9 Estadísticas de la Regresión | Relación cuantitativa entre estructura y actividad" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Relación cuantitativa entre estructura y actividad" />
+  <meta name="twitter:title" content="Sección 9 Estadísticas de la Regresión | Relación cuantitativa entre estructura y actividad" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="caso-práctico-modelo-qsar.html"/>
 
-<link rel="next" href="relación-cuantitativa-entre-estructura-y-actividad.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -83,6 +83,8 @@
 <li class="chapter" data-level="5" data-path="selección-de-descriptores.html"><a href="selección-de-descriptores.html"><i class="fa fa-check"></i><b>5</b> Selección de descriptores</a></li>
 <li class="chapter" data-level="6" data-path="construcción-del-modelo.html"><a href="construcción-del-modelo.html"><i class="fa fa-check"></i><b>6</b> Construcción del modelo</a></li>
 <li class="chapter" data-level="7" data-path="validación-del-modelo-qsar.html"><a href="validación-del-modelo-qsar.html"><i class="fa fa-check"></i><b>7</b> Validación del modelo QSAR</a></li>
+<li class="chapter" data-level="8" data-path="caso-práctico-modelo-qsar.html"><a href="caso-práctico-modelo-qsar.html"><i class="fa fa-check"></i><b>8</b> Caso Práctico Modelo QSAR</a></li>
+<li class="chapter" data-level="9" data-path="estadísticas-de-la-regresión.html"><a href="estadísticas-de-la-regresión.html"><i class="fa fa-check"></i><b>9</b> Estadísticas de la Regresión</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con GitHub</a></li>
 </ul>
@@ -102,18 +104,15 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Relación cuantitativa entre estructura y actividad</h1>
-<p class="author"><em>Betsaida L. Covarrubias</em></p>
-<p class="date"><em>2023-09-08</em></p>
-</div>
-<div id="explorando-conceptos-clave-en-qsar-resumen-del-libro-quantitative-structureactivity-relationship-por-siavoush-dastmalchi-maryam-hamzeh-mivehroud-y-babak-sokout" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Sección 1</span> Explorando Conceptos Clave en QSAR: Resumen del libro “Quantitative Structure–Activity Relationship” por Siavoush Dastmalchi, Maryam Hamzeh-Mivehroud y Babak Sokout<a href="index.html#explorando-conceptos-clave-en-qsar-resumen-del-libro-quantitative-structureactivity-relationship-por-siavoush-dastmalchi-maryam-hamzeh-mivehroud-y-babak-sokout" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>En el siguiente resumen, se abordan los conceptos clave presentes en el libro “Quantitative Structure–Activity Relationship,” escrito por Siavoush Dastmalchi, Maryam Hamzeh-Mivehroud y Babak Sokout. El objetivo principal de este resumen es proporcionar una visión general de los temas fundamentales contenidos en el libro original, con un énfasis particular en la construcción de modelos QSAR (Relación Cuantitativa Estructura-Actividad).</p>
-<p>Es importante destacar que este resumen se centra en la regresión lineal multiple como un modelo base, ya que su simplicidad permite a los lectores familiarizarse con los conceptos fundamentales de QSAR. No obstante, el libro original, “Quantitative Structure–Activity Relationship,” abarca detalles sobre una variedad de otros métodos en mayor profundidad.</p>
-<p>Este resumen tiene un propósito educativo y de referencia, y busca simplificar y esclarecer los conceptos presentados en el libro original. Para una exploración más detallada de otros métodos y aspectos, se recomienda consultar el libro original</p>
-<p>Los derechos de autor y la propiedad intelectual del libro original pertenecen a Siavoush Dastmalchi, Maryam Hamzeh-Mivehroud, Babak Sokout y su editorial correspondiente. Este resumen se proporciona como una herramienta para facilitar el acceso a la información contenida en el libro original y promover el entendimiento de los conceptos clave presentados en él.</p>
-<p>Se espera que el contenido a continuación sea un punto de partida valioso para aquellos que se interesan en el campo de QSAR, especialmente para quienes no tienen una experiencia previa en el tema. Si bien este resumen no abarca todos los detalles, está diseñado para proporcionar una introducción sólida a los conceptos clave. Te alentamos a explorar más a fondo el libro original, ‘Quantitative Structure–Activity Relationship,’ para obtener una comprensión más completa de los métodos disponibles en este campo.</p>
+<div id="estadísticas-de-la-regresión" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Sección 9</span> Estadísticas de la Regresión<a href="estadísticas-de-la-regresión.html#estadísticas-de-la-regresión" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<ul>
+<li>Coeficiente de Correlación Múltiple: 0.7477869165</li>
+<li>Coeficiente de Determinación R^2: 0.5591852725</li>
+<li>R^2 Ajustado: 0.5083220348</li>
+<li>Error Típico: 0.3449336175</li>
+<li>Observaciones: 30</li>
+</ul>
 
 </div>
             </section>
@@ -121,8 +120,8 @@
           </div>
         </div>
       </div>
+<a href="caso-práctico-modelo-qsar.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="relación-cuantitativa-entre-estructura-y-actividad.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -153,7 +152,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/index.Rmd",
+"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/Seccion8.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -161,7 +160,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/index.Rmd",
+"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/Seccion8.Rmd",
 "text": null
 },
 "download": null,
@@ -176,6 +175,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

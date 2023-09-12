@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Sección 8 Caso Práctico Modelo QSAR | Relación cuantitativa entre estructura y actividad</title>
+  <meta name="description" content="Sección 8 Caso Práctico Modelo QSAR | Relación cuantitativa entre estructura y actividad" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Sección 8 Caso Práctico Modelo QSAR | Relación cuantitativa entre estructura y actividad" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Sección 8 Caso Práctico Modelo QSAR | Relación cuantitativa entre estructura y actividad" />
+  
+  
+  
+
+<meta name="author" content="Betsaida L. Covarrubias" />
+
+
+<meta name="date" content="2023-09-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="validación-del-modelo-qsar.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Bitácora de Avances SSP</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Explorando Conceptos Clave en QSAR: Resumen del libro “Quantitative Structure–Activity Relationship” por Siavoush Dastmalchi, Maryam Hamzeh-Mivehroud y Babak Sokout</a></li>
+<li class="chapter" data-level="2" data-path="relación-cuantitativa-entre-estructura-y-actividad.html"><a href="relación-cuantitativa-entre-estructura-y-actividad.html"><i class="fa fa-check"></i><b>2</b> Relación cuantitativa entre estructura y actividad</a></li>
+<li class="chapter" data-level="3" data-path="datos.html"><a href="datos.html"><i class="fa fa-check"></i><b>3</b> Datos</a></li>
+<li class="chapter" data-level="4" data-path="descriptores-moleculares.html"><a href="descriptores-moleculares.html"><i class="fa fa-check"></i><b>4</b> Descriptores moleculares</a></li>
+<li class="chapter" data-level="5" data-path="selección-de-descriptores.html"><a href="selección-de-descriptores.html"><i class="fa fa-check"></i><b>5</b> Selección de descriptores</a></li>
+<li class="chapter" data-level="6" data-path="construcción-del-modelo.html"><a href="construcción-del-modelo.html"><i class="fa fa-check"></i><b>6</b> Construcción del modelo</a></li>
+<li class="chapter" data-level="7" data-path="validación-del-modelo-qsar.html"><a href="validación-del-modelo-qsar.html"><i class="fa fa-check"></i><b>7</b> Validación del modelo QSAR</a></li>
+<li class="chapter" data-level="8" data-path="caso-práctico-modelo-qsar.html"><a href="caso-práctico-modelo-qsar.html"><i class="fa fa-check"></i><b>8</b> Caso Práctico Modelo QSAR</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con GitHub</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Relación cuantitativa entre estructura y actividad</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="caso-práctico-modelo-qsar" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Sección 8</span> Caso Práctico Modelo QSAR<a href="caso-práctico-modelo-qsar.html#caso-práctico-modelo-qsar" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Datos</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Molécula</th>
+<th>pIC<span class="math inline">\(_{50}\)</span></th>
+<th>LogP</th>
+<th>E<span class="math inline">\(_{HOMO}\)</span></th>
+<th>E<span class="math inline">\(_{LUMO}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>4,932</td>
+<td>1,844</td>
+<td>-6,59</td>
+<td>-2,84</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>4,969</td>
+<td>2,402</td>
+<td>-6,7</td>
+<td>-2,85</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>4,717</td>
+<td>1,825</td>
+<td>-6,38</td>
+<td>-3,08</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>4,921</td>
+<td>2,199</td>
+<td>-6,7</td>
+<td>-2,88</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>4,882</td>
+<td>2,534</td>
+<td>-6,65</td>
+<td>-2,87</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>4,602</td>
+<td>3,21</td>
+<td>-6,37</td>
+<td>-2,48</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>4,463</td>
+<td>3,768</td>
+<td>-6,69</td>
+<td>-2,93</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>4,549</td>
+<td>3,191</td>
+<td>-6,61</td>
+<td>-2,93</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>4,624</td>
+<td>3,565</td>
+<td>-6,68</td>
+<td>-2,96</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>4,608</td>
+<td>3,9</td>
+<td>-6,65</td>
+<td>-2,96</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>4,983</td>
+<td>3,856</td>
+<td>-6,25</td>
+<td>-2,81</td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td>4,693</td>
+<td>3,039</td>
+<td>-6,32</td>
+<td>-2,82</td>
+</tr>
+<tr class="odd">
+<td>19</td>
+<td>4,592</td>
+<td>3,756</td>
+<td>-6,35</td>
+<td>-2,87</td>
+</tr>
+<tr class="even">
+<td>20</td>
+<td>5,029</td>
+<td>2,956</td>
+<td>-5,81</td>
+<td>-1,95</td>
+</tr>
+<tr class="odd">
+<td>21</td>
+<td>4,797</td>
+<td>2,984</td>
+<td>-6,42</td>
+<td>-2,9</td>
+</tr>
+<tr class="even">
+<td>22</td>
+<td>3,983</td>
+<td>2,784</td>
+<td>-6,25</td>
+<td>-2,94</td>
+</tr>
+<tr class="odd">
+<td>23</td>
+<td>3,955</td>
+<td>1,894</td>
+<td>-5,75</td>
+<td>-2,84</td>
+</tr>
+<tr class="even">
+<td>24</td>
+<td>4,638</td>
+<td>2,414</td>
+<td>-5,75</td>
+<td>-2,82</td>
+</tr>
+<tr class="odd">
+<td>25</td>
+<td>4,482</td>
+<td>2,753</td>
+<td>-5,73</td>
+<td>-2,8</td>
+</tr>
+<tr class="even">
+<td>26</td>
+<td>5</td>
+<td>3,239</td>
+<td>-5,73</td>
+<td>-2,12</td>
+</tr>
+<tr class="odd">
+<td>27</td>
+<td>4,959</td>
+<td>3,656</td>
+<td>-5,71</td>
+<td>-2,82</td>
+</tr>
+<tr class="even">
+<td>28</td>
+<td>4,482</td>
+<td>3,557</td>
+<td>-5,2</td>
+<td>-1,92</td>
+</tr>
+<tr class="odd">
+<td>29</td>
+<td>5,046</td>
+<td>4,288</td>
+<td>-5,73</td>
+<td>-2,82</td>
+</tr>
+<tr class="even">
+<td>30</td>
+<td>4,1</td>
+<td>4,162</td>
+<td>-5,72</td>
+<td>-2,82</td>
+</tr>
+<tr class="odd">
+<td>31</td>
+<td>4,022</td>
+<td>2,555</td>
+<td>-5,76</td>
+<td>-2,83</td>
+</tr>
+<tr class="even">
+<td>32</td>
+<td>4,032</td>
+<td>2,392</td>
+<td>-5,77</td>
+<td>-2,83</td>
+</tr>
+<tr class="odd">
+<td>33</td>
+<td>3,155</td>
+<td>0,821</td>
+<td>-5,42</td>
+<td>-3</td>
+</tr>
+<tr class="even">
+<td>34</td>
+<td>3,222</td>
+<td>0,927</td>
+<td>-5,57</td>
+<td>-2,81</td>
+</tr>
+<tr class="odd">
+<td>35</td>
+<td>4,143</td>
+<td>3,579</td>
+<td>-5,92</td>
+<td>-2,86</td>
+</tr>
+<tr class="even">
+<td>36</td>
+<td>4,319</td>
+<td>3,13</td>
+<td>-5,73</td>
+<td>-2,82</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Estadísticas de la Regresión Lineal Múultiple</strong></p>
+<ul>
+<li>Coeficiente de Correlación Múltiple: 0.7477869165</li>
+<li>Coeficiente de Determinación R²: 0.5591852725</li>
+<li>R² Ajustado: 0.5083220348</li>
+<li>Error Típico: 0.3449336175</li>
+<li>Observaciones: 30</li>
+</ul>
+<p><strong>Coeficientes de la Regresión Lineal Múultiple</strong></p>
+<ul>
+<li>Intercepción: 2.032353102</li>
+<li>LogP: 0.1902551346</li>
+<li>E<span class="math inline">\(_{HOMO}\)</span>: -0.6671383966</li>
+<li>E<span class="math inline">\(_{LUMO}\)</span>: 0.7776427005</li>
+</ul>
+<p><strong>Ecuación Regresión Lineal Múultiple</strong></p>
+<p><span class="math display">\[pIC_{50}=2.03+0.19LogP-0.67E_{HOMO}+0.78E_{LUMO}\]</span></p>
+<p><strong>Análisis de los residuales</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Observación</th>
+<th>Pronóstico para Y</th>
+<th>Residuos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>4.571120335</td>
+<td>0.3608796652</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>4.742891496</td>
+<td>0.2261085035</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>4.240772176</td>
+<td>0.4762278242</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>4.680940423</td>
+<td>0.2400595768</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>4.7190954</td>
+<td>0.1629045996</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>4.964189774</td>
+<td>-0.3621897735</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>4.93389721</td>
+<td>-0.4708972103</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>4.770748926</td>
+<td>-0.2217489259</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>4.865274753</td>
+<td>-0.241274753</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>4.908996071</td>
+<td>-0.3009960712</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>4.750415892</td>
+<td>0.2325841083</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>4.633900708</td>
+<td>0.05909929249</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>4.751445656</td>
+<td>-0.1594456559</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>4.954418098</td>
+<td>0.0745819015</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>4.627939099</td>
+<td>0.1690609013</td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td>4.445368836</td>
+<td>-0.4623688364</td>
+</tr>
+<tr class="odd">
+<td>17</td>
+<td>4.020236838</td>
+<td>-0.06523683837</td>
+</tr>
+<tr class="even">
+<td>18</td>
+<td>4.134722362</td>
+<td>0.5032776376</td>
+</tr>
+<tr class="odd">
+<td>19</td>
+<td>4.201428939</td>
+<td>0.280571061</td>
+</tr>
+<tr class="even">
+<td>20</td>
+<td>4.822689971</td>
+<td>0.1773100292</td>
+</tr>
+<tr class="odd">
+<td>21</td>
+<td>4.344333704</td>
+<td>0.6146662964</td>
+</tr>
+<tr class="even">
+<td>22</td>
+<td>4.685136293</td>
+<td>-0.2031362935</td>
+</tr>
+<tr class="odd">
+<td>23</td>
+<td>4.477917717</td>
+<td>0.5680822834</td>
+</tr>
+<tr class="even">
+<td>24</td>
+<td>4.447274186</td>
+<td>-0.3472741857</td>
+</tr>
+<tr class="odd">
+<td>25</td>
+<td>4.160443293</td>
+<td>-0.1384432933</td>
+</tr>
+<tr class="even">
+<td>26</td>
+<td>4.13610309</td>
+<td>-0.1041030903</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="validación-del-modelo-qsar.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/Seccion8.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/Seccion8.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

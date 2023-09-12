@@ -1,0 +1,91 @@
+# Selección de descriptores
+
+En la actualidad, se han alcanzado avances significativos en los pasos de preprocesamiento y posprocesamiento para abordar el desafío de la selección de descriptores. Los pasos de preprocesamiento engloban actividades como el escalado de descriptores (como la normalización), el filtrado de descriptores, así como la creación de conjuntos de entrenamiento y prueba. En contraste, los pasos de posprocesamiento se centran en la selección de variables y la aplicación de enfoques de normalización.
+
+Cuando parezca apropiado, se puede llevar a cabo la normalización de los parámetros generados antes de la etapa de selección de descriptores en los análisis QSAR. Como primera medida, se procede a eliminar del conjunto de descriptores aquellos que poseen valores constantes (o casi constantes), así como aquellos con baja variabilidad o valores nulos.
+
+**Normalización**
+
+En el proceso de normalización de los descriptores moleculares, se utilizan dos métodos: la normalización automática o estándar, y la normalización de rango.
+
+En la normalización automática, los valores completos de los descriptores se transforman de manera que tengan una media de cero y una varianza de uno. En el caso de la normalización de rango, se logra al escalar los valores de los descriptores dentro de un rango específico, como por ejemplo [0, 1] o [-1, 1]. Esto se realiza dividiendo cada valor por la diferencia entre los valores máximo y mínimo de los descriptores y luego ajustando el rango según sea necesario
+
+La razón principal para normalizar los descriptores moleculares es la existencia de diferencias significativas entre los diferentes descriptores en términos de su rango de valores, lo que conduce a dificultades para determinar el efecto ponderado de cada descriptor en el modelo. En otras palabras, los descriptores con valores más pequeños pueden quedar opacados por aquellos con valores más grandes.
+
+**Colinealidad**
+
+Colinealidad en QSAR se refiere a la fuerte correlación entre descriptores moleculares. Cuando dos descriptores están altamente relacionados, es difícil determinar cuál influye en la actividad.
+
+La alta colinealidad entre descriptores puede dificultar la interpretación correcta de los resultados, dar lugar a un modelo menos confiable y estable, y aumentar la complejidad innecesaria del modelo. Por lo tanto, es importante identificar y manejar la colinealidad para obtener resultados más confiables y útiles en el análisis de QSAR.
+
+**División de entrenamiento y prueba**
+
+Uno de los pasos previos recomendados es dividir el conjunto de datos en conjuntos de entrenamiento y prueba.
+
+El principal desafío en esta división recae en el número y la distribución de los compuestos entre los conjuntos de entrenamiento y prueba. Los compuestos en el conjunto de prueba se utilizan para la validación externa durante la construcción del modelo. En relación al tamaño del conjunto de prueba, se sugiere que represente entre el 15 % y el 20 % del conjunto de datos total.
+
+Para lograr distribuciones uniformes en ambos conjuntos, es esencial que los compuestos representativos en términos de sus valores finales y descriptores moleculares estén equilibradamente presentes en ambas particiones. El equilibrio implica asegurarse de que los conjuntos de entrenamiento y prueba contengan compuestos con una variada distribución de actividades y características moleculares. El objetivo es obtener una representación adecuada y diversa de compuestos en ambos conjuntos, lo que garantiza que el modelo sea sólido y eficaz en su capacidad para realizar predicciones precisas en diversas situaciones. Se emplean diversos algoritmos para llevar a cabo la división del conjunto de datos, basados en criterios específicos. La selección puede ser:
+
+-   Aleatoria: No se considera ningún patrón específico ni criterio predeterminado al seleccionar los compuestos.
+-   Racional: Utilizan el rango completo de actividades y/o descriptores moleculares como criterio de división.
+
+Los métodos de selección racionales previamente mencionados se basan en algoritmos generales, que incluyen:
+
+-   Agrupamiento k-means: Los compuestos se dividen en k grupos según su similitud, evaluada a partir de los valores promedio en diferentes características para cada grupo. Luego, se elige un subconjunto específico de compuestos (por ejemplo, el 20%) de cada grupo para formar el conjunto de prueba, mientras que los restantes conforman el conjunto de entrenamiento
+-   Kennard-Stone: Este método implica seleccionar compuestos de manera iterativa de modo que estén lo más distantes posible en términos de sus características. Comienza eligiendo dos compuestos distantes y luego agrega compuestos adicionales, asegurándose de que estén lo más alejados posible de los ya seleccionados. Esto garantiza que el conjunto de prueba represente una amplia diversidad de propiedades moleculares, esencial para evaluar la precisión de un modelo QSAR.
+-   Exclusión de esferas: En este método, se parte de un compuesto y se crea una "esfera" imaginaria alrededor de él. Luego, se excluyen los compuestos dentro de esta esfera, eligiendo el compuesto más distintivo, el cual se añade al conjunto de prueba. Este proceso se repite, excluyendo compuestos en esferas adicionales.
+-   Mapa autoorganizado de Kohonen: El algoritmo busca la distancia más cercana entre los datos de los compuestos para crear un mapa. En este mapa, los compuestos similares se agrupan juntos en áreas cercanas. Esto implica que en el mapa, las zonas con compuestos similares están ubicadas cerca una de la otra.
+-   Diseño molecular estadístico: Este método implica realizar un análisis de componentes principales y generar gráficos de puntuación basados en dicho análisis. Estos gráficos muestran cómo los compuestos se agrupan según sus características moleculares. Los grupos identificados en los gráficos representan compuestos con similitudes en términos de descriptores. Estos grupos se eligen como el conjunto de entrenamiento, ya que se considera que capturan la diversidad de compuestos presentes en el conjunto de datos original. Esto se debe a que el análisis de componentes principales tiende a resaltar las principales fuentes de variación en los datos, lo que puede corresponder a diferencias fundamentales entre los compuestos en términos de sus características moleculares.
+-   Métodos de selección de conjuntos de prueba orientados a la extrapolación: En este método, se selecciona un par de compuestos con la mayor distancia euclidiana en términos del espacio de descriptores y se trasladan al conjunto de prueba. Esto se repite hasta alcanzar el tamaño deseado para el conjunto de prueba.
+
+**Métodos de selección de descriptores**
+
+El proceso de selección de descriptores es crucial para reducir el conjunto amplio de características moleculares y resaltar las más pertinentes. Se busca elegir aquellos descriptores más relevantes para el análisis.
+
+Dentro de las estrategias de selección, se encuentran los métodos de envoltura, filtro e híbridos.
+
+Los métodos de envoltura se basan en dos procesos matemáticos: el uso de una función objetivo y un algoritmo de búsqueda de optimización para elegir parámetros importantes en la generación del modelo QSAR. La selección de parámetros depende del algoritmo de clasificación utilizado. Estas metodologías se clasifican en métodos clásicos, basados en inteligencia artificial y métodos híbridos.
+
+Algoritmos de clasificación:
+
+-   Metodos clasicos
+
+    -   Selección hacia adelante: Se agregan características en cada paso, seleccionando la característica que más mejora la métrica de rendimiento (como R2 o el error) en el conjunto de datos de entrenamiento. Este método es intuitivo y simple, pero podría no considerar interacciones entre características.
+    -   Eliminación hacia atrás: En cada paso, se elimina la característica menos relevante hasta que el rendimiento no mejora significativamente. Esto puede ser útil para reducir la complejidad del modelo, pero podría perder características importantes. Selección paso a paso: Se combina la idea de la selección hacia adelante y hacia atrás. Comienza con un modelo sin características y luego realiza pasos iterativos para agregar o eliminar características una a una
+    -   Método de selección y modelado de variables basado en la predicción: Participan dos criterios : "coeficiente de interrelación entre los pares de descriptores (R int) y coeficiente de correlación (q\^2) obtenido utilizando la técnica de validación cruzada de exclusión uno a uno"
+
+-   Métodos basados en inteligencia artificial
+
+    -   Algoritmo genético
+    -   Simulado
+    -   Optimización por enjambre de partículas
+    -   Sistema de colonia de hormigas
+    -   Bosque aleatorio
+    -   Máquinas de soporte vectorial
+
+-   Métodos híbridos
+
+Los métodos de filtro eliminan descriptores poco relevantes basándose en parámetros estadísticos como la baja variabilidad y correlaciones entre parámetros . Estos métodos son apropiados para conjuntos de datos con un gran número de características (descriptores). Son sencillos, rápidos y no requieren de un clasificador para su aplicación.
+
+Ejemplos de métodos de filtro:
+
+-   Criterios estadísticos
+    -   Prueba T: compara las medias de dos grupos para ver si hay una diferencia significativa entre ellos.
+    -   Prueba Chi-cuadrado: se utiliza para evaluar si hay una relación entre dos variables categóricas.
+    -   Prueba Fisher: se utiliza para comparar las varianzas de dos grupos.
+    -   Evaluacion Kolmogorov-Smirnov: se utiliza para comparar distribuciones de datos y determinar si provienen de la misma distribución.
+-   Métodos basados en correlación
+    -   Coeficiente de correlacion de Pearson: Mide la relación lineal entre dos variables.\
+-   Teoría de la información: mide la cantidad de información compartida entre diferentes características, es decir, si la información de una variable a su vez da información de la otra variable.
+
+Los estadísticos, métodos de correlación y teoría de la información se aplican de manera independiente, lo que significa que se usan tal como son sin tener en cuenta si sería útil aplicar algún tipo de transformación a los datos antes de usar estos métodos, por ejemplo, normalizar.
+
+Por último, los métodos híbridos realizan primero un preprocesamiento para eliminar características irrelevantes (métodos basados en Filtro) y luego utilizan los métodos de Envoltura para seleccionar descriptores.
+
+**Herramientas y software**
+
+Algunos algoritmos de selección de características están disponibles como paquetes para entornos programables (como R y MATLAB®); sin embargo, también existen software independientes con interfaces gráficas de usuario personalizadas (GUIs).
+
+**Desafíos**
+
+En resumen, los principales desafíos en este procedimiento son el uso de descriptores colineales, la utilización de un número excesivo de descriptores en el QSAR, la falta de escalado automático de descriptores y la selección inadecuada de conjuntos de entrenamiento/prueba.

@@ -7,29 +7,14 @@ site: bookdown::bookdown_site
 
 ---
 
-# Relación cuantitativa entre estructura y actividad
+# Explorando Conceptos Clave en QSAR: Resumen del libro "Quantitative Structure–Activity Relationship" por Siavoush Dastmalchi, Maryam Hamzeh-Mivehroud y Babak Sokout
 
-La relación cuantitativa entre estructura y actividad (QSAR, por sus siglas en inglés) es un enfoque de modelado en el campo de la química y la bioquímica que busca establecer relaciones cuantitativas entre las características estructurales (descriptores) de compuestos químicos y su actividad biológica.
+En el siguiente resumen, se abordan los conceptos clave presentes en el libro "Quantitative Structure–Activity Relationship," escrito por Siavoush Dastmalchi, Maryam Hamzeh-Mivehroud y Babak Sokout. El objetivo principal de este resumen es proporcionar una visión general de los temas fundamentales contenidos en el libro original, con un énfasis particular en la construcción de modelos QSAR (Relación Cuantitativa Estructura-Actividad).
 
-Principales objetivos de los estudios QSAR:
+Es importante destacar que este resumen se centra en la regresión lineal múltiple como un modelo base, ya que su simplicidad permite a los lectores familiarizarse con los conceptos fundamentales de QSAR. No obstante, el libro original, "Quantitative Structure–Activity Relationship," abarca detalles sobre una variedad de otros métodos en mayor profundidad.
 
-- Predicción de la actividad biológica de los compuestos.
-- Optimización de los compuestos iniciales prometedores.
-- Diseño de nuevos compuestos activos.
-- Predicción de riesgo y toxicidad.
-- Modelización del perfil farmacocinético y farmacodinámico de nuevas entidades químicas.
-- Descubrimiento de compuestos con la actividad deseada mediante la búsqueda en bases de datos químicas o bibliotecas virtuales.
+Este resumen tiene un propósito educativo y de referencia, y busca simplificar y esclarecer los conceptos presentados en el libro original. Para una exploración más detallada de otros métodos y aspectos, se recomienda consultar el libro original
 
+Los derechos de autor y la propiedad intelectual del libro original pertenecen a Siavoush Dastmalchi, Maryam Hamzeh-Mivehroud, Babak Sokout y su editorial correspondiente. Este resumen se proporciona como una herramienta para facilitar el acceso a la información contenida en el libro original y promover el entendimiento de los conceptos clave presentados en él.
 
-Flujo de trabajo para análisis QSAR (ver Figura 1):
-
-1. Recopilación de datos y preparación de datos (limpieza, selección, tratamiento de valores faltantes, etc.)
-2. Cálculo y preprocesamiento de parámetros moleculares (tamaño, forma, carga eléctrica, grupos funcionales, aspectos estructurales y químicos, etc) para obtener descriptores numéricos. 
-3. Generación de conjunto de datos (conjuntos de entrenamiento y prueba)
-4. Selección de descriptores
-5. Construcción de modelos
-6. Validación interna y externa
-7. Desarrollo del modelo
-
-![Figura 1. Representación esquemática del flujo de trabajo QSAR.](/home/lariza/Documentos/ProyectosGitHub/QSAR/FlujoDeTrabajoQSAR.png)
-
+Se espera que el contenido a continuación sea un punto de partida valioso para aquellos que se interesan en el campo de QSAR, especialmente para quienes no tienen una experiencia previa en el tema. Si bien este resumen no abarca todos los detalles, está diseñado para proporcionar una introducción sólida a los conceptos clave. Te alentamos a explorar más a fondo el libro original, 'Quantitative Structure–Activity Relationship,' para obtener una comprensión más completa de los métodos disponibles en este campo.
