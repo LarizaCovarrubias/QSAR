@@ -89,4 +89,4 @@ Existen diversos programas y herramientas disponibles para el cálculo de descri
 | DRAGON     | Constitucional, fisicoquímico, topológico, y geométrico                             | Comercial      |
 | E-DRAGON   | Constitucional, fisicoquímico, topológico y geométrico                              | Libre          |
 
-Tabla 2. Software para el cálculo de descriptores.
+Tabla 4.1. Software para el cálculo de descriptores.

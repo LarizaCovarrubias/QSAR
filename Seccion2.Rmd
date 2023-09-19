@@ -22,4 +22,4 @@ Flujo de trabajo para análisis QSAR (ver Figura 1):
 6. Validación interna y externa
 7. Desarrollo del modelo
 
-![Figura 1. Representación esquemática del flujo de trabajo QSAR.](/home/lariza/Documentos/ProyectosGitHub/QSAR/FlujoDeTrabajoQSAR.png)
+![Figura 2.1. Representación esquemática del flujo de trabajo QSAR.](/home/lariza/Documentos/ProyectosGitHub/QSAR/FlujoDeTrabajoQSAR.png)

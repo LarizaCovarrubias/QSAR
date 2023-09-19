@@ -79,7 +79,7 @@ Para determinar el dominio de aplicabilidad (AD) en los modelos QSAR, se han des
 
 La Gráfica 1 muestra un ejemplo ilustrativo del AD. En ella se comparan los residuos estandarizados (las diferencias entre los valores predichos y observados) con los valores de influencia de un modelo QSAR. Estos valores de influencia indican la distancia a la que se encuentra cada compuesto del centroide (punto central) en un espacio de descriptores. Básicamente, representan la distancia entre el compuesto y el centro del grupo de compuestos similares en términos de descriptores. Para identificar los valores atípicos, se traza un área cuadrada alrededor de los puntos en la gráfica, y se consideran valores atípicos aquellos que se encuentran fuera de esta área, que se define en un rango de ± 3 desviaciones estándar, con un umbral de influencia de 0.3. Estos umbrales son valores arbitrarios para una gráfica de AD de Williams, como se muestra en la Gráfica 1.
 
-![Gráfica 1. Dominio de aplicabilidad para la determinación de valores atípicos mediante la gráfica de Williams. El valor atípico se observa trazando los residuos estandarizados frente a los valores de influencia.](/home/lariza/Documentos/ProyectosGitHub/QSAR/AD.png)
+![Gráfica 7.1. Dominio de aplicabilidad para la determinación de valores atípicos mediante la gráfica de Williams. El valor atípico se observa trazando los residuos estandarizados frente a los valores de influencia.](/home/lariza/Documentos/ProyectosGitHub/QSAR/AD.png)
 
 **Software y herramientas**
 

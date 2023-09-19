@@ -61,7 +61,7 @@ El creciente interés en la aplicación de estudios QSAR en diferentes aspectos 
 | Orange                           | Libre          | Software                                  |
 | R Project                        | Libre          | Software                                  |
 
-Tabla 3. Programas y paquetes comúnmente utilizados para el desarrollo de QSAR.
+Tabla 6.1. Programas y paquetes comúnmente utilizados para el desarrollo de QSAR.
 
 
 **Desafíos en el desarrollo del modelo**

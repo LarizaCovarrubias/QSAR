@@ -1,113 +1,284 @@
-# Caso Práctico Modelo QSAR: Regresión Lineal Múultiple
+# Caso Práctico Modelo QSAR: Regresión Lineal Múltiple
 
-El presente estudio se centra en la construcción de un modelo QSAR (Análisis Cuantitativo de Relación Estructura-Actividad) mediante regresión lineal múltiple. Los datos utilizados como punto de partida se obtienen del artículo titulado "QSAR de Derivados de (5-nitroheteroaril-1,3,4-tiadiazol-2-il)piperazinilo para la Predicción de Nuevos Compuestos con Potencial Antileishmania". Nuestro objetivo es comparar los resultados obtenidos en este ejercicio con los del mencionado artículo.
+Este caso práctico se enfoca en la construcción de un modelo QSAR (Análisis Cuantitativo de Relación Estructura-Actividad) mediante regresión lineal múltiple (MLR). Los datos de partida se obtuvieron del artículo titulado "QSAR Study of (5-Nitroheteroaryl-1,3,4-Thiadiazole-2-yl) Piperazinyl Derivatives to Predict New Similar Compounds as Antileishmanial Agents" (1). En dicho artículo, se llevaron a cabo estudios QSAR que incluyeron análisis de componentes principales (PCA), regresión lineal múltiple (MLR), regresión no lineal (RNLM) y cálculos de redes neuronales artificiales (ANN) en una serie de 36 compuestos derivados de (5-Nitroheteroaryl-1,3,4-Thiadiazole-2-yl) Piperazinyl (2). El objetivo principal era identificar las características estructurales clave necesarias para diseñar nuevos candidatos potentes de esta clase para la actividad antileishmanial.
 
-En la investigación original, se llevaron a cabo estudios QSAR que incluyeron análisis de componentes principales (PCA), regresión lineal múltiple (MLR), regresión no lineal (RNLM) y cálculos de redes neuronales artificiales (ANN). Estos estudios se basaron en un conjunto de datos que consta de 36 compuestos derivados de 5-(5-nitroheteroaril-2-il)-1,3,4-tiadiazol (Ver Tabla 4). El objetivo era establecer una relación cuantitativa entre las estructuras de los compuestos estudiados y su actividad biológica. En este ejercicio, nos centraremos específicamente en el análisis de regresión lineal múltiple (MLR).
-Utilizaremos los mismos datos que se utilizaron en el artículo original. Sin embargo, en lugar de emplear el complemento de análisis de datos XLSTAT, utilizado por los investigadores en el artículo, llevaremos a cabo el análisis utilizando Microsoft Excel sin dicho complemento para fines prácticos y para comenzar desde lo más básico en cuanto a los modelos QSAR.
+En este caso práctico, nos proponemos comparar los resultados obtenidos en nuestro ejercicio con los del mencionado artículo, centrándonos específicamente en el método de regresión lineal múltiple.
 
-Para construir el modelo cuantitativo, de los 36 compuestos se utilizaron 30, mientras que los restantes se reservaron para probar el rendimiento del modelo propuesto (conjunto de prueba). Cabe destacar que los valores de pIC50 para las 30 moléculas utilizadas en la construcción del modelo oscilan entre 3,155 y 5,046.
+La estructura de este caso práctico se dividirá en las siguientes secciones: recopilación de datos, descripción de descriptores moleculares, selección de descriptores, construcción del modelo y validación del modelo.
 
-Para calcular los descriptores electrónicos, se empleó el paquete Gaussian03W [1]. Las geometrías de los 36 derivados de tiadiazol se optimizaron mediante el método DFT (Teoría del Funcional de Densidad), una técnica teórica en química computacional utilizada para calcular propiedades electrónicas de las moléculas. Estos cálculos se realizaron utilizando el conjunto funcional B3LYP, que define las interacciones electrónicas en las moléculas, y la base 6-31G (d), un conjunto de funciones de base utilizado para aproximar las funciones de onda electrónica en los cálculos de DFT. A partir de estos cálculos, se determinaron varios descriptores estructurales clave, que incluyen la energía orbital molecular ocupada más alta (HOMO), la energía orbital molecular desocupada más baja (LUMO), el momento dipolar (μ), la brecha de energía (ΔE) y la energía total.
-Para calcular otros descriptores moleculares, como el volumen molar MV (cm³), el peso molecular MW (g/mol), la refractividad molar MR (cm³), el parachor Pc (cm³), la densidad D (g/cm³), el índice de refracción n y el coeficiente de partición octanol/agua (LogP), se utilizó el programa ChemSketch [2].
-
-En el análisis de regresión múltiple, los autores llevaron a cabo el método de selección hacia atrás. La mejor relación obtenida mediante este método se basa en la combinación lineal de tres descriptores seleccionados: la energía ELUMO, la energía EHOMO y el coeficiente de partición octanol/agua LogP. La ecuación resultante en el artículo original se expresa como:
-
-\[pIC_{50}=2.0453−0.6673E_{\text{HOMO}}+0.7821E_{\text{LUMO}}+0.1898LogP\]
-
-En nuestro enfoque, empleamos los mismos tres descriptores moleculares para desarrollar el modelo utilizando las herramientas de análisis de datos de Excel. Definimos los valores de pIC50 como el rango de entrada en Y, mientras que los valores de los descriptores moleculares de los 30 compuestos se consideraron como el rango de entrada en X. A continuación, se presenta la ecuación resultante, junto con las estadísticas y los coeficientes de la regresión, así como la Tabla 5. que contiene el análisis de los residuos.
+A diferencia del artículo de referencia, implementaremos el desarrollo del modelo utilizando Rstudio en lugar de XLSTAT versión 2013 que se utilizaron para predecir los efectos sobre la actividad antileishmania.
 
 **Datos**
 
-|Molécula | pIC$_{50}$ | LogP | E$_{\text{HOMO}}$ | E$_{\text{LUMO}}$ |
-|---------|------------|------|-------------------|-------------------|
-|1        | 4,932      | 1,844| -6,59             | -2,84             |
-|2        | 4,969      | 2,402| -6,7              | -2,85             |
-|3*       | 4,88       | 2,402| -6,41             | -2,92             |
-|4*       | 4,581      | 2,402| -6,69             | -2,88             |
-|5        | 4,717      | 1,825| -6,38             | -3,08             |
-|6        | 4,921      | 2,199| -6,7              | -2,88             |
-|7        | 4,882      | 2,534| -6,65             | -2,87             |
-|8        | 4,602      | 3,21 | -6,37             | -2,48             |
-|9        | 4,463      | 3,768| -6,69             | -2,93             |
-|10*      | 4,222      | 3,768| -6,7              | -2,96             |
-|11*      | 4,618      | 3,768| -6,7              | -2,97             |
-|12       | 4,549      | 3,191| -6,61             | -2,93             |
-|13       | 4,624      | 3,565| -6,68             | -2,96             |
-|14       | 4,608      | 3,9  | -6,65             | -2,96             |
-|15       | 4,983      | 3,856| -6,25             | -2,81             |
-|16       | 4,693      | 3,039| -6,32             | -2,82             |
-|17*      | 4,748      | 2,825| -6,35             | -2,86             |
-|18*      | 4,367      | 3,956| -6,4              | -2,72             |
-|19       | 4,592      | 3,756| -6,35             | -2,87             |
-|20       | 5,029      | 2,956| -5,81             | -1,95             |
-|21       | 4,797      | 2,984| -6,42             | -2,9              |
-|22       | 3,983      | 2,784| -6,25             | -2,94             |
-|23       | 3,955      | 1,894| -5,75             | -2,84             |
-|24       | 4,638      | 2,414| -5,75             | -2,82             |
-|25       | 4,482      | 2,753| -5,73             | -2,8              |
-|26       | 5          | 3,239| -5,73             | -2,12             |
-|27       | 4,959      | 3,656| -5,71             | -2,82             |
-|28       | 4,482      | 3,557| -5,2              | -1,92             |
-|29       | 5,046      | 4,288| -5,73             | -2,82             |
-|30       | 4,1        | 4,162| -5,72             | -2,82             |
-|31       | 4,022      | 2,555| -5,76             | -2,83             |
-|32       | 4,032      | 2,392| -5,77             | -2,83             |
-|33       | 3,155      | 0,821| -5,42             | -3                |
-|34       | 3,222      | 0,927| -5,57             | -2,81             |
-|35       | 4,143      | 3,579| -5,92             | -2,86             |
-|36       | 4,319      | 3,13 | -5,73             | -2,82             |
+-   Fuente de datos
 
-Tabla 4. Conjunto de datos que consta de 36 compuestos derivados de 5-(5-nitroheteroaril-2-il)-1,3,4-tiadiazol. *Set de prueba
+La información sobre la actividad antileishmanial experimental ($pIC_{50}$ en μM) de 36 derivados de tiadiazol se ha recopilado de un estudio previo (2). Cabe destacar que los valores de $pIC_{50}$ para las 30 moléculas que componen el conjunto de entrenamiento del modelo oscilan en un rango que va desde 3,155 y 5,046. Los detalles sobre las moléculas y sus respectivas actividades biológicas calculadas experimentalmente ($pIC_{50}$) se presentan en la siguiente tabla.
+
+```{r setup, include=FALSE}
+# Establecer el directorio de trabajo actual
+knitr::opts_knit$set(root.dir = "/home/lariza/Documentos/CasoPracticoQSAR")
+```
 
 
-**Estadísticas de la Regresión**
+```{r}
+library(readxl)
+library(knitr)
 
--   Coeficiente de Correlación Múltiple: 0.748
--   Coeficiente de Determinación R²: 0.559
--   R² Ajustado: 0.508
--   Error Típico: 0.345
--   Observaciones: 30
+# Cargar datos
+Valores_pIC50_Tiadiazoles <- read_xlsx("Valores_pIC50_Tiadiazoles.xlsx")
 
-**Coeficientes de la Regresión**
+# Dividir el conjunto de datos en partes y mostrarlo en una tabla
+partes <- split(Valores_pIC50_Tiadiazoles, rep(1:ceiling(nrow(Valores_pIC50_Tiadiazoles) / 9), each = 9, length.out = nrow(Valores_pIC50_Tiadiazoles)))
+tabla_datos <- do.call(cbind, partes)
+kable(tabla_datos)
 
-- Intercepción: 2.032
-- LogP: 0.190
-- E$_{\text{HOMO}}$: -0.667
-- E$_{\text{LUMO}}$: 0.778
+```
 
-**Ecuación**
+**Descriptores moleculares**
 
-\[pIC_{50}=2.0324-0.6671E_{\text{HOMO}}+0.777E_{\text{LUMO}}+0.1903LogP\]
+-   Generación de descriptores
 
-**Análisis de los residuales**
+Para calcular los descriptores electrónicos, los autores emplearon el paquete Gaussian03W (3). Las geometrías de los 36 derivados de tiadiazol se optimizaron mediante el método DFT (Teoría del Funcional de Densidad), una técnica teórica en química computacional utilizada para calcular propiedades electrónicas de las moléculas. Estos cálculos se realizaron utilizando el conjunto funcional B3LYP, que define las interacciones electrónicas en las moléculas, y la base 6-31G (d), un conjunto de funciones de base utilizado para aproximar las funciones de onda electrónica en los cálculos de DFT. Estos cálculos proporcionaron varios descriptores estructurales clave, incluyendo la energía orbital molecular ocupada más alta (HOMO), la energía orbital molecular desocupada más baja (LUMO), el momento dipolar (μ), la brecha de energía (ΔE) y la energía total.
 
-| Observación | Pronóstico para Y| Residuos       |
-|-------------|-------------------|----------------|
-| 1           | 4.571             | 0.361          |
-| 2           | 4.743             | 0.226          |
-| 3           | 4.241             | 0.476          |
-| 4           | 4.681             | 0.240          |
-| 5           | 4.719             | 0.163          |
-| 6           | 4.964             | -0.362         |
-| 7           | 4.934             | -0.471         |
-| 8           | 4.771             | -0.222         |
-| 9           | 4.865             | -0.241         |
-| 10          | 4.909             | -0.301         |
-| 11          | 4.750             | 0.233          |
-| 12          | 4.634             | 0.059          |
-| 13          | 4.751             | -0.159         |
-| 14          | 4.954             | 0.075          |
-| 15          | 4.628             | 0.169          |
-| 16          | 4.445             | -0.462         |
-| 17          | 4.020             | -0.065         |
-| 18          | 4.135             | 0.503          |
-| 19          | 4.201             | 0.281          |
-| 20          | 4.823             | 0.177          |
-| 21          | 4.344             | 0.615          |
-| 22          | 4.685             | -0.203         |
-| 23          | 4.478             | 0.568          |
-| 24          | 4.447             | -0.347         |
-| 25          | 4.160             | -0.138         |
-| 26          | 4.136             | -0.104         |
+Por otro lado, para calcular una serie de descriptores moleculares adicionales, como el volumen molar MV (cm³), el peso molecular MW (g/mol), la refractividad molar MR (cm³), el parachor Pc (cm³), la densidad D (g/cm³), el índice de refracción n y el coeficiente de partición octanol/agua (logP), se utilizó el programa ChemSketch (4). Los valores de los 12 descriptores químicos calculados se presentan en la siguiente tabla.
 
-Tabla 5. Pronóstico para las actividades biológicas y análisis de los residuos  
+```{r}
+library(kableExtra)
+
+# Cargar datos
+Valores_Parametros_Tiadiazoles <- read_xlsx("Valores_Parametros_Tiadiazoles.xlsx")
+
+# Mostrar datos
+kable(Valores_Parametros_Tiadiazoles, format = "html", table.attr = 'style="font-size: 69%;"')
+```
+
+**Selección de descriptores**
+
+-   División set de entrenamiento y set de prueba
+
+Los investigadores dividieron el conjunto de datos aleatoriamente en dos grupos: un conjunto de entrenamiento, que consta de treinta moléculas, se utilizó para construir el modelo cuantitativo. Las moléculas restantes (2, 3, 10, 11, 17 y 18) se reservaron para evaluar el rendimiento del modelo propuesto en un conjunto de prueba.
+
+-   Análisis PCA
+
+Se empleó el análisis de componentes principales (PCA) para evaluar la no linealidad y la multicolinealidad entre las variables, y para identificar aquellos descriptores que presentaran correlaciones significativas con la actividad.
+
+```{r}
+library(dplyr)
+
+# Seleccionar columnas numéricas
+variables_pca <- Valores_Parametros_Tiadiazoles %>%
+  select_if(is.numeric)
+
+# Excluir pIC50
+#variables_pca$pIC50 <- NULL
+
+# Realizar PCA
+resultado_pca <- prcomp(variables_pca, scale. = TRUE)
+
+# Resumen PCA
+summary(resultado_pca)
+
+# Visualizar PCA
+biplot(resultado_pca)
+```
+
+En base a los resultados del análisis de componentes principales (PCA), podemos concluir que los primeros cinco componentes principales (PC1 a PC5) capturan aproximadamente el 90.22% de la varianza total en los datos. Estos componentes tienen desviaciones estándar significativas y explican una cantidad sustancial de la variabilidad. Por otro lado, los componentes PC6 a PC13, con desviaciones estándar más pequeñas y proporciones de varianza muy bajas, parecen tener una contribución marginal y podrían ser excluidos para simplificar aún más el modelo sin comprometer la representación esencial de los datos.
+
+Es importante destacar que en este análisis se incluyó la actividad biológica, para explorar las relaciones entre la actividad y los descriptores en el mismo espacio de componentes principales, permitiendo comprender las relaciones entre los descriptores y la actividad biológica. Sin embargo, si se busca un enfoque diferente, como la reducción de dimensionalidad y la exploración de patrones en los descriptores moleculares por sí mismos, es posible realizar el PCA sin incluir la actividad biológica. La elección de incluir o excluir esta variable debe basarse en los objetivos específicos de la investigación y las necesidades del análisis.
+
+-   Matriz de correlación
+
+```{r}
+library(corrplot)
+
+# Seleccionar columnas numéricas
+variables_matriz_de_correlacion <- Valores_Parametros_Tiadiazoles %>% 
+  select_if(is.numeric)
+
+# Calcular matriz de correlación 
+matriz_correlacion <- cor(variables_matriz_de_correlacion)
+
+# Redondear la matriz de correlación a 3 decimales
+matriz_correlacion_3d<- round(matriz_correlacion, digits = 3)
+
+# Mostrar datos
+kable(matriz_correlacion_3d, format = "html", table.attr = 'style="font-size: 60%;"')
+
+# Visualizar matriz de correlación
+corrplot(matriz_correlacion, method = "color", type = "lower", tl.cex = 0.7)
+```
+
+La matriz de correlación indica que existen correlaciones moderadas entre algunas variables, pero no hay una correlación extrema que sugiera una multicolinealidad severa. Es decir, las variables están relacionadas de manera moderada, pero no en exceso, lo que permite considerar múltiples variables en un modelo sin preocuparse por una colinealidad extrema.
+
+**Construcción del modelo**
+
+-   Regresión lineal múltiple del artículo
+
+En el artículo, los investigadores utilizaron los descriptores obtenidos para desarrollar un modelo lineal con el propósito de predecir los efectos de los sustituyentes sobre la actividad antileishmania de 30 derivados de tiadiazol (conjunto de entrenamiento) mediante la selección hacia atrás en el MLR. La mejor combinación lineal obtenida incluye tres descriptores seleccionados: la energía Elumo, la energía Ehomo y el coeficiente de partición octanol/agua logP.
+
+Se realizaron múltiples regresiones lineales utilizando el software XLSTAT versión 2013 para predecir los efectos sobre la actividad antileishmania, como se describe en el artículo. Las ecuaciones de los modelos se justifican principalmente por el coeficiente de correlación (R), el error cuadrático medio (MSE), la estadística F de Fisher y el nivel de significancia (valor p). Los resultados por parte de los investigadores en el artículo se muestran a continuación:
+
+Ecuación: 
+\[pIC_{50} = 2.0453-0.6673 E_{homo} + 0.7821 E_{lumo} + 0.1898 logP\]
+
+```{r}
+informacion_modeloMLR_articulo <- data.frame(
+  Variable = c("N", "R", "MSE", "F", "p-valor"),
+  Valor = c(30, 0.750, 0.119, 11.43, "<0.0001")
+)
+
+# Mostrar información
+kable(informacion_modeloMLR_articulo, align = "c")
+```
+
+-   Regresión lineal múltiple de nuestro caso práctico
+
+En nuestro caso práctico, optamos por realizar el análisis y desarrollo del modelo directamente en RStudio, una plataforma ampliamente utilizada para estadísticas y análisis de datos. A continuación, presentaremos el procedimiento.
+
+  - Conjunto de datos para entrenamiento
+```{r}
+# Cargar datos
+Set_Entrenamiento <- read_xlsx("Set_Entrenamiento.xlsx")
+
+# Mostrar datos
+kable(Set_Entrenamiento)
+```
+
+  - Generación modelo MLR
+```{r}
+# Excluir columna N (columna de identificacón de las moléculas)
+Set_Entrenamiento$N <- NULL
+
+# Ajustar el modelo de regresión múltiple
+modeloMLR <- lm(pIC50 ~ Ehomo + Elumo + logP, data = Set_Entrenamiento)
+
+# Resumen del modelo
+summary(modeloMLR)
+```
+La ecuación resultante del modelo es: 
+
+\[pIC_{50} = 2.0323-0.6671 E_{homo} + 0.7776 E_{lumo} + 0.1903 logP\]
+
+Para una comparación directa de resultados, generamos la misma información que los investigadores en el estudio, como se muestra a continuación: 
+```{r}
+# Número de compuestos (N)
+N <- length(modeloMLR$fitted.values)
+# Coeficiente de correlación (R)
+R <- sqrt(summary(modeloMLR)$r.squared)
+# Error cuadrático medio (MSE)
+MSE <- summary(modeloMLR)$sigma^2
+# Criterio de Fisher (F)
+Fisher <- summary(modeloMLR)$fstatistic[1]
+# Nivel de significancia (p-valor)
+p.valor <- pf(Fisher, summary(modeloMLR)$fstatistic[2], summary(modeloMLR)$fstatistic[3], lower.tail = FALSE)
+
+# Dataframe con la información
+informacion_modeloMLR <- data.frame(
+  Variable = c("N", "R", "MSE", "F", "p-valor"),
+  Valor = c(N, R, MSE, Fisher, p.valor)
+)
+# Mostrar información
+kable(informacion_modeloMLR, align = "c")
+```
+
+  - Comparación de resultados
+
+Ecuación generada con XLSTAT:
+\[pIC_{50} = 2.0453-0.6673 E_{homo} + 0.7821 E_{lumo} + 0.1898 logP\]
+
+Ecuación generada con Rstudio:
+\[pIC_{50} = 2.0323-0.6671 E_{homo} + 0.7776 E_{lumo} + 0.1903 logP\]
+
+```{r}
+# Combinar tablas por la columna 'Variable'
+tabla_comparativa <- merge(informacion_modeloMLR_articulo, informacion_modeloMLR, by = "Variable", all = TRUE)
+
+# Renombra las columnas para mayor claridad
+colnames(tabla_comparativa) <- c("Variable", "Valor XLSTAT", "Valor Rstudio")
+
+# Muestra la tabla comparativa
+kable(tabla_comparativa, align = "c")
+```
+
+
+**Validación del modelo**
+
+- Validación Interna de nuestro caso práctico
+
+Se llevó a cabo la validación cruzada interna dejando uno fuera (también conocida como "leave-one-out cross-validation" o LOOCV). LOOCV es un caso especial de validación cruzada en el que se entrena el modelo con todos los datos excepto uno y se evalúa en ese único punto excluido. Este proceso se repite para cada punto de datos, lo que garantiza que cada punto se excluya una vez. 
+
+```{r}
+library(data.table)
+library(caret)
+
+# Excluir columna N (columna de identificación de las moléculas)
+Set_Entrenamiento$N <- NULL
+
+# Crear un controlador para la validación cruzada dejando uno fuera
+control <- trainControl(method = "LOOCV")
+
+# Ajustar el modelo de regresión múltiple con LOOCV
+modeloMLR_cv <- train(pIC50 ~ Ehomo + Elumo + logP, data = Set_Entrenamiento, method = "lm", trControl = control)
+
+# Ver los resultados
+print(modeloMLR_cv)
+summary(modeloMLR_cv$finalModel)
+```
+Un buen valor de Rcv (Coeficiente de correlación en la validacion cruzada interna) de diez indica que el modelo tiene robustez y alto poder predictivo interno en el conjunto de datos utilizado.
+
+Sin embargo, es importante tener en cuenta que el valor de Rcv no siempre está correlacionado con el poder predictivo real de un modelo QSAR en sustancias químicas nuevas. Esto significa que Rcv podría no ser una estimación confiable del poder predictivo del modelo para todas las sustancias químicas. Para una evaluación más confiable del poder predictivo, se requiere un conjunto de validación externa que no se haya utilizado en el desarrollo del modelo.
+
+Para mejorar la capacidad predictiva de los modelos QSAR, se calculan un conjunto de métricas llamadas "métricas $r²_{m}$". Estas métricas evalúan qué tan cerca están las predicciones del modelo de los valores reales observados en los datos. En la actualidad, se calculan dos versiones de estas métricas: una que llamamos "$r²_{m}$" y otra llamada "$\Delta r²_{m}$". Ambas se utilizan tanto en la validación interna (conjunto de entrenamiento) como en la validación externa (conjunto de prueba) de los modelos QSAR.
+
+Para considerar que un modelo QSAR es aceptable, el valor de "$\bar{r²_{m}}$" debe ser mayor que 0.5, lo que indica una buena concordancia entre las predicciones y los valores reales. Además, el valor de "$\Delta r²_{m}$" debe ser menor que 0.2, lo que sugiere una pequeña diferencia entre las dos versiones de métricas. Estos criterios son importantes para evaluar la calidad de un modelo QSAR y su capacidad para predecir de manera precisa. 
+
+A continuación se muestran los cálculos de Rvc, y las métricas $r²_{m}$:
+
+```{r}
+
+# Obtener las predicciones del modelo para el conjunto de entrenamiento
+predicciones <- predict(modeloMLR_cv, Set_Entrenamiento)
+
+# Obtener el Rcv (Coeficiente de correlación) 
+Rcv <- cor(predicciones, Set_Entrenamiento$pIC50)
+
+# Calcular r²m (R cuadrado subíndice m)
+r2_m <- 1 - sum((Set_Entrenamiento$pIC50 - predicciones)^2) / sum((Set_Entrenamiento$pIC50 - mean(Set_Entrenamiento$pIC50))^2)
+
+# Definir el valor de r'²m (valor de referencia o alternativo)
+r2_m_ref <- 0.75
+
+# Calcular la diferencia absoluta entre r²m y r'²m
+Delta_r2_m <- abs(r2_m - r2_m_ref)
+
+# Calcular el promedio de r²m y r'²m
+Promedio_r2_m <- (r2_m + r2_m_ref) / 2
+
+# Tabla con resultados
+tabla_resultados <- data.frame(
+  "Medida" = c("Rcv (Coeficiente de correlación) ", "r²m (R cuadrado subíndice m)", 
+               "r'²m (valor de referencia o alternativo)", "Δr²m (Diferencia absoluta entre r²m y r'²m)", 
+               "Promedio de r²m y r'²m"),
+  "Valor" = c(Rcv, r2_m, r2_m_ref, Delta_r2_m, Promedio_r2_m)
+)
+
+# Mostrar tabla
+knitr::kable(tabla_resultados)
+```
+
+- Validación Externa  
+```{r}
+# Cargar datos
+Set_Prueba <- read_xlsx("Set_Prueba.xlsx")
+
+# Mostrar datos
+kable(Set_Prueba)
+```
+
+
+**Referencias**
+
+1.  Ousaa A, Elidrissi B, Ghamali M, Chtita S, Aouidate A, Bouachrine M, et al. QSAR Study of (5-Nitroheteroaryl-1,3,4-Thiadiazole-2-yl) Piperazinyl Derivatives to Predict New Similar Compounds as Antileishmanial Agents. Adv Phys Chem. 10 de septiembre de 2018;2018:1-10.
+2.  Tahghighi A, Hamzeh-Mivehroud M, Asadpour Zeynali K, Foroumadi A, Dastmalchi S. QSAR and docking studies on the (5-nitroheteroaryl-1,3,4-thiadiazole-2-yl) piperazinyl analogs with antileishmanial activity: QSAR and docking study on thiadiazole series as antileishmanial agents. J Chemom. mayo de 2016;30(5):284-93.
+3.  Frich M. Gaussian 03 Revisión B.01. Pitts-burgh, California, EE. UU.: Gaussian, Inc.; 2003.
+4.  ACDLABS 10. Toronto, Canadá: Advanced Chemistry Development, Inc.; 2015.

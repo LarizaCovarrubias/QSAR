@@ -45,6 +45,6 @@ Los datos de entrada utilizados en estudios quimioinformáticos desempeñan un p
 | BioPrint                                         | Libre          |
 | GOSTAR GVK BIO                                   | Comercial      |
 
-Tabla 1. Bases de datos que albergan información sobre estructuras químicas y sus actividades biológicas.
+Tabla 3.1. Bases de datos que albergan información sobre estructuras químicas y sus actividades biológicas.
 
 

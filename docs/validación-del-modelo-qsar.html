@@ -23,7 +23,7 @@
 <meta name="author" content="Betsaida L. Covarrubias" />
 
 
-<meta name="date" content="2023-09-08" />
+<meta name="date" content="2023-09-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="construcción-del-modelo.html"/>
-
+<link rel="next" href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -76,13 +76,14 @@
 <li><a href="./">Bitácora de Avances SSP</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Resumen del Libro “Quantitative Structure–Activity Relationship”</a></li>
-<li class="chapter" data-level="2" data-path="datos.html"><a href="datos.html"><i class="fa fa-check"></i><b>2</b> Datos</a></li>
-<li class="chapter" data-level="3" data-path="relación-cuantitativa-entre-estructura-y-actividad.html"><a href="relación-cuantitativa-entre-estructura-y-actividad.html"><i class="fa fa-check"></i><b>3</b> Relación cuantitativa entre estructura y actividad</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Explorando Conceptos Clave en QSAR: Resumen del libro “Quantitative Structure–Activity Relationship” por Siavoush Dastmalchi, Maryam Hamzeh-Mivehroud y Babak Sokout</a></li>
+<li class="chapter" data-level="2" data-path="relación-cuantitativa-entre-estructura-y-actividad.html"><a href="relación-cuantitativa-entre-estructura-y-actividad.html"><i class="fa fa-check"></i><b>2</b> Relación cuantitativa entre estructura y actividad</a></li>
+<li class="chapter" data-level="3" data-path="datos.html"><a href="datos.html"><i class="fa fa-check"></i><b>3</b> Datos</a></li>
 <li class="chapter" data-level="4" data-path="descriptores-moleculares.html"><a href="descriptores-moleculares.html"><i class="fa fa-check"></i><b>4</b> Descriptores moleculares</a></li>
 <li class="chapter" data-level="5" data-path="selección-de-descriptores.html"><a href="selección-de-descriptores.html"><i class="fa fa-check"></i><b>5</b> Selección de descriptores</a></li>
 <li class="chapter" data-level="6" data-path="construcción-del-modelo.html"><a href="construcción-del-modelo.html"><i class="fa fa-check"></i><b>6</b> Construcción del modelo</a></li>
 <li class="chapter" data-level="7" data-path="validación-del-modelo-qsar.html"><a href="validación-del-modelo-qsar.html"><i class="fa fa-check"></i><b>7</b> Validación del modelo QSAR</a></li>
+<li class="chapter" data-level="8" data-path="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html"><i class="fa fa-check"></i><b>8</b> Caso Práctico Modelo QSAR: Regresión Lineal Múltiple</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con GitHub</a></li>
 </ul>
@@ -166,8 +167,8 @@ Se recomienda juzgar la predictibilidad del modelo en base a las estadísticas <
 <p>Para determinar el dominio de aplicabilidad (AD) en los modelos QSAR, se han desarrollado diversas metodologías para estimar las regiones de interpolación en un espacio multivariado que abarca descriptores y valores de respuesta. Los métodos comunes son: (1) aquellos basados en rangos en el espacio de descriptores, o (2) en el rango de la variable de respuesta, (3) métodos geométricos, (4) métodos basados en distancias y (5) distribución de densidad de probabilidad.</p>
 <p>La Gráfica 1 muestra un ejemplo ilustrativo del AD. En ella se comparan los residuos estandarizados (las diferencias entre los valores predichos y observados) con los valores de influencia de un modelo QSAR. Estos valores de influencia indican la distancia a la que se encuentra cada compuesto del centroide (punto central) en un espacio de descriptores. Básicamente, representan la distancia entre el compuesto y el centro del grupo de compuestos similares en términos de descriptores. Para identificar los valores atípicos, se traza un área cuadrada alrededor de los puntos en la gráfica, y se consideran valores atípicos aquellos que se encuentran fuera de esta área, que se define en un rango de ± 3 desviaciones estándar, con un umbral de influencia de 0.3. Estos umbrales son valores arbitrarios para una gráfica de AD de Williams, como se muestra en la Gráfica 1.</p>
 <div class="float">
-<img src="AD.png" alt="Gráfica 1. Dominio de aplicabilidad para la determinación de valores atípicos mediante la gráfica de Williams. El valor atípico se observa trazando los residuos estandarizados frente a los valores de influencia." />
-<div class="figcaption">Gráfica 1. Dominio de aplicabilidad para la determinación de valores atípicos mediante la gráfica de Williams. El valor atípico se observa trazando los residuos estandarizados frente a los valores de influencia.</div>
+<img src="AD.png" alt="Gráfica 7.1. Dominio de aplicabilidad para la determinación de valores atípicos mediante la gráfica de Williams. El valor atípico se observa trazando los residuos estandarizados frente a los valores de influencia." />
+<div class="figcaption">Gráfica 7.1. Dominio de aplicabilidad para la determinación de valores atípicos mediante la gráfica de Williams. El valor atípico se observa trazando los residuos estandarizados frente a los valores de influencia.</div>
 </div>
 <p><strong>Software y herramientas</strong></p>
 <p>Las metodologías mencionadas anteriormente están disponibles en programas especializados o generales, ya sea de forma gratuita o comercial. Uno de los programas utilizados para el análisis y la validación QSAR es QSARINS. En él, se implementan todos los pasos necesarios para un análisis QSAR, incluido el análisis de datos, la selección de descriptores, el análisis y la validación del modelo, así como la selección del modelo. Ofrece métodos de validación como la cruzada interna y evaluaciones externas como RMSE, <span class="math inline">\(Q²_{F1}\)</span>, <span class="math inline">\(Q²_{F2}\)</span>, <span class="math inline">\(Q²_{F3}\)</span>, <span class="math inline">\(r²_m\)</span>, <span class="math inline">\(\Delta{r²_m}\)</span>, CCC y los criterios de Golbraikh y Tropsha.</p>
@@ -191,8 +192,8 @@ Se recomienda juzgar la predictibilidad del modelo en base a las estadísticas <
           </div>
         </div>
       </div>
-<a href="construcción-del-modelo.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="construcción-del-modelo.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -223,7 +224,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/Seccion6.Rmd",
+"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/Seccion7.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -231,7 +232,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/Seccion6.Rmd",
+"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/Seccion7.Rmd",
 "text": null
 },
 "download": null,

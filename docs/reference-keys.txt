@@ -10,3 +10,6 @@ explorando-conceptos-clave-en-qsar-resumen-del-libro-quantitative-structureactiv
 caso-práctico-modelo-qsar
 estadísticas-de-la-regresión
 caso-práctico-modelo-qsar-regresión-lineal-múultiple
+caso-práctico-modelo-qsar-regresión-lineal-múltiple
+tab:unnamed-chunk-2
+tab:unnamed-chunk-3
