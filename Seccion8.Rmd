@@ -1,284 +1,230 @@
+
 # Caso Práctico Modelo QSAR: Regresión Lineal Múltiple
 
-Este caso práctico se enfoca en la construcción de un modelo QSAR (Análisis Cuantitativo de Relación Estructura-Actividad) mediante regresión lineal múltiple (MLR). Los datos de partida se obtuvieron del artículo titulado "QSAR Study of (5-Nitroheteroaryl-1,3,4-Thiadiazole-2-yl) Piperazinyl Derivatives to Predict New Similar Compounds as Antileishmanial Agents" (1). En dicho artículo, se llevaron a cabo estudios QSAR que incluyeron análisis de componentes principales (PCA), regresión lineal múltiple (MLR), regresión no lineal (RNLM) y cálculos de redes neuronales artificiales (ANN) en una serie de 36 compuestos derivados de (5-Nitroheteroaryl-1,3,4-Thiadiazole-2-yl) Piperazinyl (2). El objetivo principal era identificar las características estructurales clave necesarias para diseñar nuevos candidatos potentes de esta clase para la actividad antileishmanial.
+Este caso práctico se enfoca en la construcción de un modelo QSAR (Análisis Cuantitativo de Relación Estructura-Actividad) mediante regresión lineal múltiple (MLR). Los datos de partida se obtuvieron del artículo titulado "QSAR Study of (5-Nitroheteroaryl-1,3,4-Thiadiazole-2-yl) Piperazinyl Derivatives to Predict New Similar Compounds as Antileishmanial Agents". En dicho artículo, se llevaron a cabo estudios QSAR que incluyeron análisis de componentes principales (PCA), regresión lineal múltiple (MLR), regresión no lineal (RNLM) y cálculos de redes neuronales artificiales (ANN) en una serie de 36 compuestos derivados de (5-Nitroheteroaryl-1,3,4-Thiadiazole-2-yl) Piperazinyl. El objetivo principal era identificar las características estructurales clave necesarias para diseñar nuevos candidatos potentes de esta clase para la actividad antileishmanial.
 
-En este caso práctico, nos proponemos comparar los resultados obtenidos en nuestro ejercicio con los del mencionado artículo, centrándonos específicamente en el método de regresión lineal múltiple.
+En este caso práctico, nos proponemos comparar los resultados obtenidos en nuestro ejercicio con los del mencionado artículo, en especial con en el método de regresión lineal múltiple.
 
-La estructura de este caso práctico se dividirá en las siguientes secciones: recopilación de datos, descripción de descriptores moleculares, selección de descriptores, construcción del modelo y validación del modelo.
+La estructura de este caso práctico se dividirá en las siguientes secciones: recopilación de datos, descripción de descriptores moleculares, construcción del modelo, validación del modelo y comparación de resultados.
 
-A diferencia del artículo de referencia, implementaremos el desarrollo del modelo utilizando Rstudio en lugar de XLSTAT versión 2013 que se utilizaron para predecir los efectos sobre la actividad antileishmania.
+En el artículo se realizaron múltiples regresiones lineales utilizando el software XLSTAT versión 2013 para predecir los efectos sobre la actividad antileishmania. Nosotros implementaremos el desarrollo del modelo utilizando Rstudio con tidymodels.
 
-**Datos**
+```{r}
+# Cargar librerias
+library(tidymodels) # Modelado de datos
+library(readxl) # Importar datos desde archivos Excel
+library(yardstick)
 
--   Fuente de datos
-
-La información sobre la actividad antileishmanial experimental ($pIC_{50}$ en μM) de 36 derivados de tiadiazol se ha recopilado de un estudio previo (2). Cabe destacar que los valores de $pIC_{50}$ para las 30 moléculas que componen el conjunto de entrenamiento del modelo oscilan en un rango que va desde 3,155 y 5,046. Los detalles sobre las moléculas y sus respectivas actividades biológicas calculadas experimentalmente ($pIC_{50}$) se presentan en la siguiente tabla.
+```
 
 ```{r setup, include=FALSE}
 # Establecer el directorio de trabajo actual
 knitr::opts_knit$set(root.dir = "/home/lariza/Documentos/CasoPracticoQSAR")
 ```
 
+**Datos**
 
-```{r}
-library(readxl)
-library(knitr)
+-   Fuente de datos
 
-# Cargar datos
-Valores_pIC50_Tiadiazoles <- read_xlsx("Valores_pIC50_Tiadiazoles.xlsx")
-
-# Dividir el conjunto de datos en partes y mostrarlo en una tabla
-partes <- split(Valores_pIC50_Tiadiazoles, rep(1:ceiling(nrow(Valores_pIC50_Tiadiazoles) / 9), each = 9, length.out = nrow(Valores_pIC50_Tiadiazoles)))
-tabla_datos <- do.call(cbind, partes)
-kable(tabla_datos)
-
-```
+La información sobre la actividad antileishmanial experimental ($pIC_{50}$ en μM) de 36 derivados de tiadiazol se ha recopilado de un estudio previo. Cabe destacar que los valores de $pIC_{50}$ para las 30 moléculas que componen el conjunto de entrenamiento del modelo oscilan en un rango que va desde 3,155 y 5,046. Los detalles sobre las moléculas y sus respectivas actividades biológicas calculadas experimentalmente ($pIC_{50}$) se presentan mas adelante.
 
 **Descriptores moleculares**
 
 -   Generación de descriptores
 
-Para calcular los descriptores electrónicos, los autores emplearon el paquete Gaussian03W (3). Las geometrías de los 36 derivados de tiadiazol se optimizaron mediante el método DFT (Teoría del Funcional de Densidad), una técnica teórica en química computacional utilizada para calcular propiedades electrónicas de las moléculas. Estos cálculos se realizaron utilizando el conjunto funcional B3LYP, que define las interacciones electrónicas en las moléculas, y la base 6-31G (d), un conjunto de funciones de base utilizado para aproximar las funciones de onda electrónica en los cálculos de DFT. Estos cálculos proporcionaron varios descriptores estructurales clave, incluyendo la energía orbital molecular ocupada más alta (HOMO), la energía orbital molecular desocupada más baja (LUMO), el momento dipolar (μ), la brecha de energía (ΔE) y la energía total.
+Para calcular los descriptores electrónicos, los autores emplearon el paquete Gaussian03. Las geometrías de los 36 derivados de tiadiazol se optimizaron mediante el método DFT (Teoría del Funcional de Densidad), una técnica teórica en química computacional utilizada para calcular propiedades electrónicas de las moléculas. Estos cálculos se realizaron utilizando el conjunto funcional B3LYP, que define las interacciones electrónicas en las moléculas, y la base 6-31G (d), un conjunto de funciones de base utilizado para aproximar las funciones de onda electrónica en los cálculos de DFT. Estos cálculos proporcionaron varios descriptores estructurales clave, incluyendo la energía orbital molecular ocupada más alta (HOMO), la energía orbital molecular desocupada más baja (LUMO), el momento dipolar (μ), la brecha de energía (ΔE) y la energía total.
 
-Por otro lado, para calcular una serie de descriptores moleculares adicionales, como el volumen molar MV (cm³), el peso molecular MW (g/mol), la refractividad molar MR (cm³), el parachor Pc (cm³), la densidad D (g/cm³), el índice de refracción n y el coeficiente de partición octanol/agua (logP), se utilizó el programa ChemSketch (4). Los valores de los 12 descriptores químicos calculados se presentan en la siguiente tabla.
+Por otro lado, para calcular una serie de descriptores moleculares adicionales, como el volumen molar MV (cm³), el peso molecular MW (g/mol), la refractividad molar MR (cm³), el parachor Pc (cm³), la densidad D (g/cm³), el índice de refracción n y el coeficiente de partición octanol/agua (logP), se utilizó el programa ChemSketch. Los valores de los 12 descriptores químicos calculados se presentan en la siguiente tabla junto con sus respectivas actividades biológicas calculadas experimentalmente ($pIC_{50}$).
+
 
 ```{r}
-library(kableExtra)
-
-# Cargar datos
+# Cargar datos con los valores de los parametros (descriptores)
 Valores_Parametros_Tiadiazoles <- read_xlsx("Valores_Parametros_Tiadiazoles.xlsx")
 
-# Mostrar datos
-kable(Valores_Parametros_Tiadiazoles, format = "html", table.attr = 'style="font-size: 69%;"')
+Valores_Parametros_Tiadiazoles
 ```
 
-**Selección de descriptores**
-
--   División set de entrenamiento y set de prueba
-
-Los investigadores dividieron el conjunto de datos aleatoriamente en dos grupos: un conjunto de entrenamiento, que consta de treinta moléculas, se utilizó para construir el modelo cuantitativo. Las moléculas restantes (2, 3, 10, 11, 17 y 18) se reservaron para evaluar el rendimiento del modelo propuesto en un conjunto de prueba.
-
--   Análisis PCA
-
-Se empleó el análisis de componentes principales (PCA) para evaluar la no linealidad y la multicolinealidad entre las variables, y para identificar aquellos descriptores que presentaran correlaciones significativas con la actividad.
+La columna "N" en los datos originales es un identificador. Por ahora no la necesitamos.
 
 ```{r}
-library(dplyr)
+# Crear un nuevo conjunto de datos sin la columna "N"
+Valores_Parametros_Tiadiazoles_SID <- Valores_Parametros_Tiadiazoles %>%
+  select(-N)
 
-# Seleccionar columnas numéricas
-variables_pca <- Valores_Parametros_Tiadiazoles %>%
-  select_if(is.numeric)
+# Crear un tibble con los datos
+data <- Valores_Parametros_Tiadiazoles_SID %>%
+  as_tibble()
 
-# Excluir pIC50
-#variables_pca$pIC50 <- NULL
-
-# Realizar PCA
-resultado_pca <- prcomp(variables_pca, scale. = TRUE)
-
-# Resumen PCA
-summary(resultado_pca)
-
-# Visualizar PCA
-biplot(resultado_pca)
+# Análisis de las variables
+glimpse(data)
 ```
 
-En base a los resultados del análisis de componentes principales (PCA), podemos concluir que los primeros cinco componentes principales (PC1 a PC5) capturan aproximadamente el 90.22% de la varianza total en los datos. Estos componentes tienen desviaciones estándar significativas y explican una cantidad sustancial de la variabilidad. Por otro lado, los componentes PC6 a PC13, con desviaciones estándar más pequeñas y proporciones de varianza muy bajas, parecen tener una contribución marginal y podrían ser excluidos para simplificar aún más el modelo sin comprometer la representación esencial de los datos.
+**Construccion del modelo**
 
-Es importante destacar que en este análisis se incluyó la actividad biológica, para explorar las relaciones entre la actividad y los descriptores en el mismo espacio de componentes principales, permitiendo comprender las relaciones entre los descriptores y la actividad biológica. Sin embargo, si se busca un enfoque diferente, como la reducción de dimensionalidad y la exploración de patrones en los descriptores moleculares por sí mismos, es posible realizar el PCA sin incluir la actividad biológica. La elección de incluir o excluir esta variable debe basarse en los objetivos específicos de la investigación y las necesidades del análisis.
+- División de datos para nuestro caso práctico
 
--   Matriz de correlación
+Los investigadores dividieron el conjunto de datos aleatoriamente en dos grupos: un conjunto de entrenamiento, que consta de treinta moléculas, se utilizó para construir el modelo cuantitativo. Las moléculas restantes (2, 3, 10, 11, 17 y 18) se reservaron para evaluar el rendimiento del modelo propuesto en un conjunto de prueba. 
+
+En nuestro caso, la división de los datos también se realizará de forma aleatoria, como se muestra a continuación: 
+
 
 ```{r}
-library(corrplot)
+# Establecer método de selección de datos de forma aleatoria
 
-# Seleccionar columnas numéricas
-variables_matriz_de_correlacion <- Valores_Parametros_Tiadiazoles %>% 
-  select_if(is.numeric)
+# set.seed permite que el análisis sea reproducible cuando se utilizan 
+# números aleatorios
+set.seed(123)
 
-# Calcular matriz de correlación 
-matriz_correlacion <- cor(variables_matriz_de_correlacion)
+# Establecer 80% de los datos en el conjunto de entrenamiento
+data_split <- initial_split(data, prop = 0.80)
+# Mostrar objeto con información sobre la partición
+data_split
 
-# Redondear la matriz de correlación a 3 decimales
-matriz_correlacion_3d<- round(matriz_correlacion, digits = 3)
-
-# Mostrar datos
-kable(matriz_correlacion_3d, format = "html", table.attr = 'style="font-size: 60%;"')
-
-# Visualizar matriz de correlación
-corrplot(matriz_correlacion, method = "color", type = "lower", tl.cex = 0.7)
+# Para obtener los conjuntos de datos resultantes
+data_train <- training(data_split)
+data_test  <- testing(data_split)
+# Mostrar dimensiones (número de filas y columnas) 
+dim(data_train)
+dim(data_test)
 ```
 
-La matriz de correlación indica que existen correlaciones moderadas entre algunas variables, pero no hay una correlación extrema que sugiera una multicolinealidad severa. Es decir, las variables están relacionadas de manera moderada, pero no en exceso, lo que permite considerar múltiples variables en un modelo sin preocuparse por una colinealidad extrema.
+En el artículo, los investigadores utilizaron los descriptores obtenidos para desarrollar un modelo lineal con el propósito de predecir los efectos de los sustituyentes sobre la actividad antileishmania de 30 derivados de tiadiazol (conjunto de entrenamiento) mediante la selección hacia atrás en el MLR. La mejor combinación lineal obtenida incluye tres descriptores seleccionados: la energía Elumo, la energía Ehomo y el coeficiente de partición octanol/agua logP. Las ecuaciones de los modelos se justifican principalmente por el coeficiente de correlación (R), el error cuadrático medio (MSE), la estadística F de Fisher y el nivel de significancia (valor p).
 
-**Construcción del modelo**
+En nuestro caso práctico, optamos por realizar el análisis y desarrollo del modelo con MLR directamente en RStudio, una plataforma ampliamente utilizada para estadísticas y análisis de datos. A continuación, presentaremos el procedimiento.
 
--   Regresión lineal múltiple del artículo
-
-En el artículo, los investigadores utilizaron los descriptores obtenidos para desarrollar un modelo lineal con el propósito de predecir los efectos de los sustituyentes sobre la actividad antileishmania de 30 derivados de tiadiazol (conjunto de entrenamiento) mediante la selección hacia atrás en el MLR. La mejor combinación lineal obtenida incluye tres descriptores seleccionados: la energía Elumo, la energía Ehomo y el coeficiente de partición octanol/agua logP.
-
-Se realizaron múltiples regresiones lineales utilizando el software XLSTAT versión 2013 para predecir los efectos sobre la actividad antileishmania, como se describe en el artículo. Las ecuaciones de los modelos se justifican principalmente por el coeficiente de correlación (R), el error cuadrático medio (MSE), la estadística F de Fisher y el nivel de significancia (valor p). Los resultados por parte de los investigadores en el artículo se muestran a continuación:
-
-Ecuación: 
-\[pIC_{50} = 2.0453-0.6673 E_{homo} + 0.7821 E_{lumo} + 0.1898 logP\]
+-   Generación modelo MLR
 
 ```{r}
-informacion_modeloMLR_articulo <- data.frame(
-  Variable = c("N", "R", "MSE", "F", "p-valor"),
-  Valor = c(30, 0.750, 0.119, 11.43, "<0.0001")
-)
+# parsnip_addin()
+# Crear el de modelo y motor
+lm_model <- 
+  linear_reg() %>% 
+   set_engine("lm") 
 
-# Mostrar información
-kable(informacion_modeloMLR_articulo, align = "c")
+# Flujo de trabajo
+lm_wflow <- 
+  workflow() %>% 
+  add_model(lm_model) %>% 
+  add_variables(outcome = pIC50, predictors = c(Ehomo, Elumo, logP))
+
+# Ajustar el modelo al conjunto de entrenamiento
+lm_fit <- 
+  fit(lm_wflow, data_train)
+lm_fit
+
 ```
-
--   Regresión lineal múltiple de nuestro caso práctico
-
-En nuestro caso práctico, optamos por realizar el análisis y desarrollo del modelo directamente en RStudio, una plataforma ampliamente utilizada para estadísticas y análisis de datos. A continuación, presentaremos el procedimiento.
-
-  - Conjunto de datos para entrenamiento
-```{r}
-# Cargar datos
-Set_Entrenamiento <- read_xlsx("Set_Entrenamiento.xlsx")
-
-# Mostrar datos
-kable(Set_Entrenamiento)
-```
-
-  - Generación modelo MLR
-```{r}
-# Excluir columna N (columna de identificacón de las moléculas)
-Set_Entrenamiento$N <- NULL
-
-# Ajustar el modelo de regresión múltiple
-modeloMLR <- lm(pIC50 ~ Ehomo + Elumo + logP, data = Set_Entrenamiento)
-
-# Resumen del modelo
-summary(modeloMLR)
-```
-La ecuación resultante del modelo es: 
-
-\[pIC_{50} = 2.0323-0.6671 E_{homo} + 0.7776 E_{lumo} + 0.1903 logP\]
-
-Para una comparación directa de resultados, generamos la misma información que los investigadores en el estudio, como se muestra a continuación: 
-```{r}
-# Número de compuestos (N)
-N <- length(modeloMLR$fitted.values)
-# Coeficiente de correlación (R)
-R <- sqrt(summary(modeloMLR)$r.squared)
-# Error cuadrático medio (MSE)
-MSE <- summary(modeloMLR)$sigma^2
-# Criterio de Fisher (F)
-Fisher <- summary(modeloMLR)$fstatistic[1]
-# Nivel de significancia (p-valor)
-p.valor <- pf(Fisher, summary(modeloMLR)$fstatistic[2], summary(modeloMLR)$fstatistic[3], lower.tail = FALSE)
-
-# Dataframe con la información
-informacion_modeloMLR <- data.frame(
-  Variable = c("N", "R", "MSE", "F", "p-valor"),
-  Valor = c(N, R, MSE, Fisher, p.valor)
-)
-# Mostrar información
-kable(informacion_modeloMLR, align = "c")
-```
-
-  - Comparación de resultados
-
-Ecuación generada con XLSTAT:
-\[pIC_{50} = 2.0453-0.6673 E_{homo} + 0.7821 E_{lumo} + 0.1898 logP\]
-
-Ecuación generada con Rstudio:
-\[pIC_{50} = 2.0323-0.6671 E_{homo} + 0.7776 E_{lumo} + 0.1903 logP\]
+-  Para comparar con este modelo lineal, también podemos ajustar un tipo diferente de modelo. Por ejemplo un modelo bosque aleatorio:
 
 ```{r}
-# Combinar tablas por la columna 'Variable'
-tabla_comparativa <- merge(informacion_modeloMLR_articulo, informacion_modeloMLR, by = "Variable", all = TRUE)
+rf_model <- 
+  rand_forest(trees = 1000) %>% 
+  set_engine("ranger") %>% 
+  set_mode("regression")
 
-# Renombra las columnas para mayor claridad
-colnames(tabla_comparativa) <- c("Variable", "Valor XLSTAT", "Valor Rstudio")
+rf_wflow <- 
+  workflow() %>% 
+ add_variables(outcome = pIC50, predictors = c(Ehomo, Elumo, logP)) %>% 
+  add_model(rf_model) 
 
-# Muestra la tabla comparativa
-kable(tabla_comparativa, align = "c")
+rf_fit <- rf_wflow %>% fit(data = data_train)
 ```
 
+**Evaluar el desempeño**
 
-**Validación del modelo**
+- Enfoque de resustitución
 
-- Validación Interna de nuestro caso práctico
-
-Se llevó a cabo la validación cruzada interna dejando uno fuera (también conocida como "leave-one-out cross-validation" o LOOCV). LOOCV es un caso especial de validación cruzada en el que se entrena el modelo con todos los datos excepto uno y se evalúa en ese único punto excluido. Este proceso se repite para cada punto de datos, lo que garantiza que cada punto se excluya una vez. 
+Cuando medimos el rendimiento con los mismos datos que utilizamos para el entrenamiento (a diferencia de datos nuevos o datos de prueba), decimos que hemos resustituido los datos.
 
 ```{r}
-library(data.table)
-library(caret)
+# Definir la función estimate_perf modificada
+estimate_perf <- function(model, dat) {
+  # Capturar los nombres de los objetos `model` y `dat`
+  cl <- match.call() # Captura la llamada a la función y sus argumentos
+  obj_name <- as.character(cl$model) # Obtiene el nombre del objeto 'model' como texto
+  data_name <- as.character(cl$dat) # Obtiene el nombre del objeto 'dat' como texto
+  
+  # Calcular métricas:
+  reg_metrics <- metric_set(rmse, rsq) # Error cuadrático medio y coeficiente de determinación
 
-# Excluir columna N (columna de identificación de las moléculas)
-Set_Entrenamiento$N <- NULL
-
-# Crear un controlador para la validación cruzada dejando uno fuera
-control <- trainControl(method = "LOOCV")
-
-# Ajustar el modelo de regresión múltiple con LOOCV
-modeloMLR_cv <- train(pIC50 ~ Ehomo + Elumo + logP, data = Set_Entrenamiento, method = "lm", trControl = control)
-
-# Ver los resultados
-print(modeloMLR_cv)
-summary(modeloMLR_cv$finalModel)
+  
+  model %>%
+    predict(dat) %>% # Realiza predicciones del modelo en el conjunto de datos 'dat'
+    bind_cols(dat %>% select(pIC50)) %>% # Combina las predicciones con la columna 'pIC50' del conjunto de datos
+    reg_metrics(pIC50, .pred) %>% # Calcula las métricas RMSE y RSQ usando 'pIC50' como verdad y '.pred' como estimaciones
+    select(-.estimator) %>% # Elimina la columna '.estimator' generada durante el cálculo de las métricas
+    mutate(object = obj_name, data = data_name) # Agrega las columnas 'object' y 'data' con los nombres de los objetos
+}
 ```
-Un buen valor de Rcv (Coeficiente de correlación en la validacion cruzada interna) de diez indica que el modelo tiene robustez y alto poder predictivo interno en el conjunto de datos utilizado.
 
-Sin embargo, es importante tener en cuenta que el valor de Rcv no siempre está correlacionado con el poder predictivo real de un modelo QSAR en sustancias químicas nuevas. Esto significa que Rcv podría no ser una estimación confiable del poder predictivo del modelo para todas las sustancias químicas. Para una evaluación más confiable del poder predictivo, se requiere un conjunto de validación externa que no se haya utilizado en el desarrollo del modelo.
-
-Para mejorar la capacidad predictiva de los modelos QSAR, se calculan un conjunto de métricas llamadas "métricas $r²_{m}$". Estas métricas evalúan qué tan cerca están las predicciones del modelo de los valores reales observados en los datos. En la actualidad, se calculan dos versiones de estas métricas: una que llamamos "$r²_{m}$" y otra llamada "$\Delta r²_{m}$". Ambas se utilizan tanto en la validación interna (conjunto de entrenamiento) como en la validación externa (conjunto de prueba) de los modelos QSAR.
-
-Para considerar que un modelo QSAR es aceptable, el valor de "$\bar{r²_{m}}$" debe ser mayor que 0.5, lo que indica una buena concordancia entre las predicciones y los valores reales. Además, el valor de "$\Delta r²_{m}$" debe ser menor que 0.2, lo que sugiere una pequeña diferencia entre las dos versiones de métricas. Estos criterios son importantes para evaluar la calidad de un modelo QSAR y su capacidad para predecir de manera precisa. 
-
-A continuación se muestran los cálculos de Rvc, y las métricas $r²_{m}$:
+Tanto RMSE como $R^{2}$ se calculan. Las estadísticas de resustitución son: 
 
 ```{r}
-
-# Obtener las predicciones del modelo para el conjunto de entrenamiento
-predicciones <- predict(modeloMLR_cv, Set_Entrenamiento)
-
-# Obtener el Rcv (Coeficiente de correlación) 
-Rcv <- cor(predicciones, Set_Entrenamiento$pIC50)
-
-# Calcular r²m (R cuadrado subíndice m)
-r2_m <- 1 - sum((Set_Entrenamiento$pIC50 - predicciones)^2) / sum((Set_Entrenamiento$pIC50 - mean(Set_Entrenamiento$pIC50))^2)
-
-# Definir el valor de r'²m (valor de referencia o alternativo)
-r2_m_ref <- 0.75
-
-# Calcular la diferencia absoluta entre r²m y r'²m
-Delta_r2_m <- abs(r2_m - r2_m_ref)
-
-# Calcular el promedio de r²m y r'²m
-Promedio_r2_m <- (r2_m + r2_m_ref) / 2
-
-# Tabla con resultados
-tabla_resultados <- data.frame(
-  "Medida" = c("Rcv (Coeficiente de correlación) ", "r²m (R cuadrado subíndice m)", 
-               "r'²m (valor de referencia o alternativo)", "Δr²m (Diferencia absoluta entre r²m y r'²m)", 
-               "Promedio de r²m y r'²m"),
-  "Valor" = c(Rcv, r2_m, r2_m_ref, Delta_r2_m, Promedio_r2_m)
-)
-
-# Mostrar tabla
-knitr::kable(tabla_resultados)
+estimate_perf(lm_fit, data_train)
+estimate_perf(rf_fit, data_train)
 ```
 
-- Validación Externa  
+En base a estos resultados, el bosque aleatorio es mucho más capaz de predecir.
+
+Apliquemos el modelo de bosque aleatorio al conjunto de prueba:
+
 ```{r}
-# Cargar datos
-Set_Prueba <- read_xlsx("Set_Prueba.xlsx")
+estimate_perf(rf_fit, data_test)
+```
+El modelo parece funcionar mucho mejor en los datos con los que se entrenó que en datos de prueba. 
+La discrepancia en el rendimiento entre el conjunto de entrenamiento y el conjunto de prueba puede deberse a la capacidad del modelo para adaptarse a patrones complejos en los datos de entrenamiento, pero esto no garantiza que funcione igual de bien en datos nuevos o desconocidos. Esto es un ejemplo de un posible problema de sobreajuste (overfitting), donde el modelo se ajusta demasiado a los datos de entrenamiento y no generaliza bien a nuevos datos.
 
-# Mostrar datos
-kable(Set_Prueba)
+Al repredecir los datos del conjunto de entrenamiento, la estimación de rendimiento parece demasiado optimista y no es representativa del rendimiento real del modelo. Esto no es recomendable para la mayoría de los modelos.
+
+Tampocoo debemos usar directamente los datos de prueba. Entonces, si no debemos usar directamente los datos de prueba ni repredecir las predicciones en el conjunto de entrenamiento, la solución está en utilizar métodos de remuestreo, como la validación cruzada o los conjuntos de validación. Estos métodos nos permiten obtener una evaluación más precisa y realista del rendimiento de nuestro modelo sin caer en la trampa de la sobreajuste que se produce al repredecir el conjunto de entrenamiento.
+
+- Método de remuestreo
+
+Los métodos de remuestreo son técnicas que simulan cómo se utiliza un conjunto de datos para entrenar y evaluar un modelo. La mayoría de los métodos de remuestreo son iterativos, lo que significa que este proceso se repite varias veces. Para cada iteración de remuestreo, los datos se dividen en dos submuestras:
+
+1. Se entrena el modelo con una parte de los datos.
+2. Se evalúa el modelo con la otra parte de los datos.
+
+Estas partes son similares a los conjuntos de entrenamiento y prueba.
+
+- Método de remuestreo
+  - Validación cruzada
+
+La validación cruzada es una técnica fundamental en el aprendizaje automático que mejora la evaluación de modelos al dividir los datos en varios subconjuntos y realizar ciclos de entrenamiento y evaluación. Esto proporciona una evaluación más sólida del rendimiento del modelo y su capacidad de adaptación a nuevos datos.
+
+La elección de un número adecuado de "pliegues" es crucial. Un mayor número de pliegues da como resultado estimaciones con un sesgo pequeño pero con una varianza considerable. En cambio, un menor número de pliegues introduce un sesgo mayor pero con una variación más baja. En este caso, tomamos un valor de 10, ya que la replicación reduce el ruido, pero no el sesgo.
+
+```{r}
+set.seed(1001)
+data_folds <- vfold_cv(data_train, v = 10)
+data_folds
+```
+```{r}
+data_folds$splits[[1]] %>% analysis() %>% dim()
+```
+
+Alrededor de 25 muestras están en el conjunto de análisis y 13 están en ese conjunto de evaluación en particular.
+
+Guardemos las predicciones para visualizar el ajuste y los residuos del modelo:
+
+```{r}
+keep_pred <- control_resamples(save_pred = TRUE, save_workflow = TRUE)
+
+set.seed(1003)
+rf_res <- 
+  rf_wflow %>% 
+  fit_resamples(resamples = data_folds, control = keep_pred)
+rf_res
+collect_metrics(rf_res)
+```
+
+Las estimaciones de desempeño son mas realistas que las estimaciones de resustitución.
+
+Para obtener las predicciones del conjunto de evaluación:
+
+```{r}
+assess_res <- collect_predictions(rf_res)
+assess_res
 ```
 
 
-**Referencias**
 
-1.  Ousaa A, Elidrissi B, Ghamali M, Chtita S, Aouidate A, Bouachrine M, et al. QSAR Study of (5-Nitroheteroaryl-1,3,4-Thiadiazole-2-yl) Piperazinyl Derivatives to Predict New Similar Compounds as Antileishmanial Agents. Adv Phys Chem. 10 de septiembre de 2018;2018:1-10.
-2.  Tahghighi A, Hamzeh-Mivehroud M, Asadpour Zeynali K, Foroumadi A, Dastmalchi S. QSAR and docking studies on the (5-nitroheteroaryl-1,3,4-thiadiazole-2-yl) piperazinyl analogs with antileishmanial activity: QSAR and docking study on thiadiazole series as antileishmanial agents. J Chemom. mayo de 2016;30(5):284-93.
-3.  Frich M. Gaussian 03 Revisión B.01. Pitts-burgh, California, EE. UU.: Gaussian, Inc.; 2003.
-4.  ACDLABS 10. Toronto, Canadá: Advanced Chemistry Development, Inc.; 2015.

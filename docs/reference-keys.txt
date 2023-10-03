@@ -1,15 +1,8 @@
+explorando-conceptos-clave-en-qsar-resumen-del-libro-quantitative-structureactivity-relationship-por-siavoush-dastmalchi-maryam-hamzeh-mivehroud-y-babak-sokout
 relación-cuantitativa-entre-estructura-y-actividad
 datos
 descriptores-moleculares
 selección-de-descriptores
 construcción-del-modelo
 validación-del-modelo-qsar
-resumen-del-libro-quantitative-structureactivity-relationship
-abordaje-de-temas-clave-del-libro-quantitative-structureactivity-relationship-por-siavoush-dastmalchi-maryam-hamzeh-mivehroud-y-babak-sokout
-explorando-conceptos-clave-en-qsar-resumen-del-libro-quantitative-structureactivity-relationship-por-siavoush-dastmalchi-maryam-hamzeh-mivehroud-y-babak-sokout
-caso-práctico-modelo-qsar
-estadísticas-de-la-regresión
-caso-práctico-modelo-qsar-regresión-lineal-múultiple
 caso-práctico-modelo-qsar-regresión-lineal-múltiple
-tab:unnamed-chunk-2
-tab:unnamed-chunk-3
