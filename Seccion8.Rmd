@@ -51,7 +51,7 @@ La columna "N" en los datos originales es un identificador. Por ahora no la nece
 Valores_Parametros_Tiadiazoles_SID <- Valores_Parametros_Tiadiazoles %>%
   select(-N)
 
-# Crear un tibble con los datos
+# Tibble con los datos
 data <- Valores_Parametros_Tiadiazoles_SID %>%
   as_tibble()
 
@@ -90,13 +90,13 @@ dim(data_test)
 
 En el artículo, los investigadores utilizaron los descriptores obtenidos para desarrollar un modelo lineal con el propósito de predecir los efectos de los sustituyentes sobre la actividad antileishmania de 30 derivados de tiadiazol (conjunto de entrenamiento) mediante la selección hacia atrás en el MLR. La mejor combinación lineal obtenida incluye tres descriptores seleccionados: la energía Elumo, la energía Ehomo y el coeficiente de partición octanol/agua logP. Las ecuaciones de los modelos se justifican principalmente por el coeficiente de correlación (R), el error cuadrático medio (MSE), la estadística F de Fisher y el nivel de significancia (valor p).
 
-En nuestro caso práctico, optamos por realizar el análisis y desarrollo del modelo con MLR directamente en RStudio, una plataforma ampliamente utilizada para estadísticas y análisis de datos. A continuación, presentaremos el procedimiento.
+En nuestro caso práctico, optamos por realizar el análisis y desarrollo del modelo directamente en RStudio, una plataforma ampliamente utilizada para estadísticas y análisis de datos.
 
 -   Generación modelo MLR
 
 ```{r}
-# parsnip_addin()
-# Crear el de modelo y motor
+#parsnip_addin()
+# Modelo y motor
 lm_model <- 
   linear_reg() %>% 
    set_engine("lm") 
@@ -107,7 +107,7 @@ lm_wflow <-
   add_model(lm_model) %>% 
   add_variables(outcome = pIC50, predictors = c(Ehomo, Elumo, logP))
 
-# Ajustar el modelo al conjunto de entrenamiento
+# Ajuste del modelo al conjunto de entrenamiento
 lm_fit <- 
   fit(lm_wflow, data_train)
 lm_fit
@@ -126,8 +126,11 @@ rf_wflow <-
  add_variables(outcome = pIC50, predictors = c(Ehomo, Elumo, logP)) %>% 
   add_model(rf_model) 
 
-rf_fit <- rf_wflow %>% fit(data = data_train)
+rf_fit <- 
+  rf_wflow %>%
+  fit(data = data_train)
 ```
+
 
 **Evaluar el desempeño**
 
@@ -165,17 +168,17 @@ estimate_perf(rf_fit, data_train)
 
 En base a estos resultados, el bosque aleatorio es mucho más capaz de predecir.
 
-Apliquemos el modelo de bosque aleatorio al conjunto de prueba:
+Apliquemos el modelo de regresion lineal y bosque aleatorio al conjunto de prueba:
 
 ```{r}
+estimate_perf(lm_fit, data_test)
 estimate_perf(rf_fit, data_test)
 ```
-El modelo parece funcionar mucho mejor en los datos con los que se entrenó que en datos de prueba. 
-La discrepancia en el rendimiento entre el conjunto de entrenamiento y el conjunto de prueba puede deberse a la capacidad del modelo para adaptarse a patrones complejos en los datos de entrenamiento, pero esto no garantiza que funcione igual de bien en datos nuevos o desconocidos. Esto es un ejemplo de un posible problema de sobreajuste (overfitting), donde el modelo se ajusta demasiado a los datos de entrenamiento y no generaliza bien a nuevos datos.
+El modelo de regresión lineal es mas consistente entre el entrenamiento y las pruebas, esto puede deberse a su complejidad limitada. Por otro lado, el modelo de bosque aleatorio parece funcionar mucho mejor en los datos con los que se entrenó que en datos de prueba, su discrepancia en el rendimiento entre el conjunto de entrenamiento y el conjunto de prueba puede deberse a la capacidad del modelo para adaptarse a patrones complejos en los datos de entrenamiento, pero esto no garantiza que funcione igual de bien en datos nuevos o desconocidos. Esto es un ejemplo de un posible problema de sobreajuste (overfitting), donde el modelo se ajusta demasiado a los datos de entrenamiento y no generaliza bien a nuevos datos.
 
 Al repredecir los datos del conjunto de entrenamiento, la estimación de rendimiento parece demasiado optimista y no es representativa del rendimiento real del modelo. Esto no es recomendable para la mayoría de los modelos.
 
-Tampocoo debemos usar directamente los datos de prueba. Entonces, si no debemos usar directamente los datos de prueba ni repredecir las predicciones en el conjunto de entrenamiento, la solución está en utilizar métodos de remuestreo, como la validación cruzada o los conjuntos de validación. Estos métodos nos permiten obtener una evaluación más precisa y realista del rendimiento de nuestro modelo sin caer en la trampa de la sobreajuste que se produce al repredecir el conjunto de entrenamiento.
+Tampoco debemos usar directamente los datos de prueba. Entonces, si no debemos usar directamente los datos de prueba ni repredecir las predicciones en el conjunto de entrenamiento, la solución está en utilizar métodos de remuestreo, como la validación cruzada o los conjuntos de validación. Estos métodos nos permiten obtener una evaluación más precisa y realista del rendimiento de nuestro modelo sin caer en la trampa de la sobreajuste que se produce al repredecir el conjunto de entrenamiento.
 
 - Método de remuestreo
 
@@ -184,7 +187,7 @@ Los métodos de remuestreo son técnicas que simulan cómo se utiliza un conjunt
 1. Se entrena el modelo con una parte de los datos.
 2. Se evalúa el modelo con la otra parte de los datos.
 
-Estas partes son similares a los conjuntos de entrenamiento y prueba.
+Estas partes son similares a los conjuntos de entrenamiento y prueba. Nos permite determinar qué tan bien funciona el modelo sin utilizar el conjunto de prueba.
 
 - Método de remuestreo
   - Validación cruzada
@@ -202,29 +205,41 @@ data_folds
 data_folds$splits[[1]] %>% analysis() %>% dim()
 ```
 
-Alrededor de 25 muestras están en el conjunto de análisis y 13 están en ese conjunto de evaluación en particular.
+25 muestras están en el conjunto de análisis y 13 están en ese conjunto de evaluación en particular.
 
 Guardemos las predicciones para visualizar el ajuste y los residuos del modelo:
 
 ```{r}
 keep_pred <- control_resamples(save_pred = TRUE, save_workflow = TRUE)
+#De esta manera, tanto lm_res como rf_res contendrán las predicciones y flujos de trabajo para sus respectivos modelos, pero ambos utilizarán el mismo objeto keep_pred.
 
+#Modelo regresion lineal
+set.seed(1003)
+lm_res <- 
+  lm_wflow %>% 
+  fit_resamples(resamples = data_folds, control = keep_pred)
+lm_res
+collect_metrics(lm_res)
+
+#Modelo bosque aleatorio
 set.seed(1003)
 rf_res <- 
   rf_wflow %>% 
   fit_resamples(resamples = data_folds, control = keep_pred)
 rf_res
 collect_metrics(rf_res)
+
+
 ```
 
-Las estimaciones de desempeño son mas realistas que las estimaciones de resustitución.
+En este caso, las estimaciones de desempeño son mas realistas que las estimaciones de resustitución.
 
 Para obtener las predicciones del conjunto de evaluación:
 
 ```{r}
-assess_res <- collect_predictions(rf_res)
-assess_res
+assess_res_lm <- collect_predictions(lm_res)
+assess_res_lm
+assess_res_rf <- collect_predictions(rf_res)
+assess_res_rf
 ```
-
-
 

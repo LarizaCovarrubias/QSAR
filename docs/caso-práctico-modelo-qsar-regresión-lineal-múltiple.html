@@ -23,7 +23,7 @@
 <meta name="author" content="Betsaida L. Covarrubias" />
 
 
-<meta name="date" content="2023-10-03" />
+<meta name="date" content="2023-10-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -189,7 +189,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ✖ dplyr::filter()  masks stats::filter()
 ## ✖ dplyr::lag()     masks stats::lag()
 ## ✖ recipes::step()  masks stats::step()
-## • Search for functions across packages at https://www.tidymodels.org/find/</code></pre>
+## • Learn how to get started at https://www.tidymodels.org/start/</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb5-1" tabindex="-1"></a><span class="fu">library</span>(readxl) <span class="co"># Importar datos desde archivos Excel</span></span>
 <span id="cb5-2"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb5-2" tabindex="-1"></a><span class="fu">library</span>(yardstick)</span></code></pre></div>
 <p><strong>Datos</strong></p>
@@ -208,26 +208,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-3"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb6-3" tabindex="-1"></a></span>
 <span id="cb6-4"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb6-4" tabindex="-1"></a>Valores_Parametros_Tiadiazoles</span></code></pre></div>
 <pre><code>## # A tibble: 36 × 14
-##        N pIC50    MW    MR    MV    Pc    nn     D       Et Ehomo Elumo    ΔE
-##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1     1  4.93  385.  97.7  266.  36.6  1.66  1.45  -44405. -6.59 -2.84  3.75
-##  2     2  4.97  420. 103.   278.  34.4  1.66  1.51  -56919. -6.7  -2.85  3.85
-##  3     3  4.88  420. 103.   278.  34.4  1.66  1.51  -56919. -6.41 -2.92  3.49
-##  4     4  4.58  420. 103.   278.  34.4  1.66  1.51  -56920. -6.69 -2.88  3.82
-##  5     5  4.72  391.  96.0  255.  42.8  1.68  1.53  -53139. -6.38 -3.08  3.3 
-##  6     6  4.92  426. 101.   267   40.1  1.68  1.59  -65654. -6.7  -2.88  3.82
-##  7     7  4.88  470. 104.   271.  46.0  1.69  1.73 -123150. -6.65 -2.87  3.78
-##  8     8  4.60  401. 104.   272.  36.7  1.69  1.47  -53199. -6.37 -2.48  3.89
-##  9     9  4.46  436. 109.   284.  34.5  1.69  1.53  -65714. -6.69 -2.93  3.76
-## 10    10  4.22  436. 109.   284.  34.5  1.69  1.53  -65714. -6.7  -2.96  3.74
+##        N pIC50    MW    MR    MV    Pc     n     D       Et Ehomo Elumo DeltaE
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+##  1     1  4.93  385.  97.7  266.  36.6  1.66  1.45  -44405. -6.59 -2.84   3.75
+##  2     2  4.97  420. 103.   278.  34.4  1.66  1.51  -56919. -6.7  -2.85   3.85
+##  3     3  4.88  420. 103.   278.  34.4  1.66  1.51  -56919. -6.41 -2.92   3.49
+##  4     4  4.58  420. 103.   278.  34.4  1.66  1.51  -56920. -6.69 -2.88   3.82
+##  5     5  4.72  391.  96.0  255.  42.8  1.68  1.53  -53139. -6.38 -3.08   3.3 
+##  6     6  4.92  426. 101.   267   40.1  1.68  1.59  -65654. -6.7  -2.88   3.82
+##  7     7  4.88  470. 104.   271.  46.0  1.69  1.73 -123150. -6.65 -2.87   3.78
+##  8     8  4.60  401. 104.   272.  36.7  1.69  1.47  -53199. -6.37 -2.48   3.89
+##  9     9  4.46  436. 109.   284.  34.5  1.69  1.53  -65714. -6.69 -2.93   3.76
+## 10    10  4.22  436. 109.   284.  34.5  1.69  1.53  -65714. -6.7  -2.96   3.74
 ## # ℹ 26 more rows
-## # ℹ 2 more variables: µµ &lt;dbl&gt;, logP &lt;dbl&gt;</code></pre>
+## # ℹ 2 more variables: mu &lt;dbl&gt;, logP &lt;dbl&gt;</code></pre>
 <p>La columna “N” en los datos originales es un identificador. Por ahora no la necesitamos.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb8-1" tabindex="-1"></a><span class="co"># Crear un nuevo conjunto de datos sin la columna &quot;N&quot;</span></span>
 <span id="cb8-2"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb8-2" tabindex="-1"></a>Valores_Parametros_Tiadiazoles_SID <span class="ot">&lt;-</span> Valores_Parametros_Tiadiazoles <span class="sc">%&gt;%</span></span>
 <span id="cb8-3"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb8-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>N)</span>
 <span id="cb8-4"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb8-4" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb8-5" tabindex="-1"></a><span class="co"># Crear un tibble con los datos</span></span>
+<span id="cb8-5"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb8-5" tabindex="-1"></a><span class="co"># Tibble con los datos</span></span>
 <span id="cb8-6"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb8-6" tabindex="-1"></a>data <span class="ot">&lt;-</span> Valores_Parametros_Tiadiazoles_SID <span class="sc">%&gt;%</span></span>
 <span id="cb8-7"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb8-7" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span>
 <span id="cb8-8"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb8-8" tabindex="-1"></a></span>
@@ -235,19 +235,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-10"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb8-10" tabindex="-1"></a><span class="fu">glimpse</span>(data)</span></code></pre></div>
 <pre><code>## Rows: 36
 ## Columns: 13
-## $ pIC50 &lt;dbl&gt; 4.932, 4.969, 4.880, 4.581, 4.717, 4.921, 4.882, 4.602, 4.463, 4…
-## $ MW    &lt;dbl&gt; 385.40, 419.84, 419.84, 419.84, 391.42, 425.87, 470.32, 401.46, …
-## $ MR    &lt;dbl&gt; 97.67, 102.56, 102.56, 102.56, 96.05, 100.95, 103.74, 103.75, 10…
-## $ MV    &lt;dbl&gt; 265.6, 277.5, 277.5, 277.5, 255.1, 267.0, 271.2, 272.3, 284.2, 2…
-## $ Pc    &lt;dbl&gt; 36.597, 34.399, 34.399, 34.399, 42.830, 40.057, 46.026, 36.730, …
-## $ nn    &lt;dbl&gt; 1.66, 1.66, 1.66, 1.66, 1.68, 1.68, 1.69, 1.69, 1.69, 1.69, 1.69…
-## $ D     &lt;dbl&gt; 1.45, 1.51, 1.51, 1.51, 1.53, 1.59, 1.73, 1.47, 1.53, 1.53, 1.53…
-## $ Et    &lt;dbl&gt; -44404.76, -56919.44, -56919.28, -56919.54, -53138.85, -65653.52…
-## $ Ehomo &lt;dbl&gt; -6.59, -6.70, -6.41, -6.69, -6.38, -6.70, -6.65, -6.37, -6.69, -…
-## $ Elumo &lt;dbl&gt; -2.84, -2.85, -2.92, -2.88, -3.08, -2.88, -2.87, -2.48, -2.93, -…
-## $ ΔE    &lt;dbl&gt; 3.75, 3.85, 3.49, 3.82, 3.30, 3.82, 3.78, 3.89, 3.76, 3.74, 3.73…
-## $ µµ    &lt;dbl&gt; 3.04, 3.77, 5.40, 2.20, 7.55, 5.74, 6.74, 3.56, 6.05, 5.57, 4.39…
-## $ logP  &lt;dbl&gt; 1.844, 2.402, 2.402, 2.402, 1.825, 2.199, 2.534, 3.210, 3.768, 3…</code></pre>
+## $ pIC50  &lt;dbl&gt; 4.932, 4.969, 4.880, 4.581, 4.717, 4.921, 4.882, 4.602, 4.463, …
+## $ MW     &lt;dbl&gt; 385.40, 419.84, 419.84, 419.84, 391.42, 425.87, 470.32, 401.46,…
+## $ MR     &lt;dbl&gt; 97.67, 102.56, 102.56, 102.56, 96.05, 100.95, 103.74, 103.75, 1…
+## $ MV     &lt;dbl&gt; 265.6, 277.5, 277.5, 277.5, 255.1, 267.0, 271.2, 272.3, 284.2, …
+## $ Pc     &lt;dbl&gt; 36.597, 34.399, 34.399, 34.399, 42.830, 40.057, 46.026, 36.730,…
+## $ n      &lt;dbl&gt; 1.66, 1.66, 1.66, 1.66, 1.68, 1.68, 1.69, 1.69, 1.69, 1.69, 1.6…
+## $ D      &lt;dbl&gt; 1.45, 1.51, 1.51, 1.51, 1.53, 1.59, 1.73, 1.47, 1.53, 1.53, 1.5…
+## $ Et     &lt;dbl&gt; -44404.76, -56919.44, -56919.28, -56919.54, -53138.85, -65653.5…
+## $ Ehomo  &lt;dbl&gt; -6.59, -6.70, -6.41, -6.69, -6.38, -6.70, -6.65, -6.37, -6.69, …
+## $ Elumo  &lt;dbl&gt; -2.84, -2.85, -2.92, -2.88, -3.08, -2.88, -2.87, -2.48, -2.93, …
+## $ DeltaE &lt;dbl&gt; 3.75, 3.85, 3.49, 3.82, 3.30, 3.82, 3.78, 3.89, 3.76, 3.74, 3.7…
+## $ mu     &lt;dbl&gt; 3.04, 3.77, 5.40, 2.20, 7.55, 5.74, 6.74, 3.56, 6.05, 5.57, 4.3…
+## $ logP   &lt;dbl&gt; 1.844, 2.402, 2.402, 2.402, 1.825, 2.199, 2.534, 3.210, 3.768, …</code></pre>
 <p><strong>Construccion del modelo</strong></p>
 <ul>
 <li>División de datos para nuestro caso práctico</li>
@@ -275,12 +275,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb14-1" tabindex="-1"></a><span class="fu">dim</span>(data_test)</span></code></pre></div>
 <pre><code>## [1]  8 13</code></pre>
 <p>En el artículo, los investigadores utilizaron los descriptores obtenidos para desarrollar un modelo lineal con el propósito de predecir los efectos de los sustituyentes sobre la actividad antileishmania de 30 derivados de tiadiazol (conjunto de entrenamiento) mediante la selección hacia atrás en el MLR. La mejor combinación lineal obtenida incluye tres descriptores seleccionados: la energía Elumo, la energía Ehomo y el coeficiente de partición octanol/agua logP. Las ecuaciones de los modelos se justifican principalmente por el coeficiente de correlación (R), el error cuadrático medio (MSE), la estadística F de Fisher y el nivel de significancia (valor p).</p>
-<p>En nuestro caso práctico, optamos por realizar el análisis y desarrollo del modelo con MLR directamente en RStudio, una plataforma ampliamente utilizada para estadísticas y análisis de datos. A continuación, presentaremos el procedimiento.</p>
+<p>En nuestro caso práctico, optamos por realizar el análisis y desarrollo del modelo directamente en RStudio, una plataforma ampliamente utilizada para estadísticas y análisis de datos.</p>
 <ul>
 <li>Generación modelo MLR</li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb16-1" tabindex="-1"></a><span class="co"># parsnip_addin()</span></span>
-<span id="cb16-2"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb16-2" tabindex="-1"></a><span class="co"># Crear el de modelo y motor</span></span>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb16-1" tabindex="-1"></a><span class="co">#parsnip_addin()</span></span>
+<span id="cb16-2"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb16-2" tabindex="-1"></a><span class="co"># Modelo y motor</span></span>
 <span id="cb16-3"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb16-3" tabindex="-1"></a>lm_model <span class="ot">&lt;-</span> </span>
 <span id="cb16-4"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb16-4" tabindex="-1"></a>  <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb16-5"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb16-5" tabindex="-1"></a>   <span class="fu">set_engine</span>(<span class="st">&quot;lm&quot;</span>) </span>
@@ -291,7 +291,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb16-10"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb16-10" tabindex="-1"></a>  <span class="fu">add_model</span>(lm_model) <span class="sc">%&gt;%</span> </span>
 <span id="cb16-11"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb16-11" tabindex="-1"></a>  <span class="fu">add_variables</span>(<span class="at">outcome =</span> pIC50, <span class="at">predictors =</span> <span class="fu">c</span>(Ehomo, Elumo, logP))</span>
 <span id="cb16-12"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb16-12" tabindex="-1"></a></span>
-<span id="cb16-13"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb16-13" tabindex="-1"></a><span class="co"># Ajustar el modelo al conjunto de entrenamiento</span></span>
+<span id="cb16-13"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb16-13" tabindex="-1"></a><span class="co"># Ajuste del modelo al conjunto de entrenamiento</span></span>
 <span id="cb16-14"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb16-14" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> </span>
 <span id="cb16-15"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb16-15" tabindex="-1"></a>  <span class="fu">fit</span>(lm_wflow, data_train)</span>
 <span id="cb16-16"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb16-16" tabindex="-1"></a>lm_fit</span></code></pre></div>
@@ -324,7 +324,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb18-8"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb18-8" tabindex="-1"></a> <span class="fu">add_variables</span>(<span class="at">outcome =</span> pIC50, <span class="at">predictors =</span> <span class="fu">c</span>(Ehomo, Elumo, logP)) <span class="sc">%&gt;%</span> </span>
 <span id="cb18-9"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb18-9" tabindex="-1"></a>  <span class="fu">add_model</span>(rf_model) </span>
 <span id="cb18-10"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb18-10" tabindex="-1"></a></span>
-<span id="cb18-11"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb18-11" tabindex="-1"></a>rf_fit <span class="ot">&lt;-</span> rf_wflow <span class="sc">%&gt;%</span> <span class="fu">fit</span>(<span class="at">data =</span> data_train)</span></code></pre></div>
+<span id="cb18-11"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb18-11" tabindex="-1"></a>rf_fit <span class="ot">&lt;-</span> </span>
+<span id="cb18-12"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb18-12" tabindex="-1"></a>  rf_wflow <span class="sc">%&gt;%</span></span>
+<span id="cb18-13"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb18-13" tabindex="-1"></a>  <span class="fu">fit</span>(<span class="at">data =</span> data_train)</span></code></pre></div>
 <p><strong>Evaluar el desempeño</strong></p>
 <ul>
 <li>Enfoque de resustitución</li>
@@ -362,17 +364,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1 rmse        0.214 rf_fit data_train
 ## 2 rsq         0.899 rf_fit data_train</code></pre>
 <p>En base a estos resultados, el bosque aleatorio es mucho más capaz de predecir.</p>
-<p>Apliquemos el modelo de bosque aleatorio al conjunto de prueba:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb24-1" tabindex="-1"></a><span class="fu">estimate_perf</span>(rf_fit, data_test)</span></code></pre></div>
+<p>Apliquemos el modelo de regresion lineal y bosque aleatorio al conjunto de prueba:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb24-1" tabindex="-1"></a><span class="fu">estimate_perf</span>(lm_fit, data_test)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 4
+##   .metric .estimate object data     
+##   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
+## 1 rmse        0.321 lm_fit data_test
+## 2 rsq         0.208 lm_fit data_test</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb26-1" tabindex="-1"></a><span class="fu">estimate_perf</span>(rf_fit, data_test)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 4
 ##   .metric .estimate object data     
 ##   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
 ## 1 rmse      0.306   rf_fit data_test
 ## 2 rsq       0.00791 rf_fit data_test</code></pre>
-<p>El modelo parece funcionar mucho mejor en los datos con los que se entrenó que en datos de prueba.
-La discrepancia en el rendimiento entre el conjunto de entrenamiento y el conjunto de prueba puede deberse a la capacidad del modelo para adaptarse a patrones complejos en los datos de entrenamiento, pero esto no garantiza que funcione igual de bien en datos nuevos o desconocidos. Esto es un ejemplo de un posible problema de sobreajuste (overfitting), donde el modelo se ajusta demasiado a los datos de entrenamiento y no generaliza bien a nuevos datos.</p>
+<p>El modelo de regresión lineal es mas consistente entre el entrenamiento y las pruebas, esto puede deberse a su complejidad limitada. Por otro lado, el modelo de bosque aleatorio parece funcionar mucho mejor en los datos con los que se entrenó que en datos de prueba, su discrepancia en el rendimiento entre el conjunto de entrenamiento y el conjunto de prueba puede deberse a la capacidad del modelo para adaptarse a patrones complejos en los datos de entrenamiento, pero esto no garantiza que funcione igual de bien en datos nuevos o desconocidos. Esto es un ejemplo de un posible problema de sobreajuste (overfitting), donde el modelo se ajusta demasiado a los datos de entrenamiento y no generaliza bien a nuevos datos.</p>
 <p>Al repredecir los datos del conjunto de entrenamiento, la estimación de rendimiento parece demasiado optimista y no es representativa del rendimiento real del modelo. Esto no es recomendable para la mayoría de los modelos.</p>
-<p>Tampocoo debemos usar directamente los datos de prueba. Entonces, si no debemos usar directamente los datos de prueba ni repredecir las predicciones en el conjunto de entrenamiento, la solución está en utilizar métodos de remuestreo, como la validación cruzada o los conjuntos de validación. Estos métodos nos permiten obtener una evaluación más precisa y realista del rendimiento de nuestro modelo sin caer en la trampa de la sobreajuste que se produce al repredecir el conjunto de entrenamiento.</p>
+<p>Tampoco debemos usar directamente los datos de prueba. Entonces, si no debemos usar directamente los datos de prueba ni repredecir las predicciones en el conjunto de entrenamiento, la solución está en utilizar métodos de remuestreo, como la validación cruzada o los conjuntos de validación. Estos métodos nos permiten obtener una evaluación más precisa y realista del rendimiento de nuestro modelo sin caer en la trampa de la sobreajuste que se produce al repredecir el conjunto de entrenamiento.</p>
 <ul>
 <li>Método de remuestreo</li>
 </ul>
@@ -381,7 +388,7 @@ La discrepancia en el rendimiento entre el conjunto de entrenamiento y el conjun
 <li>Se entrena el modelo con una parte de los datos.</li>
 <li>Se evalúa el modelo con la otra parte de los datos.</li>
 </ol>
-<p>Estas partes son similares a los conjuntos de entrenamiento y prueba.</p>
+<p>Estas partes son similares a los conjuntos de entrenamiento y prueba. Nos permite determinar qué tan bien funciona el modelo sin utilizar el conjunto de prueba.</p>
 <ul>
 <li>Método de remuestreo
 <ul>
@@ -390,9 +397,9 @@ La discrepancia en el rendimiento entre el conjunto de entrenamiento y el conjun
 </ul>
 <p>La validación cruzada es una técnica fundamental en el aprendizaje automático que mejora la evaluación de modelos al dividir los datos en varios subconjuntos y realizar ciclos de entrenamiento y evaluación. Esto proporciona una evaluación más sólida del rendimiento del modelo y su capacidad de adaptación a nuevos datos.</p>
 <p>La elección de un número adecuado de “pliegues” es crucial. Un mayor número de pliegues da como resultado estimaciones con un sesgo pequeño pero con una varianza considerable. En cambio, un menor número de pliegues introduce un sesgo mayor pero con una variación más baja. En este caso, tomamos un valor de 10, ya que la replicación reduce el ruido, pero no el sesgo.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb26-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1001</span>)</span>
-<span id="cb26-2"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb26-2" tabindex="-1"></a>data_folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(data_train, <span class="at">v =</span> <span class="dv">10</span>)</span>
-<span id="cb26-3"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb26-3" tabindex="-1"></a>data_folds</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb28-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1001</span>)</span>
+<span id="cb28-2"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb28-2" tabindex="-1"></a>data_folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(data_train, <span class="at">v =</span> <span class="dv">10</span>)</span>
+<span id="cb28-3"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb28-3" tabindex="-1"></a>data_folds</span></code></pre></div>
 <pre><code>## #  10-fold cross-validation 
 ## # A tibble: 10 × 2
 ##    splits         id    
@@ -407,17 +414,19 @@ La discrepancia en el rendimiento entre el conjunto de entrenamiento y el conjun
 ##  8 &lt;split [25/3]&gt; Fold08
 ##  9 &lt;split [26/2]&gt; Fold09
 ## 10 &lt;split [26/2]&gt; Fold10</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb28-1" tabindex="-1"></a>data_folds<span class="sc">$</span>splits[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span> <span class="fu">analysis</span>() <span class="sc">%&gt;%</span> <span class="fu">dim</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb30-1" tabindex="-1"></a>data_folds<span class="sc">$</span>splits[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span> <span class="fu">analysis</span>() <span class="sc">%&gt;%</span> <span class="fu">dim</span>()</span></code></pre></div>
 <pre><code>## [1] 25 13</code></pre>
-<p>Alrededor de 25 muestras están en el conjunto de análisis y 13 están en ese conjunto de evaluación en particular.</p>
+<p>25 muestras están en el conjunto de análisis y 13 están en ese conjunto de evaluación en particular.</p>
 <p>Guardemos las predicciones para visualizar el ajuste y los residuos del modelo:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb30-1" tabindex="-1"></a>keep_pred <span class="ot">&lt;-</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>, <span class="at">save_workflow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb30-2"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb30-2" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb30-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1003</span>)</span>
-<span id="cb30-4"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb30-4" tabindex="-1"></a>rf_res <span class="ot">&lt;-</span> </span>
-<span id="cb30-5"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb30-5" tabindex="-1"></a>  rf_wflow <span class="sc">%&gt;%</span> </span>
-<span id="cb30-6"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb30-6" tabindex="-1"></a>  <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> data_folds, <span class="at">control =</span> keep_pred)</span>
-<span id="cb30-7"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb30-7" tabindex="-1"></a>rf_res</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb32-1" tabindex="-1"></a>keep_pred <span class="ot">&lt;-</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>, <span class="at">save_workflow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb32-2"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb32-2" tabindex="-1"></a><span class="co">#De esta manera, tanto lm_res como rf_res contendrán las predicciones y flujos de trabajo para sus respectivos modelos, pero ambos utilizarán el mismo objeto keep_pred.</span></span>
+<span id="cb32-3"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb32-3" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb32-4" tabindex="-1"></a><span class="co">#Modelo regresion lineal</span></span>
+<span id="cb32-5"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb32-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1003</span>)</span>
+<span id="cb32-6"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb32-6" tabindex="-1"></a>lm_res <span class="ot">&lt;-</span> </span>
+<span id="cb32-7"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb32-7" tabindex="-1"></a>  lm_wflow <span class="sc">%&gt;%</span> </span>
+<span id="cb32-8"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb32-8" tabindex="-1"></a>  <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> data_folds, <span class="at">control =</span> keep_pred)</span>
+<span id="cb32-9"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb32-9" tabindex="-1"></a>lm_res</span></code></pre></div>
 <pre><code>## # Resampling results
 ## # 10-fold cross-validation 
 ## # A tibble: 10 × 5
@@ -433,16 +442,59 @@ La discrepancia en el rendimiento entre el conjunto de entrenamiento y el conjun
 ##  8 &lt;split [25/3]&gt; Fold08 &lt;tibble [2 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble [3 × 4]&gt;
 ##  9 &lt;split [26/2]&gt; Fold09 &lt;tibble [2 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble [2 × 4]&gt;
 ## 10 &lt;split [26/2]&gt; Fold10 &lt;tibble [2 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble [2 × 4]&gt;</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb32-1" tabindex="-1"></a><span class="fu">collect_metrics</span>(rf_res)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb34-1" tabindex="-1"></a><span class="fu">collect_metrics</span>(lm_res)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 6
+##   .metric .estimator  mean     n std_err .config             
+##   &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+## 1 rmse    standard   0.394    10  0.0380 Preprocessor1_Model1
+## 2 rsq     standard   0.707    10  0.133  Preprocessor1_Model1</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb36-1" tabindex="-1"></a><span class="co">#Modelo bosque aleatorio</span></span>
+<span id="cb36-2"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb36-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1003</span>)</span>
+<span id="cb36-3"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb36-3" tabindex="-1"></a>rf_res <span class="ot">&lt;-</span> </span>
+<span id="cb36-4"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb36-4" tabindex="-1"></a>  rf_wflow <span class="sc">%&gt;%</span> </span>
+<span id="cb36-5"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb36-5" tabindex="-1"></a>  <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> data_folds, <span class="at">control =</span> keep_pred)</span>
+<span id="cb36-6"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb36-6" tabindex="-1"></a>rf_res</span></code></pre></div>
+<pre><code>## # Resampling results
+## # 10-fold cross-validation 
+## # A tibble: 10 × 5
+##    splits         id     .metrics         .notes           .predictions    
+##    &lt;list&gt;         &lt;chr&gt;  &lt;list&gt;           &lt;list&gt;           &lt;list&gt;          
+##  1 &lt;split [25/3]&gt; Fold01 &lt;tibble [2 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble [3 × 4]&gt;
+##  2 &lt;split [25/3]&gt; Fold02 &lt;tibble [2 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble [3 × 4]&gt;
+##  3 &lt;split [25/3]&gt; Fold03 &lt;tibble [2 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble [3 × 4]&gt;
+##  4 &lt;split [25/3]&gt; Fold04 &lt;tibble [2 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble [3 × 4]&gt;
+##  5 &lt;split [25/3]&gt; Fold05 &lt;tibble [2 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble [3 × 4]&gt;
+##  6 &lt;split [25/3]&gt; Fold06 &lt;tibble [2 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble [3 × 4]&gt;
+##  7 &lt;split [25/3]&gt; Fold07 &lt;tibble [2 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble [3 × 4]&gt;
+##  8 &lt;split [25/3]&gt; Fold08 &lt;tibble [2 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble [3 × 4]&gt;
+##  9 &lt;split [26/2]&gt; Fold09 &lt;tibble [2 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble [2 × 4]&gt;
+## 10 &lt;split [26/2]&gt; Fold10 &lt;tibble [2 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble [2 × 4]&gt;</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb38-1" tabindex="-1"></a><span class="fu">collect_metrics</span>(rf_res)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 6
 ##   .metric .estimator  mean     n std_err .config             
 ##   &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
 ## 1 rmse    standard   0.379    10  0.0557 Preprocessor1_Model1
 ## 2 rsq     standard   0.525    10  0.134  Preprocessor1_Model1</code></pre>
-<p>Las estimaciones de desempeño son mas realistas que las estimaciones de resustitución.</p>
+<p>En este caso, las estimaciones de desempeño son mas realistas que las estimaciones de resustitución.</p>
 <p>Para obtener las predicciones del conjunto de evaluación:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb34-1" tabindex="-1"></a>assess_res <span class="ot">&lt;-</span> <span class="fu">collect_predictions</span>(rf_res)</span>
-<span id="cb34-2"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb34-2" tabindex="-1"></a>assess_res</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb40-1" tabindex="-1"></a>assess_res_lm <span class="ot">&lt;-</span> <span class="fu">collect_predictions</span>(lm_res)</span>
+<span id="cb40-2"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb40-2" tabindex="-1"></a>assess_res_lm</span></code></pre></div>
+<pre><code>## # A tibble: 28 × 5
+##    id     .pred  .row pIC50 .config             
+##    &lt;chr&gt;  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;               
+##  1 Fold01  4.75     8  4.62 Preprocessor1_Model1
+##  2 Fold01  4.13    20  4.48 Preprocessor1_Model1
+##  3 Fold01  4.52    22  4.80 Preprocessor1_Model1
+##  4 Fold02  4.43    12  4.1  Preprocessor1_Model1
+##  5 Fold02  4.66    14  4.59 Preprocessor1_Model1
+##  6 Fold02  4.15    19  4.03 Preprocessor1_Model1
+##  7 Fold03  4.21     1  4.02 Preprocessor1_Model1
+##  8 Fold03  4.58     2  4.98 Preprocessor1_Model1
+##  9 Fold03  3.78    16  3.16 Preprocessor1_Model1
+## 10 Fold04  4.43     7  3.98 Preprocessor1_Model1
+## # ℹ 18 more rows</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb42-1" tabindex="-1"></a>assess_res_rf <span class="ot">&lt;-</span> <span class="fu">collect_predictions</span>(rf_res)</span>
+<span id="cb42-2"><a href="caso-práctico-modelo-qsar-regresión-lineal-múltiple.html#cb42-2" tabindex="-1"></a>assess_res_rf</span></code></pre></div>
 <pre><code>## # A tibble: 28 × 5
 ##    id     .pred  .row pIC50 .config             
 ##    &lt;chr&gt;  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;               
