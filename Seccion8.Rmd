@@ -11,10 +11,15 @@ En el artículo se realizaron múltiples regresiones lineales utilizando el soft
 
 ```{r}
 # Cargar librerias
-library(tidymodels) # Modelado de datos
-library(readxl) # Importar datos desde archivos Excel
+library(tidymodels) 
+library(readxl) 
 library(yardstick)
-
+library(dplyr)
+library(readr)
+library(broom)
+library(ggplot2)
+tidymodels_prefer() # Resuelve conflictos, prefiere funciones tidymodel
+set.seed(123) 
 ```
 
 ```{r setup, include=FALSE}
@@ -71,18 +76,19 @@ En nuestro caso, la división de los datos también se realizará de forma aleat
 ```{r}
 # Establecer método de selección de datos de forma aleatoria
 
-# set.seed permite que el análisis sea reproducible cuando se utilizan 
-# números aleatorios
-set.seed(123)
-
 # Establecer 80% de los datos en el conjunto de entrenamiento
-data_split <- initial_split(data, prop = 0.80)
+data_split <- initial_split(data, prop = 0.85)
 # Mostrar objeto con información sobre la partición
 data_split
 
 # Para obtener los conjuntos de datos resultantes
 data_train <- training(data_split)
 data_test  <- testing(data_split)
+
+# Para obtener los conjuntos de datos resultantes
+#data_train <- read_xlsx("Set_Entrenamiento.xlsx")
+#data_test  <- read_xlsx("Set_Prueba.xlsx")
+
 # Mostrar dimensiones (número de filas y columnas) 
 dim(data_train)
 dim(data_test)
@@ -113,6 +119,7 @@ lm_fit <-
 lm_fit
 
 ```
+
 -  Para comparar con este modelo lineal, también podemos ajustar un tipo diferente de modelo. Por ejemplo un modelo bosque aleatorio:
 
 ```{r}
@@ -129,10 +136,11 @@ rf_wflow <-
 rf_fit <- 
   rf_wflow %>%
   fit(data = data_train)
+rf_fit
 ```
 
 
-**Evaluar el desempeño**
+**Validación interna**
 
 - Enfoque de resustitución
 
@@ -174,11 +182,11 @@ Apliquemos el modelo de regresion lineal y bosque aleatorio al conjunto de prueb
 estimate_perf(lm_fit, data_test)
 estimate_perf(rf_fit, data_test)
 ```
-El modelo de regresión lineal es mas consistente entre el entrenamiento y las pruebas, esto puede deberse a su complejidad limitada. Por otro lado, el modelo de bosque aleatorio parece funcionar mucho mejor en los datos con los que se entrenó que en datos de prueba, su discrepancia en el rendimiento entre el conjunto de entrenamiento y el conjunto de prueba puede deberse a la capacidad del modelo para adaptarse a patrones complejos en los datos de entrenamiento, pero esto no garantiza que funcione igual de bien en datos nuevos o desconocidos. Esto es un ejemplo de un posible problema de sobreajuste (overfitting), donde el modelo se ajusta demasiado a los datos de entrenamiento y no generaliza bien a nuevos datos.
+El modelo de regresión lineal es mas consistente entre el entrenamiento y las pruebas. Por otro lado, el modelo de bosque aleatorio parece funcionar mucho mejor en los datos con los que se entrenó que en datos de prueba, su discrepancia en el rendimiento entre el conjunto de entrenamiento y el conjunto de prueba puede deberse a la capacidad del modelo para adaptarse a patrones complejos en los datos de entrenamiento, pero esto no garantiza que funcione igual de bien en datos nuevos o desconocidos. Esto es un ejemplo de un posible problema de sobreajuste (overfitting), donde el modelo se ajusta demasiado a los datos de entrenamiento y no generaliza bien a nuevos datos.
 
 Al repredecir los datos del conjunto de entrenamiento, la estimación de rendimiento parece demasiado optimista y no es representativa del rendimiento real del modelo. Esto no es recomendable para la mayoría de los modelos.
 
-Tampoco debemos usar directamente los datos de prueba. Entonces, si no debemos usar directamente los datos de prueba ni repredecir las predicciones en el conjunto de entrenamiento, la solución está en utilizar métodos de remuestreo, como la validación cruzada o los conjuntos de validación. Estos métodos nos permiten obtener una evaluación más precisa y realista del rendimiento de nuestro modelo sin caer en la trampa de la sobreajuste que se produce al repredecir el conjunto de entrenamiento.
+Tampoco debemos usar directamente los datos de prueba de principio. Entonces, si no debemos usar directamente los datos de prueba ni repredecir las predicciones en el conjunto de entrenamiento, la solución está en utilizar métodos de remuestreo, como la validación cruzada o los conjuntos de validación. Estos métodos nos permiten obtener una evaluación más precisa y realista del rendimiento de nuestro modelo sin caer en la trampa de la sobreajuste que se produce al repredecir el conjunto de entrenamiento.
 
 - Método de remuestreo
 
@@ -189,15 +197,16 @@ Los métodos de remuestreo son técnicas que simulan cómo se utiliza un conjunt
 
 Estas partes son similares a los conjuntos de entrenamiento y prueba. Nos permite determinar qué tan bien funciona el modelo sin utilizar el conjunto de prueba.
 
-- Método de remuestreo
-  - Validación cruzada
+- Método de remuestreo con validación cruzada
 
 La validación cruzada es una técnica fundamental en el aprendizaje automático que mejora la evaluación de modelos al dividir los datos en varios subconjuntos y realizar ciclos de entrenamiento y evaluación. Esto proporciona una evaluación más sólida del rendimiento del modelo y su capacidad de adaptación a nuevos datos.
 
 La elección de un número adecuado de "pliegues" es crucial. Un mayor número de pliegues da como resultado estimaciones con un sesgo pequeño pero con una varianza considerable. En cambio, un menor número de pliegues introduce un sesgo mayor pero con una variación más baja. En este caso, tomamos un valor de 10, ya que la replicación reduce el ruido, pero no el sesgo.
 
+
+La función vfold_cves útil para la validación cruzada. Estratifica los pliegues para clases equilibradas, pero también funciona en problemas numéricos. vfold_cv puede ser utilizado para crear una validación cruzada estratificada en problemas de regresión o predicción numérica, aunque la estratificación se basará en los valores numéricos en lugar de clases.
+
 ```{r}
-set.seed(1001)
 data_folds <- vfold_cv(data_train, v = 10)
 data_folds
 ```
@@ -212,24 +221,24 @@ Guardemos las predicciones para visualizar el ajuste y los residuos del modelo:
 ```{r}
 keep_pred <- control_resamples(save_pred = TRUE, save_workflow = TRUE)
 #De esta manera, tanto lm_res como rf_res contendrán las predicciones y flujos de trabajo para sus respectivos modelos, pero ambos utilizarán el mismo objeto keep_pred.
+```
 
+```{r}
 #Modelo regresion lineal
-set.seed(1003)
 lm_res <- 
   lm_wflow %>% 
   fit_resamples(resamples = data_folds, control = keep_pred)
 lm_res
 collect_metrics(lm_res)
+```
 
+```{r}
 #Modelo bosque aleatorio
-set.seed(1003)
 rf_res <- 
   rf_wflow %>% 
   fit_resamples(resamples = data_folds, control = keep_pred)
 rf_res
 collect_metrics(rf_res)
-
-
 ```
 
 En este caso, las estimaciones de desempeño son mas realistas que las estimaciones de resustitución.
@@ -237,9 +246,214 @@ En este caso, las estimaciones de desempeño son mas realistas que las estimacio
 Para obtener las predicciones del conjunto de evaluación:
 
 ```{r}
+#Modelo regresion lineal
 assess_res_lm <- collect_predictions(lm_res)
 assess_res_lm
+```
+
+```{r}
+#Modelo bosque aleatorio
 assess_res_rf <- collect_predictions(rf_res)
 assess_res_rf
 ```
+- Validación externa
 
+Los compuestos del conjunto de prueba no se utilizan en el entrenamiento del modelo QSAR y, por lo tanto, se emplean en el procedimiento de validación externa.
+
+```{r}
+#Modelo regresion lineal
+data_test_res_lm <- predict(lm_fit, new_data = data_test %>% select(-pIC50))
+data_test_res_lm
+```
+
+```{r}
+#Modelo bosque aleatorio
+data_test_res_rf <- predict(rf_fit, new_data = data_test %>% select(-pIC50))
+data_test_res_rf
+```
+
+El resultado numérico previsto por el modelo de regresión se denomina ".pred". Comparando los valores predichos con sus correspondientes valores de resultado observados:
+
+```{r}
+#Modelo regresion lineal
+data_test_res_lm <- bind_cols(data_test_res_lm, data_test %>% select(pIC50))
+data_test_res_lm
+```
+
+```{r}
+#Modelo bosque aleatorio
+data_test_res_rf <- bind_cols(data_test_res_rf, data_test %>% select(pIC50))
+data_test_res_rf
+```
+
+
+Calculando métricas:
+
+```{r}
+#Modelo regresion lineal
+data_metrics_lm <- metric_set(rmse, rsq, mae)
+data_metrics_lm(data_test_res_lm, truth = pIC50, estimate = .pred)
+```
+
+```{r}
+#Modelo bosque aleatorio
+data_metrics_rf <- metric_set(rmse, rsq, mae)
+data_metrics_rf(data_test_res_rf, truth = pIC50, estimate = .pred)
+```
+
+Un buen valor de rsq (coeficiente de correlación) en la validacion cruzada de diez indica que el modelo tiene robustez y alto poder predictivo interno en el conjunto de datos utilizado. Un valor de rsq superior a 0,5 es el criterio básico para calificar un modelo como válido. Entonces, un elevado coeficiente de correlación (rsq) y un bajo error cuadrático medio (rmse) son indicativos de la confiabilidad del modelo QSAR.  
+
+
+- Modelo Lasso 
+
+```{r}
+# Modelo lasso
+lm_lasso_spec <- 
+  linear_reg() %>%
+  set_args(mixture = 1, penalty = 0) %>% #Configura los argumentos del modelo: mixture = 1 indica Lasso
+  set_engine(engine = 'glmnet') %>% #
+  set_mode('regression') 
+
+# Recipe
+data_rec <- recipe( pIC50 ~ . , data = data) %>%
+    step_nzv(all_predictors()) %>% 
+    step_normalize(all_numeric_predictors())  # Realiza la estandarización de las variables numéricas
+
+# Flujo de trabajo
+lasso_wf <- workflow() %>% 
+  add_recipe(data_rec) %>%
+  add_model(lm_lasso_spec)
+
+# Ajustar el modelo a los datos
+lasso_fit <- lasso_wf %>% 
+  fit(data = data) # Fit to data
+```
+
+Gráfico que muestra cómo cambian los coeficientes del modelo Lasso a medida que varía el valor de penalización (lambda)
+```{r}
+plot(lasso_fit %>% extract_fit_parsnip() %>% pluck('fit'), # way to get the original glmnet output
+     xvar = "lambda")
+```
+
+A medida que aumenta el valor de penalzación (lambda) aumenta, el modelo penaliza más los coeficientes no importantes, lo que lleva a coeficientes más pequeños y, en última instancia, a la selección de características relevantes.
+
+Para identificar el mejor modelo, debemos ajustar el modelo mediante validación cruzada.
+```{r}
+# Método de remuestreo con validación cruzada estratificada
+data_cv10 <- vfold_cv(data, v = 10)
+
+# Modelo lasso
+lm_lasso_spec <- 
+  linear_reg() %>%
+  set_args(mixture = 1, penalty = 0) %>% #Configura los argumentos del modelo: mixture = 1 indica Lasso
+  set_engine(engine = 'glmnet') %>% #
+  set_mode('regression') 
+
+#  Modelo Lasso con "tune"
+lm_lasso_spec_tune <- 
+  linear_reg() %>%
+  set_args(mixture = 1, penalty = tune()) %>% # "tune"permite buscar y seleccionar el valor óptimo de los hiperparámetros 
+  set_engine(engine = 'glmnet') %>%
+  set_mode('regression') 
+
+# Workflow con "tune"
+lasso_wf_tune <- workflow() %>% 
+  add_recipe(data_rec) %>%
+  add_model(lm_lasso_spec_tune) 
+
+# Sintonizar Modelo (probando una variedad de valores de penalización Lambda)
+penalty_grid <- grid_regular(
+  penalty(range = c(-8, 8)), #transformado logarítmicamente de 10^-8 a 10^8
+  levels = 100) # La cuadrícula incluye 100 valores que abarcan un rango logarítmico de -8 a 8.
+
+tune_res <- tune_grid( 
+  lasso_wf_tune, 
+  resamples = data_cv10,
+  metrics = metric_set(rmse, mae),
+  grid = penalty_grid 
+)
+
+# Visualizar Métricas de Evaluación del Modelo durante la Sintonización
+autoplot(tune_res) + theme_classic() # Se visualizan las métricas de evaluación del modelo en función de los diferentes valores de penalización utilizando un gráfico
+
+# Resumir métricas de Evaluación del Modelo 
+collect_metrics(tune_res) %>%
+  filter(.metric == 'rmse') %>% 
+  select(penalty, rmse = mean) # Esta parte resume las métricas de evaluación del modelo y selecciona el valor de penalización óptimo basado en el error cuadrático medio (rmse) más bajo.
+
+best_penalty <- select_best(tune_res, metric = 'rmse') # se selecciona el valor de penalización óptimo basado en el rmse más bajo.
+
+# Ajustar modelo final con el valor óptimo de penalización y el flujo de trabajo definido
+final_wf <- finalize_workflow(lasso_wf_tune, best_penalty) 
+# Se entrena en todos los datos
+final_fit <- fit(final_wf, data = data)
+
+tidy(final_fit)
+```
+
+-   Generación modelo MLR
+
+```{r}
+#parsnip_addin()
+# Modelo y motor
+lm_model_N <- 
+  linear_reg() %>% 
+   set_engine("lm") 
+
+# Flujo de trabajo
+lm_wflow_N <- 
+  workflow() %>% 
+  add_model(lm_model_N) %>% 
+  add_variables(outcome = pIC50, predictors = c(DeltaE, Elumo, logP))
+
+# Ajuste del modelo al conjunto de entrenamiento
+lm_fit_N <- 
+  fit(lm_wflow_N, data_train)
+lm_fit_N
+
+```
+
+
+Validacion cruzada interna
+```{r}
+data_folds_N <- vfold_cv(data_train, v = 10)
+data_folds_N
+```
+
+```{r}
+keep_pred_N <- control_resamples(save_pred = TRUE, save_workflow = TRUE)
+```
+
+```{r}
+#Modelo regresion lineal
+lm_res_N <- 
+  lm_wflow_N %>% 
+  fit_resamples(resamples = data_folds_N, control = keep_pred_N)
+lm_res_N
+collect_metrics(lm_res_N)
+```
+
+```{r}
+#Modelo regresion lineal
+assess_res_lm_N <- collect_predictions(lm_res_N)
+assess_res_lm_N
+```
+
+Validacion externa
+```{r}
+#Modelo regresion lineal
+data_test_res_lm_N <- predict(lm_fit_N, new_data = data_test %>% select(-pIC50))
+data_test_res_lm_N
+```
+
+```{r}
+#Modelo regresion lineal
+data_test_res_lm_N <- bind_cols(data_test_res_lm_N, data_test %>% select(pIC50))
+data_test_res_lm_N
+```
+
+```{r}
+#Modelo regresion lineal
+data_metrics_lm_N <- metric_set(rmse, rsq, mae)
+data_metrics_lm_N(data_test_res_lm_N, truth = pIC50, estimate = .pred)
+```
