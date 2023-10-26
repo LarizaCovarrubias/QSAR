@@ -1,13 +1,15 @@
 
 # Caso Práctico Modelo QSAR: Regresión Lineal Múltiple
 
-Este caso práctico se enfoca en la construcción de un modelo QSAR (Análisis Cuantitativo de Relación Estructura-Actividad) mediante regresión lineal múltiple (MLR). Los datos de partida se obtuvieron del artículo titulado "QSAR Study of (5-Nitroheteroaryl-1,3,4-Thiadiazole-2-yl) Piperazinyl Derivatives to Predict New Similar Compounds as Antileishmanial Agents". En dicho artículo, se llevaron a cabo estudios QSAR que incluyeron análisis de componentes principales (PCA), regresión lineal múltiple (MLR), regresión no lineal (RNLM) y cálculos de redes neuronales artificiales (ANN) en una serie de 36 compuestos derivados de (5-Nitroheteroaryl-1,3,4-Thiadiazole-2-yl) Piperazinyl. El objetivo principal era identificar las características estructurales clave necesarias para diseñar nuevos candidatos potentes de esta clase para la actividad antileishmanial.
+La relación cuantitativa entre estructura y actividad (QSAR, por sus siglas en inglés) es un enfoque de modelado en el campo de la química y la bioquímica que busca establecer relaciones cuantitativas entre las características estructurales (descriptores) de compuestos químicos y su actividad biológica. Los modelos QSAR (Análisis Cuantitativo de Relación Estructura-Actividad) representan una metodología fundamental en la investigación química y farmacológica. Estos modelos tienen la capacidad de predecir la actividad biológica de compuestos químicos en función de su estructura molecular, lo que los convierte en herramientas esenciales en el diseño y desarrollo de fármacos.
 
-En este caso práctico, nos proponemos comparar los resultados obtenidos en nuestro ejercicio con los del mencionado artículo, en especial con en el método de regresión lineal múltiple.
+En el presente caso practico, desarrollamos un modelo QSAR en el cual los dato de partida se obtuvieron del artículo titulado "QSAR Study of (5-Nitroheteroaryl-1,3,4-Thiadiazole-2-yl) Piperazinyl Derivatives to Predict New Similar Compounds as Antileishmanial Agents". En dicho artículo, se llevaron a cabo estudios QSAR que incluyeron análisis de componentes principales (PCA), regresión lineal múltiple (MLR), regresión no lineal (RNLM) y cálculos de redes neuronales artificiales (ANN) en una serie de 36 compuestos derivados de (5-Nitroheteroaryl-1,3,4-Thiadiazole-2-yl) Piperazinyl.. El propósito de este modelo es predecir la actividad antileishmanial de compuestos químicos (1), y lo hacemos con el fin de llevar a cabo de manera integral la construcción y evaluación de un modelo QSAR.
 
-La estructura de este caso práctico se dividirá en las siguientes secciones: recopilación de datos, descripción de descriptores moleculares, construcción del modelo, validación del modelo y comparación de resultados.
+En este caso práctico, nos proponemos comparar los resultados obtenidos en nuestro ejercicio con los del mencionado artículo, implementando un modelo de regresion multiple y bosque aleatorio.
 
-En el artículo se realizaron múltiples regresiones lineales utilizando el software XLSTAT versión 2013 para predecir los efectos sobre la actividad antileishmania. Nosotros implementaremos el desarrollo del modelo utilizando Rstudio con tidymodels.
+En el artículo  se realizaron múltiples regresiones lineales utilizando el software XLSTAT versión 2013 para predecir los efectos sobre la actividad antileishmania. Nosotros implementaremos el desarrollo de los modelos con Tidymodels, un conjunto de paquetes de software en el lenguaje de programación R diseñado para simplificar y estandarizar el proceso de creación, ajuste y evaluación de modelos de aprendizaje automático. El proceso se divide en diversas etapas que abarcan desde la recopilación de datos hasta la selección de descriptores moleculares, la construcción de modelos, su validación y, finalmente, la elección del mejor modelo.
+
+Este caso práctico se enfoca en la construcción de un modelo QSAR con el objetivo de comprender a fondo su metodología y los elementos que lo componen. Utilizamos datos reales de un estudio previo para ilustrar la predicción de la actividad antileishmanial de compuestos químicos. A lo largo de este proceso, destacamos la importancia de la selección de descriptores, la validación cruzada y la comparación de modelos.
 
 ```{r}
 # Cargar librerias
@@ -37,7 +39,7 @@ La información sobre la actividad antileishmanial experimental ($pIC_{50}$ en �
 
 -   Generación de descriptores
 
-Para calcular los descriptores electrónicos, los autores emplearon el paquete Gaussian03. Las geometrías de los 36 derivados de tiadiazol se optimizaron mediante el método DFT (Teoría del Funcional de Densidad), una técnica teórica en química computacional utilizada para calcular propiedades electrónicas de las moléculas. Estos cálculos se realizaron utilizando el conjunto funcional B3LYP, que define las interacciones electrónicas en las moléculas, y la base 6-31G (d), un conjunto de funciones de base utilizado para aproximar las funciones de onda electrónica en los cálculos de DFT. Estos cálculos proporcionaron varios descriptores estructurales clave, incluyendo la energía orbital molecular ocupada más alta (HOMO), la energía orbital molecular desocupada más baja (LUMO), el momento dipolar (μ), la brecha de energía (ΔE) y la energía total.
+Para calcular los descriptores electrónicos, los autores emplearon el paquete Gaussian03. Las geometrías de los 36 derivados de tiadiazol se optimizaron mediante el método DFT (Teoría del Funcional de Densidad), una técnica teórica en química computacional utilizada para calcular propiedades electrónicas de las moléculas. Estos cálculos se realizaron utilizando el conjunto funcional B3LYP, que define las interacciones electrónicas en las moléculas, y la base 6-31G (d), un conjunto de funciones de base utilizado para aproximar las funciones de onda electrónica en los cálculos de DFT. Estos cálculos proporcionaron varios descriptores estructurales clave, incluyendo la energía orbital molecular ocupada más alta (HOMO), la energía orbital molecular desocupada más baja (LUMO), el momento dipolar (μ), cambio de energía (ΔE) y la energía total.
 
 Por otro lado, para calcular una serie de descriptores moleculares adicionales, como el volumen molar MV (cm³), el peso molecular MW (g/mol), la refractividad molar MR (cm³), el parachor Pc (cm³), la densidad D (g/cm³), el índice de refracción n y el coeficiente de partición octanol/agua (logP), se utilizó el programa ChemSketch. Los valores de los 12 descriptores químicos calculados se presentan en la siguiente tabla junto con sus respectivas actividades biológicas calculadas experimentalmente ($pIC_{50}$).
 
@@ -64,7 +66,7 @@ data <- Valores_Parametros_Tiadiazoles_SID %>%
 glimpse(data)
 ```
 
-**Construccion del modelo**
+**Generacion de conjunto de datos**
 
 - División de datos para nuestro caso práctico
 
@@ -94,11 +96,98 @@ dim(data_train)
 dim(data_test)
 ```
 
+**Seleccion de descriptores**
+
 En el artículo, los investigadores utilizaron los descriptores obtenidos para desarrollar un modelo lineal con el propósito de predecir los efectos de los sustituyentes sobre la actividad antileishmania de 30 derivados de tiadiazol (conjunto de entrenamiento) mediante la selección hacia atrás en el MLR. La mejor combinación lineal obtenida incluye tres descriptores seleccionados: la energía Elumo, la energía Ehomo y el coeficiente de partición octanol/agua logP. Las ecuaciones de los modelos se justifican principalmente por el coeficiente de correlación (R), el error cuadrático medio (MSE), la estadística F de Fisher y el nivel de significancia (valor p).
 
-En nuestro caso práctico, optamos por realizar el análisis y desarrollo del modelo directamente en RStudio, una plataforma ampliamente utilizada para estadísticas y análisis de datos.
+Implementamos la regresion Lasso, una técnica de modelado estadístico y aprendizaje automático que se utiliza para la selección de características y la regularización de modelos de regresión. Su principal objetivo es prevenir el sobreajuste (overfitting) y mejorar la generalización de modelos de regresión lineal al agregar una penalización en función de costo o error. 
 
--   Generación modelo MLR
+```{r}
+# Modelo lasso
+lm_lasso_spec <- 
+  linear_reg() %>%
+  set_args(mixture = 1, penalty = 0) %>% #Configura los argumentos del modelo: mixture = 1 indica Lasso
+  set_engine(engine = 'glmnet') %>% #
+  set_mode('regression') 
+
+# Recipe
+data_rec <- recipe( pIC50 ~ . , data = data) %>%
+    step_nzv(all_predictors()) %>% 
+    step_normalize(all_numeric_predictors())  # Realiza la estandarización de las variables numéricas
+
+# Flujo de trabajo
+lasso_wf <- workflow() %>% 
+  add_recipe(data_rec) %>%
+  add_model(lm_lasso_spec)
+
+# Ajustar el modelo a los datos
+lasso_fit <- lasso_wf %>% 
+  fit(data = data) # Fit to data
+```
+
+Gráfico que muestra cómo cambian los coeficientes del modelo Lasso a medida que varía el valor de penalización (lambda)
+```{r}
+plot(lasso_fit %>% extract_fit_parsnip() %>% pluck('fit'), # way to get the original glmnet output
+     xvar = "lambda")
+```
+
+A medida que aumenta el valor de penalzación (lambda) aumenta, el modelo penaliza más los coeficientes no importantes, lo que lleva a coeficientes más pequeños y, en última instancia, a la selección de características relevantes.
+
+Para identificar el mejor modelo, debemos ajustar el modelo mediante validación cruzada.
+```{r}
+# Método de remuestreo con validación cruzada estratificada
+data_cv10 <- vfold_cv(data, v = 10)
+
+# Modelo lasso
+lm_lasso_spec <- 
+  linear_reg() %>%
+  set_args(mixture = 1, penalty = 0) %>% #Configura los argumentos del modelo: mixture = 1 indica Lasso
+  set_engine(engine = 'glmnet') %>% #
+  set_mode('regression') 
+
+#  Modelo Lasso con "tune"
+lm_lasso_spec_tune <- 
+  linear_reg() %>%
+  set_args(mixture = 1, penalty = tune()) %>% # "tune"permite buscar y seleccionar el valor óptimo de los hiperparámetros 
+  set_engine(engine = 'glmnet') %>%
+  set_mode('regression') 
+
+# Workflow con "tune"
+lasso_wf_tune <- workflow() %>% 
+  add_recipe(data_rec) %>%
+  add_model(lm_lasso_spec_tune) 
+
+# Sintonizar Modelo (probando una variedad de valores de penalización Lambda)
+penalty_grid <- grid_regular(
+  penalty(range = c(-8, 8)), #transformado logarítmicamente de 10^-8 a 10^8
+  levels = 100) # La cuadrícula incluye 100 valores que abarcan un rango logarítmico de -8 a 8.
+
+tune_res <- tune_grid( 
+  lasso_wf_tune, 
+  resamples = data_cv10,
+  metrics = metric_set(rmse, mae),
+  grid = penalty_grid 
+)
+
+# Visualizar Métricas de Evaluación del Modelo durante la Sintonización
+autoplot(tune_res) + theme_classic() # Se visualizan las métricas de evaluación del modelo en función de los diferentes valores de penalización utilizando un gráfico
+
+# Resumir métricas de Evaluación del Modelo 
+collect_metrics(tune_res) %>%
+  filter(.metric == 'rmse') %>% 
+  select(penalty, rmse = mean) # Esta parte resume las métricas de evaluación del modelo y selecciona el valor de penalización óptimo basado en el error cuadrático medio (rmse) más bajo.
+
+best_penalty <- select_best(tune_res, metric = 'rmse') # se selecciona el valor de penalización óptimo basado en el rmse más bajo.
+
+# Ajustar modelo final con el valor óptimo de penalización y el flujo de trabajo definido
+final_wf <- finalize_workflow(lasso_wf_tune, best_penalty) 
+# Se entrena en todos los datos
+final_fit <- fit(final_wf, data = data)
+
+tidy(final_fit)
+```
+
+**Construccion del modelo MLR**
 
 ```{r}
 #parsnip_addin()
@@ -111,7 +200,7 @@ lm_model <-
 lm_wflow <- 
   workflow() %>% 
   add_model(lm_model) %>% 
-  add_variables(outcome = pIC50, predictors = c(Ehomo, Elumo, logP))
+  add_variables(outcome = pIC50, predictors = c(DeltaE, Elumo, logP))
 
 # Ajuste del modelo al conjunto de entrenamiento
 lm_fit <- 
@@ -203,7 +292,6 @@ La validación cruzada es una técnica fundamental en el aprendizaje automático
 
 La elección de un número adecuado de "pliegues" es crucial. Un mayor número de pliegues da como resultado estimaciones con un sesgo pequeño pero con una varianza considerable. En cambio, un menor número de pliegues introduce un sesgo mayor pero con una variación más baja. En este caso, tomamos un valor de 10, ya que la replicación reduce el ruido, pero no el sesgo.
 
-
 La función vfold_cves útil para la validación cruzada. Estratifica los pliegues para clases equilibradas, pero también funciona en problemas numéricos. vfold_cv puede ser utilizado para crear una validación cruzada estratificada en problemas de regresión o predicción numérica, aunque la estratificación se basará en los valores numéricos en lugar de clases.
 
 ```{r}
@@ -286,7 +374,6 @@ data_test_res_rf <- bind_cols(data_test_res_rf, data_test %>% select(pIC50))
 data_test_res_rf
 ```
 
-
 Calculando métricas:
 
 ```{r}
@@ -300,160 +387,8 @@ data_metrics_lm(data_test_res_lm, truth = pIC50, estimate = .pred)
 data_metrics_rf <- metric_set(rmse, rsq, mae)
 data_metrics_rf(data_test_res_rf, truth = pIC50, estimate = .pred)
 ```
+**Seleccion del mejor modelo**
 
-Un buen valor de rsq (coeficiente de correlación) en la validacion cruzada de diez indica que el modelo tiene robustez y alto poder predictivo interno en el conjunto de datos utilizado. Un valor de rsq superior a 0,5 es el criterio básico para calificar un modelo como válido. Entonces, un elevado coeficiente de correlación (rsq) y un bajo error cuadrático medio (rmse) son indicativos de la confiabilidad del modelo QSAR.  
-
-
-- Modelo Lasso 
-
-```{r}
-# Modelo lasso
-lm_lasso_spec <- 
-  linear_reg() %>%
-  set_args(mixture = 1, penalty = 0) %>% #Configura los argumentos del modelo: mixture = 1 indica Lasso
-  set_engine(engine = 'glmnet') %>% #
-  set_mode('regression') 
-
-# Recipe
-data_rec <- recipe( pIC50 ~ . , data = data) %>%
-    step_nzv(all_predictors()) %>% 
-    step_normalize(all_numeric_predictors())  # Realiza la estandarización de las variables numéricas
-
-# Flujo de trabajo
-lasso_wf <- workflow() %>% 
-  add_recipe(data_rec) %>%
-  add_model(lm_lasso_spec)
-
-# Ajustar el modelo a los datos
-lasso_fit <- lasso_wf %>% 
-  fit(data = data) # Fit to data
-```
-
-Gráfico que muestra cómo cambian los coeficientes del modelo Lasso a medida que varía el valor de penalización (lambda)
-```{r}
-plot(lasso_fit %>% extract_fit_parsnip() %>% pluck('fit'), # way to get the original glmnet output
-     xvar = "lambda")
-```
-
-A medida que aumenta el valor de penalzación (lambda) aumenta, el modelo penaliza más los coeficientes no importantes, lo que lleva a coeficientes más pequeños y, en última instancia, a la selección de características relevantes.
-
-Para identificar el mejor modelo, debemos ajustar el modelo mediante validación cruzada.
-```{r}
-# Método de remuestreo con validación cruzada estratificada
-data_cv10 <- vfold_cv(data, v = 10)
-
-# Modelo lasso
-lm_lasso_spec <- 
-  linear_reg() %>%
-  set_args(mixture = 1, penalty = 0) %>% #Configura los argumentos del modelo: mixture = 1 indica Lasso
-  set_engine(engine = 'glmnet') %>% #
-  set_mode('regression') 
-
-#  Modelo Lasso con "tune"
-lm_lasso_spec_tune <- 
-  linear_reg() %>%
-  set_args(mixture = 1, penalty = tune()) %>% # "tune"permite buscar y seleccionar el valor óptimo de los hiperparámetros 
-  set_engine(engine = 'glmnet') %>%
-  set_mode('regression') 
-
-# Workflow con "tune"
-lasso_wf_tune <- workflow() %>% 
-  add_recipe(data_rec) %>%
-  add_model(lm_lasso_spec_tune) 
-
-# Sintonizar Modelo (probando una variedad de valores de penalización Lambda)
-penalty_grid <- grid_regular(
-  penalty(range = c(-8, 8)), #transformado logarítmicamente de 10^-8 a 10^8
-  levels = 100) # La cuadrícula incluye 100 valores que abarcan un rango logarítmico de -8 a 8.
-
-tune_res <- tune_grid( 
-  lasso_wf_tune, 
-  resamples = data_cv10,
-  metrics = metric_set(rmse, mae),
-  grid = penalty_grid 
-)
-
-# Visualizar Métricas de Evaluación del Modelo durante la Sintonización
-autoplot(tune_res) + theme_classic() # Se visualizan las métricas de evaluación del modelo en función de los diferentes valores de penalización utilizando un gráfico
-
-# Resumir métricas de Evaluación del Modelo 
-collect_metrics(tune_res) %>%
-  filter(.metric == 'rmse') %>% 
-  select(penalty, rmse = mean) # Esta parte resume las métricas de evaluación del modelo y selecciona el valor de penalización óptimo basado en el error cuadrático medio (rmse) más bajo.
-
-best_penalty <- select_best(tune_res, metric = 'rmse') # se selecciona el valor de penalización óptimo basado en el rmse más bajo.
-
-# Ajustar modelo final con el valor óptimo de penalización y el flujo de trabajo definido
-final_wf <- finalize_workflow(lasso_wf_tune, best_penalty) 
-# Se entrena en todos los datos
-final_fit <- fit(final_wf, data = data)
-
-tidy(final_fit)
-```
-
--   Generación modelo MLR
-
-```{r}
-#parsnip_addin()
-# Modelo y motor
-lm_model_N <- 
-  linear_reg() %>% 
-   set_engine("lm") 
-
-# Flujo de trabajo
-lm_wflow_N <- 
-  workflow() %>% 
-  add_model(lm_model_N) %>% 
-  add_variables(outcome = pIC50, predictors = c(DeltaE, Elumo, logP))
-
-# Ajuste del modelo al conjunto de entrenamiento
-lm_fit_N <- 
-  fit(lm_wflow_N, data_train)
-lm_fit_N
-
-```
+Un buen valor de rsq (coeficiente de correlación) en la validacion cruzada de diez indica que el modelo tiene robustez y alto poder predictivo interno en el conjunto de datos utilizado. Un valor de rsq superior a 0,5 es el criterio básico para calificar un modelo como válido. Entonces, un elevado coeficiente de correlación (rsq) y un bajo error cuadrático medio (rmse) son indicativos de la confiabilidad del modelo QSAR. En este caso, al comparar ambos modelos, vemos que la regresion multiple nos da mejores resultados.
 
 
-Validacion cruzada interna
-```{r}
-data_folds_N <- vfold_cv(data_train, v = 10)
-data_folds_N
-```
-
-```{r}
-keep_pred_N <- control_resamples(save_pred = TRUE, save_workflow = TRUE)
-```
-
-```{r}
-#Modelo regresion lineal
-lm_res_N <- 
-  lm_wflow_N %>% 
-  fit_resamples(resamples = data_folds_N, control = keep_pred_N)
-lm_res_N
-collect_metrics(lm_res_N)
-```
-
-```{r}
-#Modelo regresion lineal
-assess_res_lm_N <- collect_predictions(lm_res_N)
-assess_res_lm_N
-```
-
-Validacion externa
-```{r}
-#Modelo regresion lineal
-data_test_res_lm_N <- predict(lm_fit_N, new_data = data_test %>% select(-pIC50))
-data_test_res_lm_N
-```
-
-```{r}
-#Modelo regresion lineal
-data_test_res_lm_N <- bind_cols(data_test_res_lm_N, data_test %>% select(pIC50))
-data_test_res_lm_N
-```
-
-```{r}
-#Modelo regresion lineal
-data_metrics_lm_N <- metric_set(rmse, rsq, mae)
-data_metrics_lm_N(data_test_res_lm_N, truth = pIC50, estimate = .pred)
-```
