@@ -20,3 +20,5 @@ calculando-métricas
 validación-externa
 selección-del-mejor-modelo
 selección-del-modelo
+principales-objetivos-de-los-estudios-qsar
+flujo-de-trabajo-para-análisis-qsar-ver-figura-1

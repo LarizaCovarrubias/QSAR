@@ -4,7 +4,7 @@ En la actualidad, se han alcanzado avances significativos en los pasos de prepro
 
 Cuando parezca apropiado, se puede llevar a cabo la normalización de los parámetros generados antes de la etapa de selección de descriptores en los análisis QSAR. Como primera medida, se procede a eliminar del conjunto de descriptores aquellos que poseen valores constantes (o casi constantes), así como aquellos con baja variabilidad o valores nulos.
 
-##Normalización
+## Normalización
 
 En el proceso de normalización de los descriptores moleculares, se utilizan dos métodos: la normalización automática o estándar, y la normalización de rango.
 
@@ -12,13 +12,13 @@ En la normalización automática, los valores completos de los descriptores se t
 
 La razón principal para normalizar los descriptores moleculares es la existencia de diferencias significativas entre los diferentes descriptores en términos de su rango de valores, lo que conduce a dificultades para determinar el efecto ponderado de cada descriptor en el modelo. En otras palabras, los descriptores con valores más pequeños pueden quedar opacados por aquellos con valores más grandes.
 
-##Colinealidad
+## Colinealidad
 
 Colinealidad en QSAR se refiere a la fuerte correlación entre descriptores moleculares. Cuando dos descriptores están altamente relacionados, es difícil determinar cuál influye en la actividad.
 
 La alta colinealidad entre descriptores puede dificultar la interpretación correcta de los resultados, dar lugar a un modelo menos confiable y estable, y aumentar la complejidad innecesaria del modelo. Por lo tanto, es importante identificar y manejar la colinealidad para obtener resultados más confiables y útiles en el análisis de QSAR.
 
-##División de entrenamiento y prueba
+## División de entrenamiento y prueba
 
 Uno de los pasos previos recomendados es dividir el conjunto de datos en conjuntos de entrenamiento y prueba.
 
@@ -38,7 +38,7 @@ Los métodos de selección racionales previamente mencionados se basan en algori
 -   Diseño molecular estadístico: Este método implica realizar un análisis de componentes principales y generar gráficos de puntuación basados en dicho análisis. Estos gráficos muestran cómo los compuestos se agrupan según sus características moleculares. Los grupos identificados en los gráficos representan compuestos con similitudes en términos de descriptores. Estos grupos se eligen como el conjunto de entrenamiento, ya que se considera que capturan la diversidad de compuestos presentes en el conjunto de datos original. Esto se debe a que el análisis de componentes principales tiende a resaltar las principales fuentes de variación en los datos, lo que puede corresponder a diferencias fundamentales entre los compuestos en términos de sus características moleculares.
 -   Métodos de selección de conjuntos de prueba orientados a la extrapolación: En este método, se selecciona un par de compuestos con la mayor distancia euclidiana en términos del espacio de descriptores y se trasladan al conjunto de prueba. Esto se repite hasta alcanzar el tamaño deseado para el conjunto de prueba.
 
-##Métodos de selección de descriptores
+## Métodos de selección de descriptores
 
 El proceso de selección de descriptores es crucial para reducir el conjunto amplio de características moleculares y resaltar las más pertinentes. Se busca elegir aquellos descriptores más relevantes para el análisis.
 
@@ -82,10 +82,10 @@ Los estadísticos, métodos de correlación y teoría de la información se apli
 
 Por último, los métodos híbridos realizan primero un preprocesamiento para eliminar características irrelevantes (métodos basados en Filtro) y luego utilizan los métodos de Envoltura para seleccionar descriptores.
 
-##Herramientas y software
+## Herramientas y software
 
 Algunos algoritmos de selección de características están disponibles como paquetes para entornos programables (como R y MATLAB®); sin embargo, también existen software independientes con interfaces gráficas de usuario personalizadas (GUIs).
 
-##Desafíos
+## Desafíos
 
 En resumen, los principales desafíos en este procedimiento son el uso de descriptores colineales, la utilización de un número excesivo de descriptores en el QSAR, la falta de escalado automático de descriptores y la selección inadecuada de conjuntos de entrenamiento/prueba.

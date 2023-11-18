@@ -2,11 +2,11 @@
 
 Un buen modelo debe cumplir con varios criterios en términos de predictibilidad y rendimiento para ser aceptado. Estos criterios de evaluación se categorizan generalmente en validaciones internas y externas. 
 
-##Metodos de validacion
+## Metodos de validacion
 
 Después de generar modelos QSAR, normalmente se realiza el procedimiento de validación interna para seleccionar los modelos QSAR iniciales. Una vez que se cumplen los criterios requeridos, conocidos como validación interna, la capacidad predictiva de los modelos candidatos seleccionados se evalúa mediante el procedimiento de validación externa.
 
-##Validación interna
+## Validación interna
 
 Se utilizan los mismos datos (compuestos moleculares) que se usaron como conjunto de entrenamiento. Todos los criterios utilizados con este propósito son simplemente indicadores de la calidad de la evaluación interna de los modelos propuestos. Sin embargo, la capacidad predictiva del modelo puede no generalizarse para los nuevos compuestos.
 
@@ -35,7 +35,7 @@ Si $^cR²_p$ es mayor que 0.5, esto indica que el modelo original no se basa en 
 
 - Bootstrapping: El objetivo del bootstrapping es generalizar la relación dentro del modelo desarrollado. En este tipo de método de validación, el conjunto de datos original se divide al azar en conjuntos de entrenamiento y prueba varias veces. Luego, el conjunto de entrenamiento se utiliza de manera similar al método LOO, con la diferencia de que la exclusión de los compuestos se realiza al azar, y un compuesto puede ser excluido una vez, varias veces o nunca. La división del conjunto de datos original en conjuntos de entrenamiento y prueba se realiza varias veces, y el procedimiento de bootstrap se lleva a cabo como se describe anteriormente. Los valores promediados obtenidos de $Q²_{bootstrap}$ y $R²_{bootstrap}$ deben cumplir los valores mínimos aceptables para $Q²$ y $R²$ obtenidos de la evaluación LOO y deben oscilar cerca de los valores de $Q^2$ y $R^2$ para las estadísticas LOO convencionales.
 
-##Validación externa
+## Validación externa
 
 Los compuestos del conjunto de prueba no se utilizan en el entrenamiento del modelo QSAR y, por lo tanto, se emplean en el procedimiento de validación externa. 
 
@@ -69,7 +69,7 @@ El valor ideal para el CCC está cerca de la unidad; sin embargo, el valor umbra
 Todos los parámetros mencionados anteriormente son útiles para evaluar el poder predictivo de los modelos; sin embargo, tienen sus propias ventajas y desventajas. 
 Se recomienda juzgar la predictibilidad del modelo en base a las estadísticas $Q²_{F3}$ y CCC, que son independientes de la distribución del conjunto de predicción y proporcionan una evaluación más realista sobre la calidad del modelo. En contraste, no es recomendable depender en gran medida de los parámetros $r²_m$, $Q²_{F1}$ y $Q²_{F2}$, que no son estables y tienden a aumentar a medida que aumenta el tamaño del conjunto de datos de predicción.
 
-##Dominio de aplicabilidad
+## Dominio de aplicabilidad
 
 El objetivo de un análisis QSAR es predecir cómo responderán las nuevas sustancias químicas. En este contexto, se debe determinar el dominio de aplicabilidad (AD) del conjunto de entrenamiento. AD se refiere al espacio físico-químico, estructural o biológico, conocimiento o información en el que se ha desarrollado el conjunto de entrenamiento, y para el cual es aplicable para hacer predicciones sobre nuevos compuestos. Para definir el AD de un modelo QSAR, se deben utilizar los parámetros más relevantes, generalmente los que son descriptores del modelo. La idea es que el QSAR se utilice idealmente solo para hacer predicciones dentro de este rango específico de condiciones, evitando hacer extrapolaciones fuera de ese rango.
 
@@ -81,13 +81,13 @@ La Gráfica 1 muestra un ejemplo ilustrativo del AD. En ella se comparan los res
 
 ![Gráfica 7.1. Dominio de aplicabilidad para la determinación de valores atípicos mediante la gráfica de Williams. El valor atípico se observa trazando los residuos estandarizados frente a los valores de influencia.](/home/lariza/Documentos/ProyectosGitHub/QSAR/AD.png)
 
-##Software y herramientas
+## Software y herramientas
 
 Las metodologías mencionadas anteriormente están disponibles en programas especializados o generales, ya sea de forma gratuita o comercial. Uno de los programas utilizados para el análisis y la validación QSAR es QSARINS. En él, se implementan todos los pasos necesarios para un análisis QSAR, incluido el análisis de datos, la selección de descriptores, el análisis y la validación del modelo, así como la selección del modelo. Ofrece métodos de validación como la cruzada interna y evaluaciones externas como RMSE, $Q²_{F1}$, $Q²_{F2}$, $Q²_{F3}$, $r²_m$, $\Delta{r²_m}$, CCC y los criterios de Golbraikh y Tropsha.
 
 Se ha desarrollado un conjunto de herramientas de validación QSAR para las validaciones internas y externas, así como para el análisis del AD. Estas herramientas se han presentado en diferentes programas y están disponibles públicamente en http://dtclab.webs.com/software-tools. AutoQSAR es un ejemplo comercial que incluye aspectos del análisis QSAR, como análisis de dominio de aplicabilidad y criterios de validación. Estos son solo ejemplos, ya que hay más herramientas disponibles en la literatura.
 
-##Desafíos
+## Desafíos
 
 Se ha desarrollado un conjunto de herramientas de validación QSAR para las validaciones internas y externas, así como para el análisis del AD. Estas herramientas se han presentado en diferentes programas y están disponibles públicamente en http://dtclab.webs.com/software-tools. AutoQSAR es un ejemplo comercial que incluye aspectos del análisis QSAR, como análisis de dominio de aplicabilidad y criterios de validación. Estos son solo ejemplos, ya que hay más herramientas disponibles en la literatura.
 

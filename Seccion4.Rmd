@@ -27,7 +27,7 @@ Además, se pueden clasificar según su origen:
 
 El cálculo de ciertos valores de los descriptores moleculares está influenciado por la disposición de la molécula. Para lograr resultados precisos, se optimiza la geometría de las estructuras, buscando la mínima energía. Esto se logra utilizando técnicas de mecánica cuántica o mecánica molecular.
 
-##Descriptores comúnmente utilizados
+## Descriptores comúnmente utilizados
 
 Los descriptores constitucionales reflejan las propiedades químicas relacionadas con la composición molecular. Algunos ejemplos son:
 
@@ -67,7 +67,7 @@ Los descriptores electrónicos se derivan de la distribución electrónica y se 
 
 Esta variedad de descriptores es esencial para caracterizar diferentes aspectos de las moléculas y su comportamiento.
 
-##Descriptores moleculares basados en fragmentos
+## Descriptores moleculares basados en fragmentos
 
 El uso de descriptores moleculares basados en fragmentos ofrece numerosas ventajas, como la simplicidad en el cálculo y la interpretación más clara del efecto local de las propiedades estructurales en relación con la actividad biológica. Estos descriptores se derivan de diversos fragmentos moleculares, incluyendo átomos, enlaces, cadenas, torsiones, subestructuras comunes y subgrafos básicos. Aquí hay un ejemplo de dos tipos de descriptores basados en fragmentos: 
 
@@ -76,7 +76,7 @@ El uso de descriptores moleculares basados en fragmentos ofrece numerosas ventaj
 
 Una forma de usar descriptores basados en fragmentos es con el recuento de subestructuras, lo que significa que se seleccionan ciertos fragmentos y se cuentan cuántas veces aparecen en un conjunto de datos. Estos recuentos de subestructuras se convierten en números que representan cuántas veces aparece cada tipo de subestructura en una molécula en particular. Luego, estos números se utilizan como "descriptores" para caracterizar cada molécula. En otras palabras, en lugar de describir una molécula en detalle, se puede describir de manera más concisa utilizando los recuentos de subestructuras como características importantes.
 
-##Software para cálculo de descriptores moleculares
+## Software para cálculo de descriptores moleculares
 
 Existen diversos programas y herramientas disponibles para el cálculo de descriptores moleculares, tanto en versiones comerciales como de acceso libre. Estas herramientas son útiles para calcular una amplia variedad de descriptores basados en la estructura molecular de compuestos químicos. Algunos ejemplos se presentan en la Tabla 2.
 
