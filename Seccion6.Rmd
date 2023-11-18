@@ -4,7 +4,7 @@ Se eligen descriptores importantes usando diferentes algoritmos en QSAR. El obje
 
 Los métodos de construcción de modelos se dividen en lineales y no lineales, según cómo se relacionan los descriptores con las actividades biológicas.
 
-**Modelos lineales**
+##Modelos lineales
 
 - Regresión lineal múltiple
 - Mínimos cuadrados parciales
@@ -12,14 +12,14 @@ Los métodos de construcción de modelos se dividen en lineales y no lineales, s
 - Análisis de wilson libre
 - Análisis discriminante lineal
 
-**Modelos no lineales**
+##Modelos no lineales
 
 - Red neuronal artificial
 - k-vecino más cercano
 - Árbol de decisión
 - Máquinas de vectores soporte
 
-**Regresión lineal múltiple**
+##Regresión lineal múltiple
 
 Es una extensión de la regresión lineal simple en la que se considera más de una variable independiente para predecir una variable dependiente. 
 La fórmula de regresión lineal múltiple es: \(Y = b_{0} + b_{1}X_{1} + b_{2}X_{2} + \ldots + b_{n}X_{n}\).
@@ -33,7 +33,7 @@ Los coeficientes indican cómo las variables independientes (descriptores molecu
 - Se sugiere que el número de compuestos (muestras) en el conjunto de datos sea mayor que el número de variables independientes (descriptores). Se recomienda que la relación entre el número de compuestos y el número de variables independientes sea al menos 5:1 según la "relación de Topliss".
 - Los descriptores colineales resultará en un modelo QSAR inexacto en términos de rendimiento.
 
-**Valores atípicos**
+##Valores atípicos
 
 Los valores atípicos son compuestos que se desvían de las predicciones del modelo y pueden surgir debido a variaciones estructurales inusuales o errores experimentales en las mediciones. Para categorizar los tipos de valores atípicos, se dividen en:
 
@@ -48,7 +48,7 @@ Para tratar con los valores atípicos, se han utilizado diferentes métodos en l
 
 Eliminar los valores atípicos no siempre es necesario ni garantiza una mejora en el modelo. Es esencial realizar un análisis más detallado para determinar si los valores atípicos son verdaderos y si deben ser eliminados del análisis.
 
-**Herramientas y software**
+##Herramientas y software
 
 El creciente interés en la aplicación de estudios QSAR en diferentes aspectos del diseño y desarrollo de medicamentos ha llevado a la introducción de una variedad de algoritmos y herramientas directa o indirectamente adecuadas para los estudios QSAR. Algunos ejemplos se muestran en la Tabla 3.
 
@@ -64,7 +64,7 @@ El creciente interés en la aplicación de estudios QSAR en diferentes aspectos 
 Tabla 6.1. Programas y paquetes comúnmente utilizados para el desarrollo de QSAR.
 
 
-**Desafíos en el desarrollo del modelo**
+##Desafíos en el desarrollo del modelo
 
 - Detección y manejo de valores atípicos
 - Sobreajuste de datos, qué ocurre cuando se incorporan demasiados descriptores al modelo, lo que puede afectar su capacidad de generalización.

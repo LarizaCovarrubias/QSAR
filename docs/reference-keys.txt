@@ -6,3 +6,17 @@ selección-de-descriptores
 construcción-del-modelo
 validación-del-modelo-qsar
 caso-práctico-modelo-qsar-regresión-lineal-múltiple
+validación-del-modelo
+fuente-de-datos
+datos-1
+descriptores-moleculares-1
+generacion-de-conjuntos-de-datos
+recopilación-de-datos
+selección-de-descriptores-1
+construcción-del-modelo-1
+validación
+validación-interna
+calculando-métricas
+validación-externa
+selección-del-mejor-modelo
+selección-del-modelo

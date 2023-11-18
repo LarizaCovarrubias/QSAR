@@ -2,24 +2,24 @@
 
 Los datos, al ser objetos propensos a errores en cualquier entorno computacional, deben ser manejados con cuidado. Los datos utilizados para construir un modelo QSAR generalmente se extraen de información experimentalmente publicada en la literatura después de una curación adecuada, como la eliminación de valores atípicos, para mejorar la capacidad predictiva del modelo QSAR. Esta omisión de puntos de datos debe estar respaldada por una buena explicación.
 
-**Recomendaciones sobre el número total de compuestos y el rango de valores de actividad biológica y desviación estándar**
+##Recomendaciones sobre el número total de compuestos y el rango de valores de actividad biológica y desviación estándar
 
 Cuando se trata del número de compuestos estudiados: 
 
 - No debe ser demasiado bajo para evitar la correlación aleatoria y el sobreajuste.
 - No debe ser excesivamente alto para prevenir restricciones computacionales.
 - Se requieren al menos 20 moléculas para llevar a cabo un análisis QSAR.
-- El rango mínimo aceptable de actividades biológicas en un conjunto de datos equivale a una orden de magnitud.
-- Para lograr una interpolación efectiva de actividades, se suele recomendar un rango de alrededor de 3,0 veces en escala logarítmica.
-- La desviación estándar también debe cumplir con el criterio de al menos 1,0 unidad logarítmica.
+- El rango mínimo aceptable de actividades biológicas en un conjunto de datos equivale a un orden de magnitud.
+- Para lograr una interpolación efectiva de actividades, se suele recomendar un rango de alrededor de 3 veces en escala logarítmica.
+- La desviación estándar también debe cumplir con el criterio de al menos 1 unidad logarítmica.
 
-**Valores de punto final **
+##Valores de punto final
 
 Los valores de punto final son datos numéricos que representan la actividad biológica de los compuestos
 
 Es recomendable que los datos biológicos utilizados para el desarrollo de un modelo QSAR sean derivados del mismo procedimiento experimental. Por ejemplo, las actividades biológicas recopiladas o los valores de punto final deben obtenerse de la misma especie utilizando los mismos protocolos. Además, las unidades utilizadas para definir las actividades biológicas deben cumplir con el Sistema Internacional de Unidades (SI), conocido como sistema métrico. Por ejemplo, todos los valores para IC50 deben expresarse en unidades molares y no en unidades de peso.
 
-**Dominio de aplicabilidad **
+##Dominio de aplicabilidad
 
 El dominio de aplicabilidad es la región en el espacio de descriptores químicos donde el modelo QSAR es confiable y puede hacer predicciones precisas. Para evaluar la capacidad predictiva del modelo, se emplean herramientas de Análisis de Dominio (AD) que utilizan descriptores y actividades biológicas en los conjuntos de entrenamiento y prueba. Algunos ejemplos de herramientas de AD incluyen:
 
@@ -31,7 +31,7 @@ Si un compuesto estructuralmente similar cae dentro del espacio químico abarcad
 
 Es importante considerar problemas como nombres químicos incorrectos y estructuras duplicadas. Las estructuras químicas repetidas en los conjuntos de entrenamiento y prueba pueden dar lugar a un aumento falso en el rendimiento predictivo de los modelos QSAR. Estas repeticiones pueden surgir de las mismas estructuras con diferentes nombres o de compuestos con diferentes actividades biológicas.
 
-**Servidores de base de datos**
+##Servidores de base de datos
 
 Los datos de entrada utilizados en estudios quimioinformáticos desempeñan un papel fundamental en el análisis QSAR. Estos datos se obtienen tanto de la literatura como de bases de datos especializadas, que pueden ser tanto comerciales como de acceso libre. Los datos de entrada pueden consistir de estructuras moleculares acompañadas de sus correspondientes actividades biológicas como se muestra en la Tabla 1. Sin embargo, es importante señalar que no todas las bases de datos contienen información completa sobre la actividad biológica asociada a las estructuras. Por ejemplo, la _Available Chemicals Directory (ACD)_, aunque no proporciona datos de actividad biológica, es considerada como la fuente estándar para la obtención de información química. Esta base de datos incluye una amplia colección de más de 10 millones de compuestos únicos y modelos 3D, sin abordar actividades biológicas en su conjunto.
 

@@ -2,7 +2,7 @@
 
 La relación cuantitativa entre estructura y actividad (QSAR, por sus siglas en inglés) es un enfoque de modelado en el campo de la química y la bioquímica que busca establecer relaciones cuantitativas entre las características estructurales (descriptores) de compuestos químicos y su actividad biológica.
 
-Principales objetivos de los estudios QSAR:
+## Principales objetivos de los estudios QSAR:
 
 - Predicción de la actividad biológica de los compuestos.
 - Optimización de los compuestos iniciales prometedores.
@@ -12,7 +12,7 @@ Principales objetivos de los estudios QSAR:
 - Descubrimiento de compuestos con la actividad deseada mediante la búsqueda en bases de datos químicas o bibliotecas virtuales.
 
 
-Flujo de trabajo para análisis QSAR (ver Figura 1):
+## Flujo de trabajo para análisis QSAR (ver Figura 1):
 
 1. Recopilación de datos y preparación de datos (limpieza, selección, tratamiento de valores faltantes, etc.)
 2. Cálculo y preprocesamiento de parámetros moleculares (tamaño, forma, carga eléctrica, grupos funcionales, aspectos estructurales y químicos, etc) para obtener descriptores numéricos. 
